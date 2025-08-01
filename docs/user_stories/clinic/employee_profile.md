@@ -24,6 +24,7 @@ All employees can access and update their **own profile** via the profile screen
 - `last_name`
 - `birthday`
 - `sex`
+- `language`
 - `branches` (multiple selection from available branches)
 - `timezone` (selection from predefined list)
 - `color` (selection from color directory)
