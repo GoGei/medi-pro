@@ -25,6 +25,7 @@ Each **branch** has its own **price list**, consisting of:
   - One or more **services** inside each category:
     - `name`
     - `price`
+    - `duration`
 
 When viewing:
 - Categories are initially **collapsed**.
@@ -39,6 +40,10 @@ When viewing:
 - [ ] The price list is organized by categories and services.
 - [ ] Categories are collapsed by default and expand on click.
 - [ ] Each service displays its name and price.
+- [ ] Categories have unique names in a price list.
+- [ ] Services have unique names in category.
+- [ ] Price cannot be negative.
+- [ ] Duration in range from 5 to 120 with delimiter 5.
 
 ---
 

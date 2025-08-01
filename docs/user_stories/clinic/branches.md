@@ -21,7 +21,6 @@ All employees, regardless of role, can view the list of branches.
 
 Each branch entry shows:
 - Name
-- Region
 - City
 - Street
 - Index
@@ -53,7 +52,6 @@ My clinic can expand to additional locations
 
 An `owner` can create a branch by filling in the following fields:
 - `name`
-- `region` (selected from directory)
 - `city` (selected from directory)
 - `street` (free-text input)
 - `index` (free-text input)
@@ -63,7 +61,7 @@ An `owner` can create a branch by filling in the following fields:
 ## Acceptance Criteria
 
 - [ ] Only employees with the `owner` role can see the **"Create Branch"** button.
-- [ ] The form includes required fields: name, region, city, street, index.
+- [ ] The form includes required fields: name, city, street, index.
 - [ ] After successful submission, the branch appears in the list.
 
 ---
@@ -85,7 +83,6 @@ I can update address or name when necessary
 
 Owners can edit any existing branch by updating:
 - `name`
-- `region`
 - `city`
 - `street`
 - `index`
