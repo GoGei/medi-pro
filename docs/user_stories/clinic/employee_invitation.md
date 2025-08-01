@@ -61,6 +61,7 @@ Users with the `owner` or `administrator` role can invite new employees via an i
 - `sex` *(required)*
 - `phone_number` *(required)*
 - `branches` *(required, multiple allowed)*
+- `roles` *(required, multiple allowed)*
 - `invite_immediately` *(optional checkbox)*
 
 ### Invitation behavior:
@@ -80,6 +81,7 @@ Users with the `owner` or `administrator` role can invite new employees via an i
 
 - [ ] Only users with `owner` or `administrator` role can invite employees.
 - [ ] The invite form includes all required fields.
+- [ ] Not allowed to invite employee with role `owner`
 - [ ] Submitting with `invite_immediately` sends the invitation and updates status.
 - [ ] Without `invite_immediately`, employee is created with status `not_invited`.
 - [ ] A user cannot resend invite more than once every 5 minutes.
