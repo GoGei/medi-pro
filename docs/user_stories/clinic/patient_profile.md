@@ -24,6 +24,7 @@ Each patient row displays:
 - Sex
 - Email
 - Phone number
+- Birthday
 
 ---
 
@@ -52,11 +53,13 @@ I can see medical and contact data in a structured, clear way
 Each patient profile includes three tabs:
 
 ### 1. General Info
-- Full name
+- First name
+- Last name
 - Birthday
 - Sex
 - Email
 - Phone number
+- Birthday
 
 ### 2. Extra Contacts
 - List of emergency contacts with:
