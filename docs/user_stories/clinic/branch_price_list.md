@@ -68,7 +68,6 @@ Authorized users can:
 - For each service, provide:
   - `name`
   - `price`
-  - `ICD-10 service`
 
 Changes are staged locally. Once editing is complete, the user clicks **Save**, and the full price list is saved at once.
 
