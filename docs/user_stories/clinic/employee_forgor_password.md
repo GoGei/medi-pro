@@ -4,7 +4,7 @@
 Password Recovery Flow
 
 ## As a
-Clinic Owner or Employee
+Employee
 
 ## I want to
 Reset my password if I forget it
