@@ -20,7 +20,7 @@ str2bool = lambda v: v.strip().lower() == 'true'  # noqa
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = str2bool(os.getenv('DEBUG', 'false'))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.medi-pro']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,9 +29,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_hosts',
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,9 +42,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
 ROOT_URLCONF = 'urls'
+ROOT_HOSTCONF = 'hosts'
+DEFAULT_HOST = 'public'
 
 TEMPLATES = [
     {
@@ -87,3 +93,6 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SITE_HOST = os.getenv('SITE_HOST', 'medi-pro.local')
+SITE_PORT = os.getenv('SITE_PORT', '8000')
