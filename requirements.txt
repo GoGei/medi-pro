@@ -3,5 +3,13 @@ djangorestframework==3.16.0
 psycopg2==2.9.10
 
 django-hosts==7.0.0
+django-redis==6.0.0
+django-extensions==4.1
+
+hashids==1.3.1
 
 fabric==3.2.2
+
+flake8==7.3.0
+ipython==9.4.0
+jedi==0.19.2
