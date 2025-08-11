@@ -11,6 +11,17 @@ def runserver(c):
     port = dj_settings.SITE_PORT
     c.run(f"./manage.py runserver {host}:{port}", pty=True)
 
+
 @task
 def compilerequirements(c):
     c.run("uv pip compile requirements.txt -o requirements.lock")
+
+
+@task
+def makemessages(c):
+    c.run(f"./manage.py makemessages --all --no-location")
+
+
+@task
+def compilemessages(c):
+    c.run(f"./manage.py compilemessages")
