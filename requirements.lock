@@ -30,6 +30,8 @@ executing==2.2.0
     # via stack-data
 fabric==3.2.2
     # via -r requirements.txt
+flake8==7.3.0
+    # via -r requirements.txt
 hashids==1.3.1
     # via -r requirements.txt
 invoke==2.2.0
@@ -46,6 +48,8 @@ jedi==0.19.2
     #   ipython
 matplotlib-inline==0.1.7
     # via ipython
+mccabe==0.7.0
+    # via flake8
 paramiko==4.0.0
     # via fabric
 parso==0.8.4
@@ -60,8 +64,12 @@ ptyprocess==0.7.0
     # via pexpect
 pure-eval==0.2.3
     # via stack-data
+pycodestyle==2.14.0
+    # via flake8
 pycparser==2.22
     # via cffi
+pyflakes==3.4.0
+    # via flake8
 pygments==2.19.2
     # via
     #   ipython
