@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_hosts',
+
+    'core.User',
 ]
 
 MIDDLEWARE = [
@@ -96,3 +98,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SITE_HOST = os.getenv('SITE_HOST', 'medi-pro.local')
 SITE_PORT = os.getenv('SITE_PORT', '8000')
+
+AUTH_USER_MODEL = 'User.User'
