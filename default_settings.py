@@ -19,6 +19,8 @@ str2bool = lambda v: v.strip().lower() == 'true'  # noqa
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = str2bool(os.getenv('DEBUG', 'false'))
+API_DOCUMENTATION = str2bool(os.getenv('API_DOCUMENTATION', 'false'))
+TEST = str2bool(os.getenv('TEST', 'false'))
 
 ALLOWED_HOSTS = ['.medi-pro']
 
@@ -76,6 +78,10 @@ DATABASES = {
         "PASSWORD": os.getenv("DATABASE_PASSWORD"),
         "HOST": os.getenv("DATABASE_HOST", "127.0.0.1"),
         "PORT": os.getenv("DATABASE_PORT", "5432"),
+        "TEST": {
+            "NAME": f'{os.getenv("DATABASE_NAME")}_test',
+            "USER": os.getenv("DATABASE_USER"),
+        },
     }
 }
 

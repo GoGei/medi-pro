@@ -4,6 +4,8 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from core.Utils.models.mixins import HashIDMixin
+
 
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -43,9 +45,9 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class User(AbstractUser):
+class User(AbstractUser, HashIDMixin):
     username = None
-    email = models.EmailField(unique=True)
+    email = models.EmailField(unique=True, null=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
