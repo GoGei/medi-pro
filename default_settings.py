@@ -22,6 +22,10 @@ DEBUG = str2bool(os.getenv('DEBUG', 'false'))
 API_DOCUMENTATION = str2bool(os.getenv('API_DOCUMENTATION', 'false'))
 TEST = str2bool(os.getenv('TEST', 'false'))
 
+HASHIDS_SALT = os.getenv('HASHIDS_SALT')
+HASHIDS_MIN_LENGTH = os.getenv('HASHIDS_MIN_LENGTH')
+HASHIDS_ALPHABET = os.getenv('HASHIDS_ALPHABET')
+
 ALLOWED_HOSTS = ['.medi-pro']
 
 INSTALLED_APPS = [
