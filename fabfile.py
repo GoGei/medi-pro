@@ -26,7 +26,18 @@ def makemessages(c):
 def compilemessages(c):
     c.run(f'./manage.py compilemessages')
 
+
 @task
 def check(c):
     c.run('./manage.py check')
     c.run('flake8')
+
+
+@task
+def celeryrun(c):
+    c.run('celery -A celeryapp worker --loglevel=info')
+
+
+@task
+def celerybeat(c):
+    c.run('celery -A celeryapp beat --loglevel=info')
