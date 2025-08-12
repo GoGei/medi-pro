@@ -1,22 +1,36 @@
 # MediPro Clinic
 
-A web-based clinic management system designed to streamline appointment booking, service catalog, and client communication — built with Django.
+A web-based clinic management system designed to streamline appointment booking, service catalog, and client
+communication — built with Django.
 
 ---
 
 ## 📌 Project Management
+
 All tasks, sprints, and progress tracking are managed in **Asana**.  
 🔗 **Asana Board:** [View Board](https://app.asana.com/1/1210988392005543/project/1211005386873495/overview)
 
 ## 📂 Project Documentation
+
 Full documentation (UML diagrams, user stories, technical specifications) is available in the project folder.  
 🔗 **Docs:** [View Docs](https://github.com/GoGei/medi-pro/tree/main/docs)
+
+---
+
+## ✅ Runtime stack (exact)
+
+- Python: 3.11.x
+- Django: 5.2.4
+- PostgreSQL: 17.5
+- Redis: 8.2.x
+- Celery: 5.5.3
 
 ---
 
 ## ⚙️ Setup Project
 
 ### 1. Clone & Configure
+
 ```bash
 git clone https://github.com/GoGei/medi-pro.git
 uv venv env --python=/usr/bin/python3.11
@@ -26,11 +40,14 @@ cp configs/settings_example.py configs/settings.py
 ```
 
 ### 2. Add Hosts
+
 **Locations:**
+
 - **Linux / MacOS:** `/etc/hosts`
 - **Windows:** `C:\Windows\System32\drivers\etc\hosts`
 
 Add:
+
 ```
 127.0.0.1 medi-pro.local
 127.0.0.1 api.medi-pro.local
@@ -39,6 +56,7 @@ Add:
 ```
 
 ### 3. Create Database (PostgreSQL)
+
 > ⚠️ Ensure `DATABASE_NAME`, `DATABASE_USER`, `DATABASE_PASSWORD` in settings match these values.
 
 ```sql
@@ -48,12 +66,14 @@ CREATE DATABASE medipro WITH OWNER medipro_user ENCODING 'UTF-8';
 ```
 
 ### 4. Complete Setup
+
 ```bash
 ./manage.py migrate
 fab compilemessages
 ```
 
 ### 5. Create Default Superuser
+
 ```bash
 export DJANGO_SUPERUSER_EMAIL=example@localhost.com
 export DJANGO_SUPERUSER_PASSWORD=strongpassword
@@ -63,20 +83,23 @@ export DJANGO_SUPERUSER_PASSWORD=strongpassword
 ---
 
 ## 🛠 Useful Commands
-| Command | Description |
-|---------|-------------|
-| `fab runserver` | Start server |
+
+| Command                   | Description                     |
+|---------------------------|---------------------------------|
+| `fab runserver`           | Start server                    |
 | `fab compilerequirements` | Compile requirements using `uv` |
-| `fab makemessages` | Create i18n messages |
-| `fab compilemessages` | Compile i18n messages |
-| `fab check` | Run code checks (flake8, etc.) |
-| `fab celeryrun` | Start Celery |
-| `fab celerybeat` | Start Celery Beat |
+| `fab makemessages`        | Create i18n messages            |
+| `fab compilemessages`     | Compile i18n messages           |
+| `fab check`               | Run code checks (flake8, etc.)  |
+| `fab celeryrun`           | Start Celery                    |
+| `fab celerybeat`          | Start Celery Beat               |
 
 ---
 
 ## 🌐 Subdomains
+
 Example for `.medi-pro.local` (default port `8000`):
+
 - [http://medi-pro.local:8000/](http://medi-pro.local:8000/)
 - [http://api.medi-pro.local:8000/](http://api.medi-pro.local:8000/)
 - [http://admin.medi-pro.local:8000/](http://admin.medi-pro.local:8000/)
