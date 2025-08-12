@@ -132,3 +132,5 @@ CACHES = {
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
+
+CELERY_BROKER_URL = 'redis://%s:6379/0' % os.getenv('REDIS_HOST', 'redis')
