@@ -25,8 +25,13 @@
     <form class="m-t" role="form" action="#" method="post" autocomplete="off">
       {% csrf_token %}
       {% include 'Admin/base/non_field_errors.html' with form=form %}
-      {% include 'Admin/base/base_field.html' with field=form.email %}
-      {% include 'Admin/base/base_field.html' with field=form.password %}
+
+      <div class="form-group{% if form.email.errors %} has-error{% endif %}">
+        {% include 'Admin/base/fields/input.html' with field=form.email %}
+      </div>
+      <div class="form-group{% if form.password.errors %} has-error{% endif %}">
+        {% include 'Admin/base/fields/input.html' with field=form.password %}
+      </div>
       <button type="submit" class="btn btn-primary block full-width m-b">{% trans 'Login' %}</button>
 
       <a href="#"><small>{% trans 'Forgot password?' %}</small></a>

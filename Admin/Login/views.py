@@ -18,10 +18,7 @@ def login_view(request):
     if user.is_authenticated:
         if user.is_active and (user.is_staff or user.is_superuser):
             return HttpResponseForbidden(_('User is not a staff member.'))
-        redirect_to = next_page or reverse('home', host='admin')
-        print('================================')
-        print(redirect_to)
-        return redirect(redirect_to)
+        return redirect(next_page or reverse('home', host='admin'))
 
     initial = {'email': request.COOKIES.get('email', '')}
     form = LoginForm(request.POST or None, initial=initial)
@@ -41,7 +38,7 @@ def login_view(request):
             if next_page and url_has_allowed_host_and_scheme(next_page, allowed_hosts=settings.ALLOWED_HOSTS):
                 redirect_url = next_page
             else:
-                redirect_url = reverse('admin-home', host='admin')
+                redirect_url = reverse('home', host='admin')
             response = HttpResponseRedirect(redirect_url)
             response.set_cookie('email', user.email)
             return response

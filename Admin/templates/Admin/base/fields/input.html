@@ -1,0 +1,9 @@
+{% load widget_tweaks %}
+
+{% with widget=field.field.widget %}
+  {% if widget.attrs.class %}
+    {% render_field field class=widget.attrs.class %}
+  {% else %}
+    {% render_field field class="form-control" %}
+  {% endif %}
+{% endwith %}
