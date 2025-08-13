@@ -1,0 +1,9 @@
+{% extends 'Admin/errors/base.html' %}
+
+{% load i18n %}
+
+{% block status %}404{% endblock %}
+{% block title %}{% trans 'Page not found' %}{% endblock %}
+{% block content %}
+  {% trans 'Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.' %}
+{% endblock %}
