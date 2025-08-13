@@ -13,6 +13,8 @@ import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
+from django.contrib import messages
+
 BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__))) + '/'
 
 str2bool = lambda v: v.strip().lower() == 'true'  # noqa
@@ -55,7 +57,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
-
 
 ROOT_URLCONF = 'urls'
 ROOT_HOSTCONF = 'hosts'
@@ -156,3 +157,7 @@ SESSION_CACHE_ALIAS = 'default'
 CELERY_BROKER_URL = 'redis://%s:6379/0' % os.getenv('REDIS_HOST', 'redis')
 
 LOGIN_URL = 'login/'
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
