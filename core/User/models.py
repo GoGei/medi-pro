@@ -69,3 +69,7 @@ class User(AbstractUser, HashIDMixin):
 
     def __str__(self):
         return self.email
+
+    @property
+    def label(self):
+        return f"{self.first_name} {self.last_name}".strip() or self.email or self.id

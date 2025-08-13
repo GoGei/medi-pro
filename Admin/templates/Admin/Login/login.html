@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{% load i18n static %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{{ APP_NAME }} | {% trans 'Login' %}</title>
+
+  <link href="{% static 'inspinia/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'inspinia/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+  <link href="{% static 'inspinia/css/animate.css' %}" rel="stylesheet">
+  <link href="{% static 'inspinia/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen animated fadeInDown">
+  <div>
+    <div>
+      <h1 class="logo-name">{{ SHORT_APP_NAME }}</h1>
+    </div>
+    <h3>{% trans 'Welcome to' %} {{ APP_NAME }}</h3>
+    <form class="m-t" role="form" action="#" method="post" autocomplete="off">
+      {% csrf_token %}
+      {% include 'Admin/base/non_field_errors.html' with form=form %}
+      {% include 'Admin/base/base_field.html' with field=form.email %}
+      {% include 'Admin/base/base_field.html' with field=form.password %}
+      <button type="submit" class="btn btn-primary block full-width m-b">{% trans 'Login' %}</button>
+
+      <a href="#"><small>{% trans 'Forgot password?' %}</small></a>
+    </form>
+  </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="{% static 'inspinia/js/jquery-3.1.1.min.js' %}"></script>
+<script src="{% static 'inspinia/js/popper.min.js' %}"></script>
+<script src="{% static 'inspinia/js/bootstrap.js' %}"></script>
+</body>
+</html>

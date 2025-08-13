@@ -13,9 +13,12 @@ import os
 from pathlib import Path
 from django.utils.translation import gettext_lazy as _
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__))) + '/'
 
 str2bool = lambda v: v.strip().lower() == 'true'  # noqa
+
+APP_NAME = os.getenv('APP_NAME', 'MediPro')
+SHORT_APP_NAME = os.getenv('SHORT_APP_NAME', 'MP')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = str2bool(os.getenv('DEBUG', 'false'))
@@ -25,8 +28,6 @@ TEST = str2bool(os.getenv('TEST', 'false'))
 HASHIDS_SALT = os.getenv('HASHIDS_SALT')
 HASHIDS_MIN_LENGTH = os.getenv('HASHIDS_MIN_LENGTH')
 HASHIDS_ALPHABET = os.getenv('HASHIDS_ALPHABET')
-
-ALLOWED_HOSTS = ['.medi-pro']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
 
     'django_hosts',
     'django_extensions',
+    'widget_tweaks',
 
     'core.User',
 ]
@@ -54,20 +56,30 @@ MIDDLEWARE = [
     'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
+
 ROOT_URLCONF = 'urls'
 ROOT_HOSTCONF = 'hosts'
 DEFAULT_HOST = 'public'
+HOST_SCHEME = os.getenv('HOST_SCHEME', 'http')
+HOST_PORT = os.getenv('HOST_PORT', '8000')
+PARENT_HOST = os.getenv('PARENT_HOST', 'medi-pro.local')
+CSRF_COOKIE_DOMAIN = PARENT_HOST
+
+ALLOWED_HOSTS = [f'.{PARENT_HOST}']
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'Admin/templates/'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context.app_context',
             ],
         },
     },
@@ -108,14 +120,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = 'static'
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'htdocs'),
+)
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-SITE_HOST = os.getenv('SITE_HOST', 'medi-pro.local')
-SITE_PORT = os.getenv('SITE_PORT', '8000')
 
 AUTH_USER_MODEL = 'User.User'
 
@@ -138,3 +154,5 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
 CELERY_BROKER_URL = 'redis://%s:6379/0' % os.getenv('REDIS_HOST', 'redis')
+
+LOGIN_URL = 'login/'
