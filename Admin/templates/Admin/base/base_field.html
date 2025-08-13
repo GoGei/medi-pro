@@ -1,0 +1,6 @@
+<div class="form-group{% if field.errors %} has-error{% endif %}">
+  {% include 'Admin/base/fields/label.html' with field=field %}
+  {% include 'Admin/base/fields/input.html' with field=field %}
+  {% include 'Admin/base/fields/help_text.html' with field=field %}
+  {% include 'Admin/base/fields/errors.html' with field=field %}
+</div>

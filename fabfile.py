@@ -7,8 +7,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'configs.settings')
 
 @task
 def runserver(c):
-    host = dj_settings.SITE_HOST
-    port = dj_settings.SITE_PORT
+    host = dj_settings.PARENT_HOST
+    port = dj_settings.HOST_PORT
     c.run(f'./manage.py runserver {host}:{port}', pty=True)
 
 

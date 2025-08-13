@@ -1,0 +1,24 @@
+{% extends 'Admin/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ APP_NAME }} | {% trans 'Home' %}{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'home' host 'admin' %}">This is</a>
+  </li>
+  <li class="breadcrumb-item active">
+    <strong>Breadcrumb</strong>
+  </li>
+{% endblock %}
+
+{% block content %}
+  <div class="middle-box text-center animated fadeInRightBig">
+    <h3 class="font-bold">This is page content</h3>
+    <div class="error-desc">
+      You can create here any grid layout you want. And any variation layout you imagine:) Check out
+      main dashboard and other site. It use many different layout.
+      <br/><a href="{% host_url 'home' host 'admin' %}" class="btn btn-primary m-t">Dashboard</a>
+    </div>
+  </div>
+{% endblock %}

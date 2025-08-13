@@ -50,6 +50,8 @@ django-hosts==7.0.0
     # via -r requirements.txt
 django-redis==6.0.0
     # via -r requirements.txt
+django-widget-tweaks==1.5.0
+    # via -r requirements.txt
 djangorestframework==3.16.0
     # via -r requirements.txt
 executing==2.2.0
