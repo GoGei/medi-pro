@@ -6,3 +6,14 @@
 <a href="{% host_url 'handbooks:timezones-edit' record.id host 'admin' %}" class="btn btn-info" type="button">
   <i class="fa fa-pencil"></i>
 </a>
+{% if record.is_active %}
+  <a href="{% host_url 'handbooks:timezones-archive' record.id host 'admin' %}" class="btn btn-danger action-archive"
+     type="button">
+    <i class="fa fa-trash"></i>
+  </a>
+{% else %}
+  <a href="{% host_url 'handbooks:timezones-restore' record.id host 'admin' %}" class="btn btn-info action-restore"
+     type="button">
+    <i class="fa fa-refresh"></i>
+  </a>
+{% endif %}

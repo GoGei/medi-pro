@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
@@ -54,3 +55,19 @@ def timezone_edit(request, timezone_id):
         }
     }
     return render(request, 'Admin/Handbooks/TimezoneHandbooks/edit.html', {'timezone': timezone, 'form': form})
+
+
+@login_required
+def timezone_archive(request, timezone_id):
+    timezone: TimezoneHandbook = get_object_or_404(TimezoneHandbook, pk=timezone_id)
+    timezone.archive(request.user)
+    messages.success(request, _('Timezone successfully archived!'))
+    return redirect(reverse('handbooks:timezones-list', host='admin'))
+
+
+@login_required
+def timezone_restore(request, timezone_id):
+    timezone: TimezoneHandbook = get_object_or_404(TimezoneHandbook, pk=timezone_id)
+    timezone.restore(request.user)
+    messages.success(request, _('Timezone successfully restored!'))
+    return redirect(reverse('handbooks:timezones-list', host='admin'))
