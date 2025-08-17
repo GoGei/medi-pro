@@ -23,6 +23,10 @@ class IsActiveField(django_filters.ChoiceFilter):
 
 
 class IsActiveMixinField(IsActiveField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('label', _('Is active'))
+        super().__init__(*args, **kwargs)
+
     def filter(self, qs, value):
         if value == 'true':
             return qs.active()

@@ -48,7 +48,7 @@ class TableHandler(object):
             'id': f'search-form_{self.session_key}',
             'form_body': self.searchset.form,
             'method': 'get',
-            'with_csrf_token': False,
+            'skip_csf_token': True,
         }
 
     def get_filter_form(self):
@@ -56,7 +56,7 @@ class TableHandler(object):
             'id': f'filter-form_{self.session_key}',
             'form_body': self.filterset.form,
             'method': 'get',
-            'with_csrf_token': False,
+            'skip_csf_token': True,
             'buttons': {
                 'apply': True,
                 'cancel': True,

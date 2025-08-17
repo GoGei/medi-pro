@@ -1,8 +1,11 @@
 {% load i18n %}
 
 {% if buttons.apply %}
-  <button type="submit" class="btn btn-w-m btn-primary" id="form-button-apply">{% trans 'Apply' %}</button>{% endif %}
+  <button type="submit" class="btn btn-w-m btn-primary" id="form-button-apply">{% trans 'Apply' %}</button>
+{% endif %}
 {% if buttons.submit %}
-  <button type="submit" class="btn btn-w-m btn-primary" id="form-button-submit">{% trans 'Submit' %}</button>{% endif %}
+  <button type="submit" class="btn btn-w-m btn-primary" id="form-button-submit" name="submit" value="_submit">{% trans 'Submit' %}</button>
+{% endif %}
 {% if buttons.cancel %}
-  <button type="submit" class="btn btn-w-m btn-warning" id="form-button-cancel">{% trans 'Cancel' %}</button>{% endif %}
+  <button type="submit" class="btn btn-w-m btn-warning" id="form-button-cancel" name="cancel" value="_cancel">{% trans 'Cancel' %}</button>
+{% endif %}

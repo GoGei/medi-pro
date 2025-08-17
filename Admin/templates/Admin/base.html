@@ -9,6 +9,7 @@
 
   <link href="{% static 'inspinia/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
+  <link href="{% static 'inspinia/css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/css/animate.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/css/style.css' %}" rel="stylesheet">
   {% block extracss %}{% endblock %}
@@ -121,6 +122,9 @@
 <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
 
 <script src="{% static 'admin/js/base.js' %}"></script>
+
+<script src="{% static 'inspinia/js/plugins/sweetalert/sweetalert.min.js' %}"></script>
+<script src="{% static 'admin/js/archive-restore.js' %}"></script>
 
 {% block extrajs %}{% endblock %}
 </body>
