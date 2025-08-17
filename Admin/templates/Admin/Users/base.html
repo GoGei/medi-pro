@@ -3,11 +3,14 @@
 
 {% block title %}{{ block.super }} | {% trans 'Home' %}{% endblock %}
 
-{% block menu-home-active %}active{% endblock %}
+{% block menu-users-active %}active{% endblock %}
 
 {% block breadcrumb %}
   <li class="breadcrumb-item">
-    <a href="{% host_url 'home' host 'admin' %}">{% trans 'Home' %}</a>
+    <a href="{% host_url 'home' host 'admin' %}">This is</a>
+  </li>
+  <li class="breadcrumb-item active">
+    <strong>Breadcrumb</strong>
   </li>
 {% endblock %}
 
