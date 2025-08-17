@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<form {% if form.id %}id="{{ form.id }}"{% endif %} role="form" action="{{ form.action|default:'' }}"
+      method="{{ form.method|default:'post' }}">
+  {% if form.with_csrf_token %}
+    {% csrf_token %}
+  {% endif %}
+  {% include 'Admin/base/non_field_errors.html' with form=form.form_body %}
+
+  {% for field in form.form_body %}
+    <div class="form-group{% if field.errors %} has-error{% endif %}{% if field.is_hidden %} d-none{% endif %}"
+         id="form-field-container-{{ field.id_for_label }}">
+
+      {% if field.label %}
+        {% if field.field.required %}
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% else %}
+          <label for="{{ field.id_for_label }}"><strong>{{ field.label }}</strong></label>
+        {% endif %}
+      {% endif %}
+
+      {% include 'Admin/base/forms/fields/input.html' with field=field %}
+    </div>
+  {% endfor %}
+
+  {% include 'Admin/base/forms/buttons.html' with buttons=form.buttons %}
+</form>

@@ -42,3 +42,23 @@ class TableHandler(object):
         RequestConfig(self.request, paginate={'per_page': settings.ADMIN_PAGINATION_PER_PAGE,
                                               'paginator_class': LazyPaginator}).configure(self.table)
         return self
+
+    def get_search_form(self):
+        return {
+            'id': f'search-form_{self.session_key}',
+            'form_body': self.searchset.form,
+            'method': 'get',
+            'with_csrf_token': False,
+        }
+
+    def get_filter_form(self):
+        return {
+            'id': f'filter-form_{self.session_key}',
+            'form_body': self.filterset.form,
+            'method': 'get',
+            'with_csrf_token': False,
+            'buttons': {
+                'apply': True,
+                'cancel': True,
+            }
+        }

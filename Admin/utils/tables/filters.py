@@ -1,4 +1,5 @@
 import django_filters
+from django import forms
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
@@ -13,7 +14,8 @@ class SearchFilter(django_filters.FilterSet):
         '@': 'search',
     }
 
-    search = django_filters.CharFilter(method='filter_search', label=_('Search'))
+    search = django_filters.CharFilter(method='filter_search', label=_(''),
+                                       widget=forms.TextInput(attrs={'placeholder': _('Search...'), 'type': 'search'}))
 
     def __init__(self, *args, **kwargs):
         search_fields = kwargs.pop('search_fields', None)

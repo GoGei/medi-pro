@@ -17,15 +17,18 @@
   <div class="ibox-content">
     <div class="table-responsive">
       <div class="dataTables_wrapper dt-bootstrap4">
-        <div class="dt-buttons btn-group">
+        <div class="d-flex align-items-center gap-2">
           {% if table.handler.search_fields %}
-            <form method="get">
-              {{ table.handler.searchset.form.as_p }}
-            </form>
+            <div>
+              {% include 'Admin/base/forms/form.html' with form=table.handler.get_search_form %}
+            </div>
           {% endif %}
+
           {% if table.handler.filterset %}
-            <a data-toggle="modal" class="btn btn-primary" href="#modal-form">{% trans 'Filters' %}</a>
-            <form method="get">
+            <a data-toggle="modal" class="btn btn-primary" href="#modal-form">
+              {% trans 'Filters' %}
+            </a>
+            <form method="get" class="m-0">
               <button type="submit" class="btn btn-warning" name="page"
                       value="{{ request.GET.page }}">{% trans 'Clear filters' %}</button>
             </form>
@@ -42,10 +45,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
-          <form method="get">
-            {{ table.handler.filterset.form.as_p }}
-            <button type="submit" class="btn btn-primary">{% trans 'Apply' %}</button>
-          </form>
+          {% include 'Admin/base/forms/form.html' with form=table.handler.get_filter_form %}
         </div>
       </div>
     </div>
