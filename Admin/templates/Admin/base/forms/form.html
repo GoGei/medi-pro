@@ -11,14 +11,7 @@
     <div class="form-group{% if field.errors %} has-error{% endif %}{% if field.is_hidden %} d-none{% endif %}"
          id="form-field-container-{{ field.id_for_label }}">
 
-      {% if field.label %}
-        {% if field.field.required %}
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% else %}
-          <label for="{{ field.id_for_label }}"><strong>{{ field.label }}</strong></label>
-        {% endif %}
-      {% endif %}
-
+      {% include 'Admin/base/forms/fields/label.html' with field=field %}
       {% include 'Admin/base/forms/fields/input.html' with field=field %}
     </div>
   {% endfor %}

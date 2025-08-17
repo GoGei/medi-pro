@@ -17,11 +17,13 @@
   <div class="ibox-content">
     <div class="table-responsive">
       <div class="dataTables_wrapper dt-bootstrap4">
-        <div class="d-flex align-items-center gap-2">
+        <div class="row">
           {% if table.handler.search_fields %}
-            <div>
-              {% include 'Admin/base/forms/form.html' with form=table.handler.get_search_form %}
-            </div>
+            {% with table.handler.get_search_form.form_body.search as field %}
+              <div class="{% if field.errors %} has-error{% endif %}">
+                {% include 'Admin/base/forms/fields/input.html' with field=field %}
+              </div>
+            {% endwith %}
           {% endif %}
 
           {% if table.handler.filterset %}
@@ -34,10 +36,11 @@
             </form>
           {% endif %}
         </div>
-        {% render_table table.handler.table %}
       </div>
+      {% render_table table.handler.table %}
     </div>
   </div>
+</div>
 </div>
 
 {% if table.handler.filterset %}
