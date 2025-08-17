@@ -1,5 +1,5 @@
 from django.conf import settings
-from django_tables2 import RequestConfig
+from django_tables2 import LazyPaginator, RequestConfig
 
 
 class TableHandler(object):
@@ -34,5 +34,6 @@ class TableHandler(object):
             qs = qs.order_by(*self.ordering)
 
         self.table = self.table_class(qs)
-        RequestConfig(self.request, paginate={'per_page': settings.ADMIN_PAGINATION_PER_PAGE}).configure(self.table)
+        RequestConfig(self.request, paginate={'per_page': settings.ADMIN_PAGINATION_PER_PAGE,
+                                              'paginator_class': LazyPaginator}).configure(self.table)
         return self.table, self.filterset

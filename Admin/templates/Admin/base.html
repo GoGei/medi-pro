@@ -43,12 +43,12 @@
             <span>{% trans 'Home' %}</span>
           </a>
         </li>
-        {% comment %}<li class="{% block menu-users-active %}{% endblock %}">
-          <a href="{% host_url 'users' host 'admin' %}">
+        <li class="{% block menu-users-active %}{% endblock %}">
+          <a href="{% host_url 'users-list' host 'admin' %}">
             <i class="fa fa-user"></i>
             <span>{% trans 'Users' %}</span>
           </a>
-        </li>{% endcomment %}
+        </li>
       </ul>
 
     </div>

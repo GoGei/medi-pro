@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'widget_tweaks',
     'django_tables2',
+    'django_filters',
 
     'core.User',
 ]

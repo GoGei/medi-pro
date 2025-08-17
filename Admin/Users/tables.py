@@ -1,4 +1,5 @@
 import django_tables2 as tables
+
 from Admin.utils.tables import fields as custom_fields
 from django.utils.translation import gettext_lazy as _
 from core.User.models import User
@@ -18,6 +19,6 @@ class UsersTable(tables.Table):
 
     class Meta:
         model = User
-        template_name = "django_tables2/bootstrap.html"
-        fields = ('id', 'email', 'full_name', 'is_active', 'actions')
+        template_name = "Admin/base/tables/table_template.html"
+        fields = ('id', 'email', 'full_name', 'is_active')
         ordering_fields = ('id', 'email')

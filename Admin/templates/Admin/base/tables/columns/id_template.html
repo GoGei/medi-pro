@@ -1,0 +1,3 @@
+{% load hosts %}
+
+<a href="{% host_url reverse_url record.id host 'admin' %}">{{ record.id }}</a>

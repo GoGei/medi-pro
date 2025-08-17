@@ -7,4 +7,4 @@ class UserFilter(SearchFilter):
     class Meta:
         model = User
         fields = ('is_active', 'search')
-        search_fields = ('^email', '=phone_number', 'first_name', 'last_name')
+        search_fields = ('^email', 'first_name', 'last_name')

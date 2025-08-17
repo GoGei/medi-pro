@@ -42,10 +42,13 @@ django==5.2.4
     # via
     #   -r requirements.txt
     #   django-extensions
+    #   django-filter
     #   django-redis
     #   django-tables2
     #   djangorestframework
 django-extensions==4.1
+    # via -r requirements.txt
+django-filter==25.1
     # via -r requirements.txt
 django-hosts==7.0.0
     # via -r requirements.txt
