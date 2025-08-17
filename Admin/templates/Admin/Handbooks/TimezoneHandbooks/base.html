@@ -1,0 +1,11 @@
+{% extends 'Admin/Handbooks/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Timezones' %}{% endblock %}
+{% block menu-handbooks-timezones-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'handbooks:timezones-list' host 'admin' %}">{% trans 'Timezones' %}</a>
+  </li>
+{% endblock %}

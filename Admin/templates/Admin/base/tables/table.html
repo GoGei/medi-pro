@@ -20,9 +20,11 @@
         <div class="row">
           {% if table.handler.search_fields %}
             {% with table.handler.get_search_form.form_body.search as field %}
-              <div class="{% if field.errors %} has-error{% endif %}">
-                {% include 'Admin/base/forms/fields/input.html' with field=field %}
-              </div>
+              <form method="get" id="search-form">
+                <div class="{% if field.errors %} has-error{% endif %}">
+                  {% include 'Admin/base/forms/fields/input.html' with field=field %}
+                </div>
+              </form>
             {% endwith %}
           {% endif %}
 
@@ -54,3 +56,14 @@
     </div>
   </div>
 {% endif %}
+
+<script>
+  $(document).ready(function () {
+    $('#id_search').on('keypress', function (e) {
+      if (e.which === 13) {
+        e.preventDefault();
+        $('#search-form').submit();
+      }
+    });
+  });
+</script>
