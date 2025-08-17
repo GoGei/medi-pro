@@ -15,6 +15,14 @@ class UUIDMixin(models.Model):
         abstract = True
 
 
+class IsActiveQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(archived_stamp__isnull=True)
+
+    def not_active(self):
+        return self.filter(archived_stamp__isnull=False)
+
+
 class IsActiveMixin(models.Model):
     created_stamp = models.DateTimeField(auto_now_add=True)
     updated_stamp = models.DateTimeField(null=True)
@@ -23,6 +31,8 @@ class IsActiveMixin(models.Model):
     created_by = models.ForeignKey('User.User', on_delete=models.PROTECT, null=True, related_name='+')
     updated_by = models.ForeignKey('User.User', on_delete=models.PROTECT, null=True, related_name='+')
     archived_by = models.ForeignKey('User.User', on_delete=models.PROTECT, null=True, related_name='+')
+
+    objects = IsActiveQuerySet.as_manager()
 
     class Meta:
         abstract = True
