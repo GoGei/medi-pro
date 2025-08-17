@@ -13,6 +13,8 @@
 {% block action-area %}
   <a href="{% host_url 'handbooks:timezones-list' host 'admin' %}" type="button"
      class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
+  <a href="{% host_url 'handbooks:timezones-edit' timezone.id host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Edit' %}</a>
 {% endblock %}
 
 {% block content %}

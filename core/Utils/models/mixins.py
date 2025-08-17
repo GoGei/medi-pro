@@ -5,6 +5,7 @@ from uuid import uuid4
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 from hashids import Hashids
 
 
@@ -52,6 +53,14 @@ class IsActiveMixin(models.Model):
     @property
     def is_active(self) -> bool:
         return self.archived_stamp is None
+
+    def modify(self, user):
+        self.updated_by = user
+        self.updated_stamp = timezone.now()
+
+    def archive(self, user=None):
+        self.archived_by = user
+        self.archived_stamp = timezone.now()
 
 
 class HashIDMixin(models.Model):
