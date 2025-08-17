@@ -9,7 +9,7 @@
       <tr role="row">
         {% for column in table.columns %}
           <th {{ column.attrs.th.as_html }}>
-            {% if column.orderable %}
+            {% if column.orderable and table.Meta.ordering_fields and column.accessor in table.Meta.ordering_fields %}
               <a href="{% querystring table.prefixed_order_by_field=column.order_by_alias.next %}">{{ column.header }}</a>
             {% else %}
               {{ column.header }}

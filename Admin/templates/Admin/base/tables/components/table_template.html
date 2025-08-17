@@ -6,9 +6,9 @@
 {% block table-wrapper %}
   <div class="table-responsive">
     <div class="dataTables_wrapper dt-bootstrap4">
-      {% block upper_pagination %}
+      {% comment %}{% block upper_pagination %}
         {% include 'Admin/base/tables/components/paginator.html' %}
-      {% endblock upper_pagination %}
+      {% endblock upper_pagination %}{% endcomment %}
 
       {% block table %}
         {% include 'Admin/base/tables/components/table.html' %}
