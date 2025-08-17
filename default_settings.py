@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_hosts',
     'django_extensions',
     'widget_tweaks',
+    'django_tables2',
 
     'core.User',
 ]
@@ -161,3 +162,5 @@ LOGIN_URL = 'login/'
 MESSAGE_TAGS = {
     messages.ERROR: "danger",
 }
+
+ADMIN_PAGINATION_PER_PAGE = 20
