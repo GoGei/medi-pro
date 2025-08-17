@@ -19,6 +19,6 @@ class UsersTable(tables.Table):
 
     class Meta:
         model = User
-        template_name = "Admin/base/tables/table_template.html"
+        template_name = "Admin/base/tables/components/table_template.html"
         fields = ('id', 'email', 'full_name', 'is_active')
         ordering_fields = ('id', 'email')

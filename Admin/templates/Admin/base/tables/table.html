@@ -1,6 +1,5 @@
 {% load i18n hosts django_tables2 %}
 
-
 <div class="ibox ">
   <div class="ibox-title">
     <h5>{{ table.title|default:_("Table") }}</h5>
@@ -17,28 +16,38 @@
   </div>
   <div class="ibox-content">
     <div class="table-responsive">
-      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4">
-        {% comment %}<div class="html5buttons">
-          <div class="dt-buttons btn-group flex-wrap">
-            <button class="btn btn-white btn-sm buttons-copy buttons-html5" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button"><span>{% trans 'Copy' %}</span></button>
-            <button class="btn btn-white btn-sm buttons-csv buttons-html5" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button"><span>{% trans 'CSV' %}</span></button>
-            <button class="btn btn-white btn-sm buttons-excel buttons-html5" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button"><span>{% trans 'Excel' %}</span></button>
-            <button class="btn btn-white btn-sm buttons-pdf buttons-html5" tabindex="0"
-                    aria-controls="DataTables_Table_0" type="button"><span>{% trans 'PDF' %}</span></button>
-            <button class="btn btn-white btn-sm buttons-print" tabindex="0" aria-controls="DataTables_Table_0"
-                    type="button"><span>{% trans 'Print' %}</span></button>
-          </div>
-        </div>{% endcomment %}
-        <form method="get">
-          {{ table.filterset.form.as_p }}
-          <button type="submit" class="btn btn-primary">{% trans 'Filter' %}</button>
-        </form>
-        {% render_table table.content %}
+      <div class="dataTables_wrapper dt-bootstrap4">
+        <div class="dt-buttons btn-group">
+          {% if table.handler.search_fields %}
+            <form method="get">
+              {{ table.handler.searchset.form.as_p }}
+            </form>
+          {% endif %}
+          {% if table.handler.filterset %}
+            <a data-toggle="modal" class="btn btn-primary" href="#modal-form">{% trans 'Filters' %}</a>
+            <form method="get">
+              <button type="submit" class="btn btn-warning" name="page"
+                      value="{{ request.GET.page }}">{% trans 'Clear filters' %}</button>
+            </form>
+          {% endif %}
+        </div>
+        {% render_table table.handler.table %}
       </div>
     </div>
-
   </div>
 </div>
+
+{% if table.handler.filterset %}
+  <div id="modal-form" class="modal fade" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form method="get">
+            {{ table.handler.filterset.form.as_p }}
+            <button type="submit" class="btn btn-primary">{% trans 'Apply' %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

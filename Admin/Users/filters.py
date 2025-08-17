@@ -1,10 +1,8 @@
+import django_filters
 from core.User.models import User
 
-from Admin.utils.tables.filters import SearchFilter
 
-
-class UserFilter(SearchFilter):
+class UserFilter(django_filters.FilterSet):
     class Meta:
         model = User
-        fields = ('is_active', 'search')
-        search_fields = ('^email', 'first_name', 'last_name')
+        fields = ('is_active',)

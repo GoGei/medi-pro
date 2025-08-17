@@ -16,9 +16,14 @@ class SearchFilter(django_filters.FilterSet):
     search = django_filters.CharFilter(method='filter_search', label=_('Search'))
 
     def __init__(self, *args, **kwargs):
+        search_fields = kwargs.pop('search_fields', None)
         super().__init__(*args, **kwargs)
-        meta = getattr(self, 'Meta', None)
-        self.search_fields = getattr(meta, 'search_fields', tuple())
+
+        if search_fields:
+            self.search_fields = search_fields
+        else:
+            meta = getattr(self, 'Meta', None)
+            self.search_fields = getattr(meta, 'search_fields', tuple())
 
     def filter_search(self, queryset, name, value):
         q = Q()

@@ -15,11 +15,11 @@ def user_list(request):
         queryset=User.objects.users(),
         table_class=UsersTable,
         filterset_class=UserFilter,
+        search_fields=('^email', 'first_name', 'last_name')
     )
-    content, filterset = handler.process()
+    handler = handler.process()
     table = {
-        'content': content,
-        'filterset': filterset,
+        'handler': handler,
         'title': _('Users list'),
     }
     return render(request, 'Admin/Users/list.html', {'table': table})

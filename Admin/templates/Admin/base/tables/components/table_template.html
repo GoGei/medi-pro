@@ -1,0 +1,24 @@
+{% load django_tables2 %}
+{% load i18n l10n static %}
+
+<link href="{% static 'inspinia/css/plugins/dataTables/datatables.min.css' %}" rel="stylesheet">
+
+{% block table-wrapper %}
+  <div class="table-responsive">
+    <div class="dataTables_wrapper dt-bootstrap4">
+      {% block upper_pagination %}
+        {% include 'Admin/base/tables/components/paginator.html' %}
+      {% endblock upper_pagination %}
+
+      {% block table %}
+        {% include 'Admin/base/tables/components/table.html' %}
+      {% endblock table %}
+
+      {% block pagination %}
+        {% include 'Admin/base/tables/components/paginator.html' %}
+      {% endblock pagination %}
+    </div>
+  </div>
+{% endblock table-wrapper %}
+
+<script src="{% static 'inspinia/js/plugins/dataTables/datatables.min.js' %}"></script>
