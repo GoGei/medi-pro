@@ -20,3 +20,12 @@ class IsActiveField(django_filters.ChoiceFilter):
         elif value == 'false':
             return qs.filter(**{self.field_name: False})
         return qs
+
+
+class IsActiveMixinField(IsActiveField):
+    def filter(self, qs, value):
+        if value == 'true':
+            return qs.active()
+        elif value == 'false':
+            return qs.not_active()
+        return qs

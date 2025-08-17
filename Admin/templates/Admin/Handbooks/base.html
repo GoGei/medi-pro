@@ -1,0 +1,12 @@
+{% extends 'Admin/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Handbooks' %}{% endblock %}
+{% block menu-handbooks-active %}active{% endblock %}
+{% block menu-handbooks-timezones-collapse %}in{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="#">{% trans 'Handbooks' %}</a>
+  </li>
+{% endblock %}

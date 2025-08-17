@@ -1,24 +1,24 @@
-{% extends 'Admin/Users/base.html' %}
+{% extends 'Admin/Handbooks/TimezoneHandbooks/base.html' %}
 {% load i18n hosts %}
 
-{% block title %}{{ block.super }} {% trans 'View' %}{% endblock %}
+{% block title %}{{ block.super }} | {% trans 'View' %}{% endblock %}
 
 {% block breadcrumb %}
   {{ block.super }}
   <li class="breadcrumb-item">
-    <a href="{% host_url 'users-view' user.id host 'admin' %}">{% trans 'User' %} {{ user.label|truncatechars:20 }}</a>
+    <a href="{% host_url 'handbooks:timezones-view' timezone.id host 'admin' %}">{{ timezone.label|truncatechars:20 }}</a>
   </li>
 {% endblock %}
 
 {% block action-area %}
-  <a href="{% host_url 'users-list' host 'admin' %}" type="button"
+  <a href="{% host_url 'handbooks:timezones-list' host 'admin' %}" type="button"
      class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
 {% endblock %}
 
 {% block content %}
   <div class="ibox">
     <div class="ibox-title">
-      <h5>{{ user.get_full_name|default:user.username }}</h5>
+      <h5>{{ timezone.label }}</h5>
       <div class="ibox-tools">
         <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
       </div>
@@ -28,33 +28,29 @@
         <tbody>
         <tr>
           <th>{% trans 'ID' %}</th>
-          <td>{{ user.id }}</td>
+          <td>{{ timezone.id }}</td>
         </tr>
         <tr>
-          <th>{% trans 'Email' %}</th>
-          <td>{{ user.email }}</td>
+          <th>{% trans 'Name' %}</th>
+          <td>{{ timezone.name }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Offset' %}</th>
+          <td>{{ timezone.offset }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Label' %}</th>
+          <td>{{ timezone.label }}</td>
         </tr>
         <tr>
           <th>{% trans 'Active' %}</th>
           <td>
-            {% if user.is_active %}
+            {% if timezone.is_active %}
               <span class="label label-primary">{% trans 'Active' %}</span>
             {% else %}
               <span class="label label-danger">{% trans 'Inactive' %}</span>
             {% endif %}
           </td>
-        </tr>
-        <tr>
-          <th>{% trans 'Last login' %}</th>
-          <td>{{ user.last_login|date:"Y-m-d H:i" }}</td>
-        </tr>
-        <tr>
-          <th>{% trans 'First name' %}</th>
-          <td>{{ user.first_name }}</td>
-        </tr>
-        <tr>
-          <th>{% trans 'Last name' %}</th>
-          <td>{{ user.last_name }}</td>
         </tr>
         </tbody>
       </table>

@@ -64,6 +64,10 @@ executing==2.2.0
     # via stack-data
 fabric==3.2.2
     # via -r requirements.txt
+factory-boy==3.3.3
+    # via -r requirements.txt
+faker==37.5.3
+    # via factory-boy
 flake8==7.3.0
     # via -r requirements.txt
 hashids==1.3.1
@@ -133,7 +137,9 @@ traitlets==5.14.3
 typing-extensions==4.14.1
     # via ipython
 tzdata==2025.2
-    # via kombu
+    # via
+    #   faker
+    #   kombu
 vine==5.1.0
     # via
     #   amqp
