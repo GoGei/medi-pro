@@ -1,0 +1,11 @@
+{% extends 'Admin/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Users' %}{% endblock %}
+{% block menu-users-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'users-list' host 'admin' %}">{% trans 'Users' %}</a>
+  </li>
+{% endblock %}

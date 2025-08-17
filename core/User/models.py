@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
@@ -44,6 +45,9 @@ class UserManager(BaseUserManager):
             raise ValueError(_("User must have is_superuser=True."))
         return self._create_user(email, password, **extra_fields)
 
+    def users(self):
+        return self.exclude(Q(is_staff=True) | Q(is_superuser=True))
+
 
 class User(AbstractUser, HashIDMixin):
     username = None
@@ -72,4 +76,8 @@ class User(AbstractUser, HashIDMixin):
 
     @property
     def label(self):
-        return f"{self.first_name} {self.last_name}".strip() or self.email or self.id
+        return self.full_name or self.email or self.id
+
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}".strip()

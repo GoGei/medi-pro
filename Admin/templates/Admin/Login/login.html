@@ -27,10 +27,10 @@
       {% include 'Admin/base/non_field_errors.html' with form=form %}
 
       <div class="form-group{% if form.email.errors %} has-error{% endif %}">
-        {% include 'Admin/base/fields/input.html' with field=form.email %}
+        {% include 'Admin/base/forms/fields/input.html' with field=form.email %}
       </div>
       <div class="form-group{% if form.password.errors %} has-error{% endif %}">
-        {% include 'Admin/base/fields/input.html' with field=form.password %}
+        {% include 'Admin/base/forms/fields/input.html' with field=form.password %}
       </div>
       <button type="submit" class="btn btn-primary block full-width m-b">{% trans 'Login' %}</button>
 

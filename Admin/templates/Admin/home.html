@@ -1,14 +1,13 @@
 {% extends 'Admin/base.html' %}
 {% load i18n hosts %}
 
-{% block title %}{{ APP_NAME }} | {% trans 'Home' %}{% endblock %}
+{% block title %}{{ block.super }} | {% trans 'Home' %}{% endblock %}
+
+{% block menu-home-active %}active{% endblock %}
 
 {% block breadcrumb %}
   <li class="breadcrumb-item">
-    <a href="{% host_url 'home' host 'admin' %}">This is</a>
-  </li>
-  <li class="breadcrumb-item active">
-    <strong>Breadcrumb</strong>
+    <a href="{% host_url 'home' host 'admin' %}">{% trans 'Home' %}</a>
   </li>
 {% endblock %}
 

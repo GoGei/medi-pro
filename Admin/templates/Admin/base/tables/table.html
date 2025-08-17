@@ -1,0 +1,56 @@
+{% load i18n hosts django_tables2 %}
+
+<div class="ibox ">
+  <div class="ibox-title">
+    <h5>{{ table.title|default:_("Table") }}</h5>
+    <div class="ibox-tools">
+      <a class="collapse-link">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+      {% if table.closable %}
+        <a class="close-link">
+          <i class="fa fa-times"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="ibox-content">
+    <div class="table-responsive">
+      <div class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+          {% if table.handler.search_fields %}
+            {% with table.handler.get_search_form.form_body.search as field %}
+              <div class="{% if field.errors %} has-error{% endif %}">
+                {% include 'Admin/base/forms/fields/input.html' with field=field %}
+              </div>
+            {% endwith %}
+          {% endif %}
+
+          {% if table.handler.filterset %}
+            <a data-toggle="modal" class="btn btn-primary" href="#modal-form">
+              {% trans 'Filters' %}
+            </a>
+            <form method="get" class="m-0">
+              <button type="submit" class="btn btn-warning" name="page"
+                      value="{{ request.GET.page }}">{% trans 'Clear filters' %}</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+      {% render_table table.handler.table %}
+    </div>
+  </div>
+</div>
+</div>
+
+{% if table.handler.filterset %}
+  <div id="modal-form" class="modal fade" aria-modal="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          {% include 'Admin/base/forms/form.html' with form=table.handler.get_filter_form %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
