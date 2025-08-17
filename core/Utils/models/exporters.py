@@ -1,0 +1,38 @@
+import json
+import csv
+import io
+from abc import abstractmethod, ABC
+
+
+class BaseExport(ABC):
+    def __init__(self, queryset, fields: tuple, obj_to_dict_func: callable = None):
+        self.queryset = queryset
+        self.fields = fields
+        self.obj_to_dict_func = obj_to_dict_func
+
+    def prepare_data(self) -> list[dict]:
+        return [self.obj_to_dict(item) for item in self.queryset]
+
+    def obj_to_dict(self, item) -> dict:
+        if self.obj_to_dict_func:
+            return self.obj_to_dict_func(item, self.fields)
+        return {field: getattr(item, field) for field in self.fields}
+
+    @abstractmethod
+    def export(self):
+        ...
+
+
+class JSONExport(BaseExport):
+    def export(self) -> str:
+        return json.dumps(self.prepare_data(), ensure_ascii=False, indent=2)
+
+
+class CSVExport(BaseExport):
+    def export(self) -> str:
+        buffer = io.StringIO()
+        writer = csv.DictWriter(buffer, fieldnames=self.fields)
+        writer.writeheader()
+        for row in self.prepare_data():
+            writer.writerow(row)
+        return buffer.getvalue()

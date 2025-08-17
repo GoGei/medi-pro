@@ -3,7 +3,8 @@ from django.utils import timezone
 from .models import TimezoneHandbook
 
 
-def import_timezones():
+def import_timezones(archive_not_mentioned: bool = True):
+    mentioned: set[int] = set()
     for tz_name in sorted(available_timezones()):
         dt = timezone.now().astimezone(ZoneInfo(tz_name))
         offset_td = dt.utcoffset()
@@ -11,10 +12,14 @@ def import_timezones():
         sign = '+' if hours >= 0 else '-'
         offset = f"{sign}{abs(int(hours)):02d}:{int(minutes):02d}"
 
-        TimezoneHandbook.objects.update_or_create(
+        obj, _ = TimezoneHandbook.objects.update_or_create(
             name=tz_name,
             defaults={
                 'offset': offset,
                 'label': tz_name.replace('_', ' '),
             }
         )
+        mentioned.add(obj.id)
+
+    if archive_not_mentioned:
+        TimezoneHandbook.objects.exclude(id__in=mentioned).archive()
