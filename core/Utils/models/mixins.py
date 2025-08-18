@@ -23,6 +23,9 @@ class IsActiveQuerySet(models.QuerySet):
     def not_active(self):
         return self.filter(archived_stamp__isnull=False)
 
+    def archive(self, user=None):
+        self.update(archived_by=user, archived_stamp=timezone.now())
+
 
 class IsActiveMixin(models.Model):
     created_stamp = models.DateTimeField(auto_now_add=True)

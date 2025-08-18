@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <form {% if form.id %}id="{{ form.id }}"{% endif %} role="form" action="{{ form.action|default:'' }}"
-      method="{{ form.method|default:'post' }}">
+      method="{{ form.method|default:'post' }}" novalidate>
   {% if form.skip_csf_token %}{% else %}{% csrf_token %}{% endif %}
   {% include 'Admin/base/non_field_errors.html' with form=form.form_body %}
 

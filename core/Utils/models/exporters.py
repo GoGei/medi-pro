@@ -4,6 +4,11 @@ import io
 from abc import abstractmethod, ABC
 
 
+class ExportModes(object):
+    JSON = 'json'
+    CSV = 'csv'
+
+
 class BaseExport(ABC):
     def __init__(self, queryset, fields: tuple, obj_to_dict_func: callable = None):
         self.queryset = queryset
@@ -36,3 +41,31 @@ class CSVExport(BaseExport):
         for row in self.prepare_data():
             writer.writerow(row)
         return buffer.getvalue()
+
+
+class QuerysetExporter(object):
+    def __init__(self, mode: str, *args, **kwargs):
+        mapping = {
+            ExportModes.JSON: JSONExport,
+            ExportModes.CSV: CSVExport,
+        }
+
+        self.exporter = mapping[mode](*args, **kwargs)
+        self.mode = mode
+
+    def get_content(self):
+        return self.exporter.export()
+
+    def get_content_type(self):
+        mapping = {
+            ExportModes.JSON: 'application/json',
+            ExportModes.CSV: 'text/csv',
+        }
+        return mapping[self.mode]
+
+    def get_extension(self):
+        mapping = {
+            ExportModes.JSON: 'json',
+            ExportModes.CSV: 'csv',
+        }
+        return mapping[self.mode]
