@@ -20,6 +20,8 @@ def import_timezones(archive_not_mentioned: bool = True):
             }
         )
         mentioned.add(obj.id)
+        if not obj.is_active:
+            obj.restore()
 
     if archive_not_mentioned:
         TimezoneHandbook.objects.exclude(id__in=mentioned).archive()
