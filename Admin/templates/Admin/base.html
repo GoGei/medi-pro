@@ -53,9 +53,11 @@
 
         <li class="{% block menu-handbooks-active %}{% endblock %}">
           <a href="" aria-expanded="false">
-            <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Handbooks' %}</span> <span class="fa arrow"></span>
+            <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Handbooks' %}</span> <span
+              class="fa arrow"></span>
           </a>
-          <ul class="nav nav-second-level collapse {% block menu-handbooks-timezones-collapse %}{% endblock %}" aria-expanded="false">
+          <ul class="nav nav-second-level collapse {% block menu-handbooks-timezones-collapse %}{% endblock %}"
+              aria-expanded="false">
             <li class="{% block menu-handbooks-timezones-active %}{% endblock %}">
               <a href="{% host_url 'handbooks:timezones-list' host 'admin' %}">{% trans 'Timezones' %}</a>
             </li>
@@ -120,6 +122,8 @@
 <!-- Custom and plugin javascript -->
 <script src="{% static 'inspinia/js/inspinia.js' %}"></script>
 <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
+<script src="{% static 'inspinia/js/plugins/bs-custom-file/bs-custom-file-input.min.js' %}"></script>
+<script src="{% static 'inspinia/js/plugins/dropzone/dropzone.js' %}"></script>
 
 <script src="{% static 'admin/js/base.js' %}"></script>
 

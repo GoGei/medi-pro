@@ -85,9 +85,12 @@ def timezone_import(request):
 
     form_body = TimezoneHandbookImportForm(request.POST or None, request.FILES or None)
     if form_body.is_valid():
-        form_body.save()
-        messages.success(request, _('Timezones lad successfully!'))
-        return redirect(reverse('handbooks:timezones-list', host='admin'))
+        try:
+            form_body.save()
+            messages.success(request, _('Timezones load successfully!'))
+            return redirect(reverse('handbooks:timezones-list', host='admin'))
+        except Exception as e:
+            messages.error(request, _('Unable to load file: %s') % str(e))
 
     form = {
         'form_body': form_body,

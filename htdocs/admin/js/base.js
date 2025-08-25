@@ -15,12 +15,13 @@ function getCookie(name) {
 }
 
 $(document).ready(function () {
-    console.log(getCookie('csrftoken'));
     const $breadcrumb = $("ol.breadcrumb");
     $breadcrumb.find("li").last().addClass("active");
 
     const $lastLink = $("ol.breadcrumb li").last().find("a");
     $lastLink.wrapInner("<strong></strong>");
+
+    bsCustomFileInput.init()
 });
 
 $.ajaxSetup({

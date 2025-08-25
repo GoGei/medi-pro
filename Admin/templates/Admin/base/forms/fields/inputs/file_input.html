@@ -1,0 +1,6 @@
+{% load i18n widget_tweaks %}
+
+<div class="custom-file">
+  {% render_field field class+="custom-file-input" %}
+  <label class="custom-file-label" for="{{ field.id_for_label }}">{% trans 'Choose file' %}</label>
+</div>
