@@ -1,7 +1,7 @@
 from django.test import TestCase
 from ..models import TimezoneHandbook
 from ..factories import TimezoneHandbookFactory
-from ..services import import_timezones
+from ..services import import_timezones, load_timezones
 
 
 class TimezoneHandbookTestCase(TestCase):
@@ -18,5 +18,11 @@ class TimezoneHandbookTestCase(TestCase):
     def test_import_timezones(self):
         c1 = TimezoneHandbook.objects.count()
         import_timezones()
+        c2 = TimezoneHandbook.objects.count()
+        self.assertTrue(c2 > c1)
+
+    def test_load_timezones(self):
+        c1 = TimezoneHandbook.objects.count()
+        load_timezones(data=[{'name': 'test', 'offset': '00:00', 'label': 'Test'}], archive_not_mentioned=False)
         c2 = TimezoneHandbook.objects.count()
         self.assertTrue(c2 > c1)
