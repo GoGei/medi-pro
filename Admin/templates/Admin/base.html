@@ -56,10 +56,13 @@
             <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Handbooks' %}</span> <span
               class="fa arrow"></span>
           </a>
-          <ul class="nav nav-second-level collapse {% block menu-handbooks-timezones-collapse %}{% endblock %}"
+          <ul class="nav nav-second-level collapse {% block menu-handbooks-collapse %}{% endblock %}"
               aria-expanded="false">
             <li class="{% block menu-handbooks-timezones-active %}{% endblock %}">
               <a href="{% host_url 'handbooks:timezones-list' host 'admin' %}">{% trans 'Timezones' %}</a>
+            </li>
+            <li class="{% block menu-handbooks-country-active %}{% endblock %}">
+              <a href="{% host_url 'handbooks:country-list' host 'admin' %}">{% trans 'Countries' %}</a>
             </li>
           </ul>
         </li>
