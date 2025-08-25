@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n widget_tweaks filters %}
 
 <form {% if form.id %}id="{{ form.id }}"{% endif %} role="form" action="{{ form.action|default:'' }}"
-      method="{{ form.method|default:'post' }}" novalidate>
+      method="{{ form.method|default:'post' }}" novalidate enctype="multipart/form-data">
   {% if form.skip_csf_token %}{% else %}{% csrf_token %}{% endif %}
   {% include 'Admin/base/non_field_errors.html' with form=form.form_body %}
 
@@ -9,8 +9,15 @@
     <div class="form-group{% if field.errors %} has-error{% endif %}{% if field.is_hidden %} d-none{% endif %}"
          id="form-field-container-{{ field.id_for_label }}">
 
-      {% include 'Admin/base/forms/fields/label.html' with field=field %}
-      {% include 'Admin/base/forms/fields/input.html' with field=field %}
+      {% with class=field.field.widget|get_class %}
+        {% if class|is_in:'ClearableFileInput,FileInput' %}
+          {% include 'Admin/base/forms/fields/inputs/file_input.html' with field=field %}
+        {% else %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/input.html' with field=field %}
+        {% endif %}
+      {% endwith %}
+      {% include 'Admin/base/forms/fields/errors.html' with field=field %}
     </div>
   {% endfor %}
 
