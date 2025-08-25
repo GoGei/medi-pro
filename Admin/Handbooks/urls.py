@@ -4,4 +4,5 @@ app_name = 'handbooks'
 
 urlpatterns = [
     path('timezones/', include('Admin.Handbooks.TimezoneHandbook.urls')),
+    path('countries/', include('Admin.Handbooks.Country.urls')),
 ]

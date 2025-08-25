@@ -9,3 +9,7 @@ class Country(IsActiveMixin):
 
     class Meta:
         db_table = 'countries'
+
+    @property
+    def label(self):
+        return self.name

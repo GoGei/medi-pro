@@ -32,13 +32,12 @@ def import_countries_from_fixture(archive_not_mentioned: bool = True, fixture: s
         Country.objects.exclude(id__in=mentioned).archive()
 
 
-def import_countries_from_external_api(fields: tuple) -> QuerySet[Country]:
+def import_countries_from_external_api(fields: tuple = ('name', 'ccn3', 'cca2')) -> QuerySet[Country]:
     if not fields:
         raise LoadCountriesException(f'Please, specify fields to get. Documentation: {EXTERNAL_API_DOCUMENTATION_URL}')
 
     try:
-        params = {'fields': fields}
-        response = requests.get(url=EXTERNAL_API_URL, params=params)
+        response = requests.get(url=EXTERNAL_API_URL, params={'fields': fields}, timeout=15)
         response.raise_for_status()
     except Timeout as e:
         raise LoadCountriesException(f'Timeout: {str(e)}')

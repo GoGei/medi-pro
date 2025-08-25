@@ -1,0 +1,24 @@
+{% extends 'Admin/Handbooks/Country/base.html' %}
+{% load i18n hosts %}
+
+{% block action-area %}
+  <div class="btn-group">
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Action</button>
+    <ul class="dropdown-menu" x-placement="bottom-start">
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:country-import' host 'admin' %}">{% trans 'Import' %}</a></li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:country-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a></li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:country-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a></li>
+      <li><a class="dropdown-item" href="{% host_url 'handbooks:country-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:country-sync-external-api' host 'admin' %}">{% trans 'Sync with external API' %}</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/tables/table.html' %}
+{% endblock %}

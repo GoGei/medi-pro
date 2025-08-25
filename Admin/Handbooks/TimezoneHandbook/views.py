@@ -116,6 +116,10 @@ def timezone_export(request, mode: str):
 
 @login_required
 def timezone_sync(request):
-    import_timezones()
-    messages.success(request, _('Timezone successfully synchronized!'))
+    try:
+        import_timezones()
+        messages.success(request, _('Timezone successfully synchronized!'))
+    except Exception as e:
+        messages.error(request, _('Timezone not synchronized! Exception raised: %s') % e)
+
     return redirect(reverse('handbooks:timezones-list', host='admin'))
