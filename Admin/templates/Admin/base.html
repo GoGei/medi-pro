@@ -66,6 +66,19 @@
             </li>
           </ul>
         </li>
+
+        <li class="{% block menu-medicine-active %}{% endblock %}">
+          <a href="" aria-expanded="false">
+            <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Medicine' %}</span> <span
+              class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse {% block menu-medicine-collapse %}{% endblock %}"
+              aria-expanded="false">
+            <li class="{% block menu-medicine-allergy-types-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:allergy-types-list' host 'admin' %}">{% trans 'Allergy types' %}</a>
+            </li>
+          </ul>
+        </li>
       </ul>
 
     </div>

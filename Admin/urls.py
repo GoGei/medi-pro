@@ -6,6 +6,7 @@ urlpatterns = [
     path('', include('Admin.Login.urls')),
     path('users/', include('Admin.Users.urls')),
     path('handbooks/', include('Admin.Handbooks.urls', namespace='handbooks')),
+    path('medicine/', include('Admin.Medicine.urls', namespace='medicine')),
     path('', include('urls')),
 ]
 
