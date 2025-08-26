@@ -83,6 +83,9 @@
             <li class="{% block menu-medicine-allergy-reactions-active %}{% endblock %}">
               <a href="{% host_url 'medicine:allergy-reactions-list' host 'admin' %}">{% trans 'Allergy reactions' %}</a>
             </li>
+            <li class="{% block menu-medicine-icd10-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:icd10-list' host 'admin' %}">{% trans 'ICD-10' %}</a>
+            </li>
           </ul>
         </li>
       </ul>
