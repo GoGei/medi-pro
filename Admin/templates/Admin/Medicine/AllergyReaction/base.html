@@ -1,0 +1,11 @@
+{% extends 'Admin/Medicine/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Allergy reactions' %}{% endblock %}
+{% block menu-medicine-allergy-reactions-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'medicine:allergy-reactions-list' host 'admin' %}">{% trans 'Allergy reactions' %}</a>
+  </li>
+{% endblock %}
