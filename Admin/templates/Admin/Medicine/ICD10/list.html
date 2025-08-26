@@ -1,0 +1,20 @@
+{% extends 'Admin/Medicine/ICD10/base.html' %}
+{% load i18n hosts %}
+
+{% block action-area %}
+  <div class="btn-group">
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+            aria-expanded="false">{% trans 'Action' %}</button>
+    <ul class="dropdown-menu" x-placement="bottom-start">
+      <li><a class="dropdown-item"
+             href="{% host_url 'medicine:icd10-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+      </li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'medicine:icd10-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/tables/table.html' %}
+{% endblock %}

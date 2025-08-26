@@ -3,7 +3,7 @@
 
 {% block action-area %}
   <div class="btn-group">
-    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Action</button>
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">{% trans 'Action' %}</button>
     <ul class="dropdown-menu" x-placement="bottom-start">
       <li><a class="dropdown-item"
              href="{% host_url 'handbooks:timezones-import' host 'admin' %}">{% trans 'Import' %}</a></li>

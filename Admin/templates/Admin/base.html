@@ -66,6 +66,31 @@
             </li>
           </ul>
         </li>
+
+        <li class="{% block menu-medicine-active %}{% endblock %}">
+          <a href="" aria-expanded="false">
+            <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Medicine' %}</span> <span
+              class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse {% block menu-medicine-collapse %}{% endblock %}"
+              aria-expanded="false">
+            <li class="{% block menu-medicine-allergy-types-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:allergy-types-list' host 'admin' %}">{% trans 'Allergy types' %}</a>
+            </li>
+            <li class="{% block menu-medicine-allergy-causes-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:allergy-causes-list' host 'admin' %}">{% trans 'Allergy causes' %}</a>
+            </li>
+            <li class="{% block menu-medicine-allergy-reactions-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:allergy-reactions-list' host 'admin' %}">{% trans 'Allergy reactions' %}</a>
+            </li>
+            <li class="{% block menu-medicine-icd10-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:icd10-list' host 'admin' %}">{% trans 'ICD-10' %}</a>
+            </li>
+            <li class="{% block menu-medicine-patient-relations-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:patient-relations-list' host 'admin' %}">{% trans 'Patient relations' %}</a>
+            </li>
+          </ul>
+        </li>
       </ul>
 
     </div>

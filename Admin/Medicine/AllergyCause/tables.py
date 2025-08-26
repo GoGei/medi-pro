@@ -1,0 +1,25 @@
+import django_tables2 as tables
+
+from Admin.utils.tables import fields as custom_fields
+from django.utils.translation import gettext_lazy as _
+from core.Medicine.models import AllergyCause
+
+
+class AllergyCauseTable(tables.Table):
+    id = custom_fields.HrefColumn(
+        reverse_url='medicine:allergy-causes-view',
+        verbose_name=_('ID'),
+        orderable=True
+    )
+    is_active = tables.BooleanColumn()
+    actions = tables.TemplateColumn(
+        template_name='Admin/Medicine/AllergyCause/table_actions_column.html',
+        verbose_name=_('Actions'),
+        orderable=False
+    )
+
+    class Meta:
+        model = AllergyCause
+        template_name = "Admin/base/tables/components/table_template.html"
+        fields = ('id', 'name', 'code', 'source', 'is_active')
+        ordering_fields = ('id', 'name', 'code')
