@@ -12,6 +12,30 @@
       {% with class=field.field.widget|get_class %}
         {% if class|is_in:'ClearableFileInput,FileInput' %}
           {% include 'Admin/base/forms/fields/inputs/file_input.html' with field=field %}
+        {% elif class|is_in:'DateTimeInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/datetime_input.html' with field=field %}
+        {% elif class|is_in:'DateInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/date_input.html' with field=field %}
+        {% elif class|is_in:'TimeInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/time_input.html' with field=field %}
+        {% elif class|is_in:'URLInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/url_input.html' with field=field %}
+        {% elif class|is_in:'EmailInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/email_input.html' with field=field %}
+        {% elif class|is_in:'ColorInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/color_input.html' with field=field %}
+        {% elif class|is_in:'CheckboxInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/checkbox_input.html' with field=field %}
+        {% comment %}{% elif class|is_in:'RadioSelect' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/radio_input.html' with field=field %}{% endcomment %}
         {% else %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/input.html' with field=field %}

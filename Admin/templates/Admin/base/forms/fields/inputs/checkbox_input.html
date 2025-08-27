@@ -1,0 +1,12 @@
+{% load i18n widget_tweaks %}
+
+
+<div class="switch">
+  <div class="onoffswitch">
+    {% render_field field class+="onoffswitch-checkbox" %}
+    <label class="onoffswitch-label" for="{{ field.id_for_label }}">
+      <span class="onoffswitch-inner"></span>
+      <span class="onoffswitch-switch"></span>
+    </label>
+  </div>
+</div>

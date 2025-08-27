@@ -12,6 +12,8 @@
   <link href="{% static 'inspinia/css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/css/animate.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/css/style.css' %}" rel="stylesheet">
+
+  {% include 'Admin/base_form_css.html' %}
   {% block extracss %}{% endblock %}
 </head>
 
@@ -150,8 +152,9 @@
 <!-- Custom and plugin javascript -->
 <script src="{% static 'inspinia/js/inspinia.js' %}"></script>
 <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/bs-custom-file/bs-custom-file-input.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/dropzone/dropzone.js' %}"></script>
+<script src="{% static 'inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+
+{% include 'Admin/base_form_js.html' %}
 
 <script src="{% static 'admin/js/base.js' %}"></script>
 

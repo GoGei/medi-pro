@@ -21,7 +21,42 @@ $(document).ready(function () {
     const $lastLink = $("ol.breadcrumb li").last().find("a");
     $lastLink.wrapInner("<strong></strong>");
 
-    bsCustomFileInput.init()
+    bsCustomFileInput.init();
+
+    // Form init
+    $('.input-group.date').datepicker({
+        startView: 1,
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true,
+        format: "dd/mm/yyyy"
+    });
+    $('.clockpicker').clockpicker();
+    $('.uuid-inputmask').each(function () {
+        const maskObj = $(this).data('mask');
+        $(this).mask(maskObj.mask, {
+            translation: {
+                'h': {pattern: /[0-9a-fA-F]/}
+            }
+        });
+    });
+    $('.input-daterange').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        autoclose: true
+    });
+    $(".select2").select2({
+        theme: 'bootstrap4',
+    });
+    $('.tagsinput').tagsinput({
+        tagClass: 'label label-primary'
+    });
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green'
+    });
+    $('.colorpicker').colorpicker();
 });
 
 $.ajaxSetup({

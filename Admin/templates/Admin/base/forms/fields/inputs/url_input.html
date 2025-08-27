@@ -1,0 +1,9 @@
+{% load i18n widget_tweaks %}
+
+{% with field.field.widget.attrs.placeholder as placeholder %}
+  {% if placeholder %}
+    {% render_field field class+="form-control" placeholder=placeholder %}
+  {% else %}
+    {% render_field field class+="form-control" placeholder="https://example.com" %}
+  {% endif %}
+{% endwith %}
