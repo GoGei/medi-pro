@@ -13,24 +13,7 @@
   <link href="{% static 'inspinia/css/animate.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/css/style.css' %}" rel="stylesheet">
 
-
-  <!-- form plugins -->
-  <link href="{% static 'inspinia/css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/colorpicker/bootstrap-colorpicker.min.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/cropper/cropper.min.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/switchery/switchery.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/nouslider/jquery.nouislider.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/datapicker/datepicker3.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/ionRangeSlider/ion.rangeSlider.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' %}"
-        rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/clockpicker/clockpicker.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/daterangepicker/daterangepicker-bs3.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/select2/select2.min.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/select2/select2-bootstrap4.min.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/touchspin/jquery.bootstrap-touchspin.min.css' %}" rel="stylesheet">
-  <link href="{% static 'inspinia/css/plugins/dualListbox/bootstrap-duallistbox.min.css' %}" rel="stylesheet">
-
+  {% include 'Admin/base_form_css.html' %}
   {% block extracss %}{% endblock %}
 </head>
 
@@ -171,24 +154,7 @@
 <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
 <script src="{% static 'inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
 
-<!-- form plugins -->
-<script src="{% static 'inspinia/js/plugins/bs-custom-file/bs-custom-file-input.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/dropzone/dropzone.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/jsKnob/jquery.knob.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/jqueryMask/jquery.mask.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/datapicker/bootstrap-datepicker.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/nouslider/jquery.nouislider.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/switchery/switchery.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/ionRangeSlider/ion.rangeSlider.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/iCheck/icheck.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/colorpicker/bootstrap-colorpicker.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/clockpicker/clockpicker.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/fullcalendar/moment.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/daterangepicker/daterangepicker.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/select2/select2.full.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js' %}"></script>
+{% include 'Admin/base_form_js.html' %}
 
 <script src="{% static 'admin/js/base.js' %}"></script>
 

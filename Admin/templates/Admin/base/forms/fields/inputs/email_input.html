@@ -1,0 +1,15 @@
+{% load i18n widget_tweaks %}
+
+<div class="input-group m-b">
+  <div class="input-group-prepend">
+    <span class="input-group-addon">@</span>
+  </div>
+
+  {% with field.field.widget.attrs.placeholder as placeholder %}
+    {% if placeholder %}
+      {% render_field field class+="form-control" placeholder=placeholder %}
+    {% else %}
+      {% render_field field class+="form-control" placeholder="example@example.com" %}
+    {% endif %}
+  {% endwith %}
+</div>

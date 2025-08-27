@@ -24,9 +24,6 @@ $(document).ready(function () {
     bsCustomFileInput.init();
 
     // Form init
-    $('.tagsinput').tagsinput({
-        tagClass: $(this).data('tagClass') || 'label label-primary'
-    });
     $('.input-group.date').datepicker({
         startView: 1,
         todayBtn: "linked",
@@ -35,27 +32,31 @@ $(document).ready(function () {
         autoclose: true,
         format: "dd/mm/yyyy"
     });
+    $('.clockpicker').clockpicker();
+    $('.uuid-inputmask').each(function () {
+        const maskObj = $(this).data('mask');
+        $(this).mask(maskObj.mask, {
+            translation: {
+                'h': {pattern: /[0-9a-fA-F]/}
+            }
+        });
+    });
     $('.input-daterange').datepicker({
         keyboardNavigation: false,
         forceParse: false,
         autoclose: true
+    });
+    $(".select2").select2({
+        theme: 'bootstrap4',
+    });
+    $('.tagsinput').tagsinput({
+        tagClass: 'label label-primary'
     });
     $('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
         radioClass: 'iradio_square-green'
     });
     $('.colorpicker').colorpicker();
-    $('.clockpicker').clockpicker();
-    $(".select2").select2({
-        theme: 'bootstrap4',
-    });
-    $(".touchspin").TouchSpin({
-        buttondown_class: 'btn btn-white',
-        buttonup_class: 'btn btn-white'
-    });
-    $('.dual_select').bootstrapDualListbox({
-        selectorMinimalHeight: 160
-    });
 });
 
 $.ajaxSetup({
