@@ -12,6 +12,13 @@
       {% with class=field.field.widget|get_class %}
         {% if class|is_in:'ClearableFileInput,FileInput' %}
           {% include 'Admin/base/forms/fields/inputs/file_input.html' with field=field %}
+        {% elif class|is_in:'DateTimeInput' %}
+          {% include 'Admin/base/forms/fields/inputs/datetime_input.html' with field=field %}
+        {% elif class|is_in:'TimeInput' %}
+          {% include 'Admin/base/forms/fields/inputs/time_input.html' with field=field %}
+        {% elif class|is_in:'URLInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/url_input.html' with field=field %}
         {% else %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/input.html' with field=field %}
