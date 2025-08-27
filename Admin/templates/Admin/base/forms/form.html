@@ -33,6 +33,9 @@
         {% elif class|is_in:'CheckboxInput' %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/inputs/checkbox_input.html' with field=field %}
+        {% comment %}{% elif class|is_in:'RadioSelect' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/radio_input.html' with field=field %}{% endcomment %}
         {% else %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/input.html' with field=field %}
