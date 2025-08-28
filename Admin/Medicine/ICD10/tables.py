@@ -6,17 +6,9 @@ from core.Medicine.models import ICD10
 
 
 class ICD10Table(tables.Table):
-    id = custom_fields.HrefColumn(
-        reverse_url='medicine:icd10-view',
-        verbose_name=_('ID'),
-        orderable=True
-    )
+    id = custom_fields.HrefColumn(reverse_url='medicine:icd10-view')
     is_active = tables.BooleanColumn()
-    actions = tables.TemplateColumn(
-        template_name='Admin/Medicine/ICD10/table_actions_column.html',
-        verbose_name=_('Actions'),
-        orderable=False
-    )
+    actions = custom_fields.DefaultActionFields(base_url='medicine:icd10', view_only=True)
 
     class Meta:
         model = ICD10
