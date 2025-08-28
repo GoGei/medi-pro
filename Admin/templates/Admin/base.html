@@ -16,6 +16,7 @@
   <link href="{% static 'inspinia/css/style.css' %}" rel="stylesheet">
 
   {% include 'Admin/base_form_css.html' %}
+  {% include 'Admin/base_table_css.html' %}
   {% block extracss %}{% endblock %}
 </head>
 
@@ -156,6 +157,7 @@
 <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
 
 {% include 'Admin/base_form_js.html' %}
+{% include 'Admin/base_table_js.html' %}
 
 <script src="{% static 'admin/js/base.js' %}"></script>
 

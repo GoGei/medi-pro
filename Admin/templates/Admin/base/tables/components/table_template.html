@@ -1,8 +1,6 @@
 {% load django_tables2 %}
 {% load i18n l10n static %}
 
-<link href="{% static 'inspinia/css/plugins/dataTables/datatables.min.css' %}" rel="stylesheet">
-
 {% block table-wrapper %}
   <div class="table-responsive">
     <div class="dataTables_wrapper dt-bootstrap4">
@@ -20,5 +18,3 @@
     </div>
   </div>
 {% endblock table-wrapper %}
-
-<script src="{% static 'inspinia/js/plugins/dataTables/datatables.min.js' %}"></script>

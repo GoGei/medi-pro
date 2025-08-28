@@ -1,0 +1,12 @@
+{% load static %}
+<script src="{% static 'inspinia/js/plugins/dataTables/datatables.min.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    $('#id_search').on('keypress', function (e) {
+      if (e.which === 13) {
+        e.preventDefault();
+        $('#search-form').submit();
+      }
+    });
+  });
+</script>
