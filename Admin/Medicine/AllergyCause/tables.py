@@ -6,17 +6,9 @@ from core.Medicine.models import AllergyCause
 
 
 class AllergyCauseTable(tables.Table):
-    id = custom_fields.HrefColumn(
-        reverse_url='medicine:allergy-causes-view',
-        verbose_name=_('ID'),
-        orderable=True
-    )
+    id = custom_fields.HrefColumn(reverse_url='medicine:allergy-causes-view')
     is_active = tables.BooleanColumn()
-    actions = tables.TemplateColumn(
-        template_name='Admin/Medicine/AllergyCause/table_actions_column.html',
-        verbose_name=_('Actions'),
-        orderable=False
-    )
+    actions = custom_fields.DefaultActionFields(base_url='medicine:allergy-causes', view_only=True)
 
     class Meta:
         model = AllergyCause

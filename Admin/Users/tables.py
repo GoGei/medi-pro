@@ -6,16 +6,8 @@ from core.User.models import User
 
 
 class UsersTable(tables.Table):
-    id = custom_fields.HrefColumn(
-        reverse_url='users-view',
-        verbose_name=_('ID'),
-        orderable=True
-    )
-    actions = tables.TemplateColumn(
-        template_name='Admin/Users/table_actions_column.html',
-        verbose_name=_('Actions'),
-        orderable=False
-    )
+    id = custom_fields.HrefColumn(reverse_url='users-view')
+    actions = custom_fields.DefaultActionFields(base_url='users', view_only=True)
 
     class Meta:
         model = User

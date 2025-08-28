@@ -6,17 +6,9 @@ from core.Medicine.models import PatientRelation
 
 
 class PatientRelationTable(tables.Table):
-    id = custom_fields.HrefColumn(
-        reverse_url='medicine:patient-relations-view',
-        verbose_name=_('ID'),
-        orderable=True
-    )
+    id = custom_fields.HrefColumn(reverse_url='medicine:patient-relations-view')
     is_active = tables.BooleanColumn()
-    actions = tables.TemplateColumn(
-        template_name='Admin/Medicine/PatientRelation/table_actions_column.html',
-        verbose_name=_('Actions'),
-        orderable=False
-    )
+    actions = custom_fields.DefaultActionFields(base_url='medicine:patient-relations', view_only=True)
 
     class Meta:
         model = PatientRelation

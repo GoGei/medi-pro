@@ -6,17 +6,9 @@ from core.Country.models import Country
 
 
 class CountryTable(tables.Table):
-    id = custom_fields.HrefColumn(
-        reverse_url='handbooks:country-view',
-        verbose_name=_('ID'),
-        orderable=True
-    )
+    id = custom_fields.HrefColumn(reverse_url='handbooks:country-view')
     is_active = tables.BooleanColumn()
-    actions = tables.TemplateColumn(
-        template_name='Admin/Handbooks/Country/table_actions_column.html',
-        verbose_name=_('Actions'),
-        orderable=False
-    )
+    actions = custom_fields.DefaultActionFields(base_url='handbooks:country')
 
     class Meta:
         model = Country

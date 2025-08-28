@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone as dj_timezone
 from django.utils.translation import gettext_lazy as _
@@ -65,17 +65,15 @@ def timezone_edit(request, timezone_id):
 @login_required
 def timezone_archive(request, timezone_id):
     timezone: TimezoneHandbook = get_object_or_404(TimezoneHandbook, pk=timezone_id)
-    timezone.archive(request.user)
-    messages.success(request, _('Timezone successfully archived!'))
-    return redirect(reverse('handbooks:timezones-list', host='admin'))
+    timezone = timezone.archive(request.user)
+    return JsonResponse({'success': True, 'is_active': timezone.is_active})
 
 
 @login_required
 def timezone_restore(request, timezone_id):
     timezone: TimezoneHandbook = get_object_or_404(TimezoneHandbook, pk=timezone_id)
-    timezone.restore(request.user)
-    messages.success(request, _('Timezone successfully restored!'))
-    return redirect(reverse('handbooks:timezones-list', host='admin'))
+    timezone = timezone.restore(request.user)
+    return JsonResponse({'success': True, 'is_active': timezone.is_active})
 
 
 @login_required
