@@ -24,15 +24,9 @@ $(document).ready(function () {
     bsCustomFileInput.init();
 
     // Form init
-    $('.input-group.date').datepicker({
-        startView: 1,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true,
-        format: "dd/mm/yyyy"
-    });
-    $('.clockpicker').clockpicker();
+    $('.timepicker').datetimepicker({format: 'HH:mm:ss'});
+    $('.datepicker').datetimepicker({format: 'YYYY-MM-DD'});
+    $('.datetimepicker').datetimepicker({format: 'YYYY-MM-DD HH:mm:ss'});
     $('.uuid-inputmask').each(function () {
         const maskObj = $(this).data('mask');
         $(this).mask(maskObj.mask, {
@@ -40,11 +34,6 @@ $(document).ready(function () {
                 'h': {pattern: /[0-9a-fA-F]/}
             }
         });
-    });
-    $('.input-daterange').datepicker({
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true
     });
     $(".select2").select2({
         theme: 'bootstrap4',

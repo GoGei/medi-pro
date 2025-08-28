@@ -1,8 +1,9 @@
 {% load i18n widget_tweaks %}
 
-<div class="input-group date">
-  <span class="input-group-addon">
+
+<div class="input-group date datepicker">
+  <div class="input-group-addon input-group-append">
     <i class="fa fa-calendar"></i>
-  </span>
+  </div>
   {% render_field field class+="form-control" %}
 </div>

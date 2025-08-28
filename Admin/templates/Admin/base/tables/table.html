@@ -56,14 +56,3 @@
     </div>
   </div>
 {% endif %}
-
-<script>
-  $(document).ready(function () {
-    $('#id_search').on('keypress', function (e) {
-      if (e.which === 13) {
-        e.preventDefault();
-        $('#search-form').submit();
-      }
-    });
-  });
-</script>

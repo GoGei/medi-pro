@@ -1,8 +1,9 @@
 {% load i18n widget_tweaks %}
 
-<div class="input-group clockpicker" data-autoclose="true">
+
+<div class="input-group date timepicker">
+  <div class="input-group-addon input-group-append">
+    <i class="fa fa-clock-o"></i>
+  </div>
   {% render_field field class+="form-control" %}
-  <span class="input-group-addon">
-    <span class="fa fa-clock-o"></span>
-  </span>
 </div>
