@@ -7,6 +7,8 @@
 
   <title>{{ APP_NAME }}</title>
 
+  <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
   <link href="{% static 'inspinia/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/font-awesome/css/font-awesome.css' %}" rel="stylesheet">
   <link href="{% static 'inspinia/css/plugins/sweetalert/sweetalert.css' %}" rel="stylesheet">
@@ -152,7 +154,6 @@
 <!-- Custom and plugin javascript -->
 <script src="{% static 'inspinia/js/inspinia.js' %}"></script>
 <script src="{% static 'inspinia/js/plugins/pace/pace.min.js' %}"></script>
-<script src="{% static 'inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
 
 {% include 'Admin/base_form_js.html' %}
 
