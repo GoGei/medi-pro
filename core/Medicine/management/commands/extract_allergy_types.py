@@ -3,12 +3,12 @@ from django.core.management.base import BaseCommand, CommandError
 
 from core.Medicine.enums import MedicineHandbookSources
 from core.Medicine.extractors.hl7 import FHIRPageExtractor, FHIRPageExtractorException
-from core.Medicine.models import AllergyCause
+from core.Medicine.models import AllergyType
 
 
 class Command(BaseCommand):
-    help = 'Load allergy causes (Allergy intolerance codes) from HL7 FHIR'
-    default_url = 'https://hl7.org/fhir/valueset-allergyintolerance-code.html'
+    help = 'Load allergy types (Allergy intolerance categories) from HL7 FHIR'
+    default_url = 'https://hl7.org/fhir/valueset-allergy-intolerance-category.html'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -33,16 +33,16 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS(f'Successfully received {len(extractor.data)} items'))
         try:
-            self.update_allergy_causes(extractor)
+            self.update_allergy_types(extractor)
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f'Unable to update allergy causes: {e}'))
+            self.stdout.write(self.style.ERROR(f'Unable to update allergy types: {e}'))
 
     @atomic
-    def update_allergy_causes(self, extractor: FHIRPageExtractor):
+    def update_allergy_types(self, extractor: FHIRPageExtractor):
         batch_size = 200
         updated_count = created_count = total_count = 0
-        allergy_causes_to_create: list[AllergyCause] = list()
-        allergy_causes_to_update: list[AllergyCause] = list()
+        allergy_types_to_create: list[AllergyType] = list()
+        allergy_types_to_update: list[AllergyType] = list()
         fields = ('name', 'source')
         for item in extractor.data:
             allergy_item = {
@@ -51,29 +51,29 @@ class Command(BaseCommand):
                 'code': item['code'],
             }
             try:
-                obj = AllergyCause.objects.get(code=allergy_item['code'])
+                obj = AllergyType.objects.get(code=allergy_item['code'])
                 for field, value in allergy_item.items():
                     setattr(obj, field, value)
-                allergy_causes_to_update.append(obj)
+                allergy_types_to_update.append(obj)
                 updated_count += 1
-            except AllergyCause.DoesNotExist:
-                allergy_causes_to_create.append(AllergyCause(**allergy_item))
+            except AllergyType.DoesNotExist:
+                allergy_types_to_create.append(AllergyType(**allergy_item))
                 created_count += 1
             total_count += 1
             if total_count % batch_size == 0:
-                self.stdout.write(f'Processed {total_count} allergy causes')
+                self.stdout.write(f'Processed {total_count} allergy types')
 
-            if len(allergy_causes_to_create) == batch_size:
-                AllergyCause.objects.bulk_create(allergy_causes_to_create)
-                allergy_causes_to_create = list()
-            if len(allergy_causes_to_update) == batch_size:
-                AllergyCause.objects.bulk_update(allergy_causes_to_update, fields=fields)
-                allergy_causes_to_update = list()
+            if len(allergy_types_to_create) == batch_size:
+                AllergyType.objects.bulk_create(allergy_types_to_create)
+                allergy_types_to_create = list()
+            if len(allergy_types_to_update) == batch_size:
+                AllergyType.objects.bulk_update(allergy_types_to_update, fields=fields)
+                allergy_types_to_update = list()
 
-        if allergy_causes_to_create:
-            AllergyCause.objects.bulk_create(allergy_causes_to_create)
-        if allergy_causes_to_update:
-            AllergyCause.objects.bulk_update(allergy_causes_to_update, fields=fields)
+        if allergy_types_to_create:
+            AllergyType.objects.bulk_create(allergy_types_to_create)
+        if allergy_types_to_update:
+            AllergyType.objects.bulk_update(allergy_types_to_update, fields=fields)
 
-        self.stdout.write(self.style.SUCCESS(f'Successfully created {created_count} allergy causes'))
-        self.stdout.write(self.style.SUCCESS(f'Successfully updated {updated_count} allergy causes'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully created {created_count} allergy types'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully updated {updated_count} allergy types'))

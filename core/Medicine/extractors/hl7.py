@@ -7,10 +7,11 @@ class FHIRPageExtractorException(Exception):
 
 
 class FHIRPageExtractor(object):
-    def __init__(self, url: str = None):
-        self.url = url or 'https://hl7.org/fhir/valueset-allergyintolerance-code.html'
+    def __init__(self, url: str):
+        self.url = url
         self.content: str = ''
         self.data: list[dict] = list()
+        self.headers: list[str] = list()
 
     def get_content(self):
         try:
@@ -28,14 +29,18 @@ class FHIRPageExtractor(object):
         if not table:
             return []
 
-        rows = table.find_all('tr')[1:]
+        header_cells = table.find('tr').find_all(['td', 'th'])
+        self.headers = [cell.get_text(strip=True).lower() for cell in header_cells]
 
-        for row in rows:
+        for row in table.find_all('tr')[1:]:
             cols = row.find_all('td')
-            if len(cols) < 3:
+            if len(cols) != len(self.headers):
                 continue
-            code = cols[0].get_text(strip=True).split()[0]
-            name = cols[2].get_text(strip=True)
-            self.data.append({'name': name, 'code': code})
+
+            item = {}
+            for h, col in zip(self.headers, cols):
+                text = col.get_text(strip=True)
+                item[h] = text
+            self.data.append(item)
 
         return self.data
