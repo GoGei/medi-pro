@@ -14,7 +14,7 @@ class AllergyType(IsActiveMixin):
 
     @property
     def label(self):
-        return self.name
+        return self.code
 
 
 class AllergyCause(IsActiveMixin):
@@ -28,7 +28,7 @@ class AllergyCause(IsActiveMixin):
 
     @property
     def label(self):
-        return self.name
+        return self.code
 
 
 class AllergyReaction(IsActiveMixin):
@@ -42,7 +42,7 @@ class AllergyReaction(IsActiveMixin):
 
     @property
     def label(self):
-        return self.name
+        return self.code
 
 
 class ICD10(IsActiveMixin):
@@ -56,7 +56,7 @@ class ICD10(IsActiveMixin):
 
     @property
     def label(self):
-        return self.name
+        return self.code
 
 
 class PatientRelation(IsActiveMixin):
