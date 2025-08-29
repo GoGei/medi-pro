@@ -8,3 +8,4 @@ class MedicineHandbookSources(TextChoices):
 
     # https://www.cms.gov/medicare/coordination-benefits-recovery/overview/icd-code-lists
     CMS_GOV = 'cms.gov', _('CMS.gov')
+    HL7 = 'hl7', _('HL7')
