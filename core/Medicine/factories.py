@@ -17,8 +17,8 @@ class AllergyTypeFactory(DjangoModelFactory):
 
 
 class AllergyCauseFactory(DjangoModelFactory):
-    name = fuzzy.FuzzyText(length=64)
-    code = fuzzy.FuzzyText(length=8)
+    name = fuzzy.FuzzyText(length=128)
+    code = fuzzy.FuzzyText(length=16)
     source = fuzzy.FuzzyChoice(choices=dict(MedicineHandbookSources.choices).keys())
 
     class Meta:
