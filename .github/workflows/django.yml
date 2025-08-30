@@ -26,7 +26,8 @@ jobs:
         run: uv pip install --system -r requirements.lock
       - name: Run code check
         run: |
-          uv run fab check
+          python manage.py check --settings=test_settings
+          flake8
       - name: Run Tests
         run: |
           uv run python manage.py test --settings=test_settings
