@@ -23,11 +23,6 @@ jobs:
           POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
         ports:
           - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U ${{ secrets.DATABASE_USER }} -d ${{ secrets.DATABASE_NAME }}"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
 
     env:
       SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
@@ -41,18 +36,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install uv
-        run: pip install uv
-      - name: Install Dependencies
-        run: uv pip install --system -r requirements.lock
+
+      - name: Install env
+        run: |
+          pip install uv
+          uv pip install --system -r requirements.lock
+
+      - name: Wait for DB
+        run: |
+          for i in {1..10}; do
+            pg_isready -h $DATABASE_HOST -p $DATABASE_PORT -U $DATABASE_USER && break
+            sleep 3
+          done
+
       - name: Run code check
         run: |
           python manage.py check
           flake8
+
+      - name: Run migrations
+        run: uv run python manage.py migrate --noinput
+
       - name: Run Tests
-        run: |
-          uv run python manage.py test
+        run: uv run python manage.py test
