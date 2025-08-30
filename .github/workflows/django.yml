@@ -47,20 +47,25 @@ jobs:
           pip install uv
           uv pip install --system -r requirements.lock
 
-      - name: Wait for DB
-        run: |
-          for i in {1..10}; do
-            pg_isready -h $DATABASE_HOST -p $DATABASE_PORT -U $DATABASE_USER && break
-            sleep 3
-          done
-
       - name: Run code check
         run: |
           python manage.py check
           flake8
 
-      - name: Run migrations
-        run: uv run python manage.py migrate --noinput
+      - name: Wait for DB
+        run: |
+          for i in {1..10}; do
+            echo "Checking postgres:$DATABASE_PORT (try $i)..."
+            if pg_isready -h $DATABASE_HOST -p $DATABASE_PORT -U $DATABASE_USER; then
+              echo "Postgres is ready!"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "Postgres did not become ready in time" >&2
+          exit 1
 
       - name: Run Tests
-        run: uv run python manage.py test
+        run: |
+          uv run python manage.py migrate --noinput
+          uv run python manage.py test
