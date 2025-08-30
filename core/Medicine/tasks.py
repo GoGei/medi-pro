@@ -19,3 +19,12 @@ def extract_allergy_types():
         return True
     except Exception:
         return False
+
+
+@app.task(ignore_result=True)
+def extract_allergy_reaction():
+    try:
+        call_command('extract_allergy_reaction')
+        return True
+    except Exception:
+        return False
