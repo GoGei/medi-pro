@@ -1,7 +1,6 @@
 import django_tables2 as tables
 
 from Admin.utils.tables import fields as custom_fields
-from django.utils.translation import gettext_lazy as _
 from core.User.models import User
 
 
