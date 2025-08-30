@@ -14,21 +14,6 @@ jobs:
       matrix:
         python-version: [ 3.11 ]
 
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd="pg_isready -U ${{ secrets.DATABASE_USER }} -d ${{ secrets.DATABASE_NAME }}"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     env:
       SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
       DJANGO_SETTINGS_MODULE: test_settings
