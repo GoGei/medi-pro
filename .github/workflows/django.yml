@@ -14,6 +14,10 @@ jobs:
       matrix:
         python-version: [ 3.11 ]
 
+    env:
+      SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
+      DJANGO_SETTINGS_MODULE: test_settings
+
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python ${{ matrix.python-version }}
@@ -26,8 +30,8 @@ jobs:
         run: uv pip install --system -r requirements.lock
       - name: Run code check
         run: |
-          python manage.py check --settings=test_settings
+          python manage.py check
           flake8
       - name: Run Tests
         run: |
-          uv run python manage.py test --settings=test_settings
+          uv run python manage.py test
