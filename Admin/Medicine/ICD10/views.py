@@ -43,7 +43,7 @@ def icd10_view(request, icd10_id):
 def icd10_export(request, mode: str):
     exporter = QuerysetExporter(mode=mode,
                                 queryset=ICD10.objects.all().order_by('name'),
-                                fields=('name', 'code', 'source'))
+                                fields=('name', 'code', 'source', 'is_active'))
     content = exporter.get_content()
     response = HttpResponse(content, content_type=exporter.get_content_type())
     filename = f'{settings.APP_NAME} allergy type {timezone.now()}.{exporter.get_extension()}'
