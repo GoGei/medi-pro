@@ -1,0 +1,79 @@
+{% extends 'Admin/Medicine/base.html' %}
+{% load i18n hosts %}
+
+{% block menu-medicine-home-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'medicine:home' host 'admin' %}">{% trans 'Medicine home page' %}</a>
+  </li>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-3">
+      <div class="widget style1">
+        <div class="row">
+          <div class="col-4 text-center">
+            <a href="https://hl7.org/fhir/valueset-allergy-intolerance-category.html"
+               target="_blank">
+              <i class="fa fa-link fa-5x"></i>
+            </a>
+          </div>
+          <div class="col-8 text-right">
+            <a href="{% host_url 'medicine:allergy-types-list' host 'admin' %}"><span> {% trans 'Allergy type' %} </span></a>
+            <h2 class="font-bold">{{ allergy_type_count }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="widget style1">
+        <div class="row">
+          <div class="col-4">
+            <a href="https://hl7.org/fhir/valueset-allergyintolerance-code.html"
+               target="_blank">
+              <i class="fa fa-link fa-5x"></i>
+            </a>
+          </div>
+          <div class="col-8 text-right">
+            <a href="{% host_url 'medicine:allergy-causes-list' host 'admin' %}"><span> {% trans 'Allergy cause' %} </span></a>
+            <h2 class="font-bold">{{ allergy_cause_count }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="widget style1">
+        <div class="row">
+          <div class="col-4">
+            <a href="https://build.fhir.org/ig/hl7ch/ch-term/ValueSet-CHAllergyIntoleranceReactionManifestationValueSet.html"
+               target="_blank">
+              <i class="fa fa-link fa-5x"></i>
+            </a>
+          </div>
+          <div class="col-8 text-right">
+            <a href="{% host_url 'medicine:allergy-reactions-list' host 'admin' %}"><span> {% trans 'Allergy reaction' %} </span></a>
+            <h2 class="font-bold">{{ allergy_reaction_count }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="widget style1">
+        <div class="row">
+          <div class="col-4">
+            <a href="https://www.cms.gov/medicare/coordination-benefits-recovery/overview/icd-code-lists"
+               target="_blank">
+              <i class="fa fa-link fa-5x"></i>
+            </a>
+          </div>
+          <div class="col-8 text-right">
+            <a href="{% host_url 'medicine:icd10-list' host 'admin' %}"><span> {% trans 'ICD-10' %} </span></a>
+            <h2 class="font-bold">{{ icd_10_count }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

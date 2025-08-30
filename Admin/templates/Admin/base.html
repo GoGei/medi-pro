@@ -79,6 +79,9 @@
           </a>
           <ul class="nav nav-second-level collapse {% block menu-medicine-collapse %}{% endblock %}"
               aria-expanded="false">
+            <li class="{% block menu-medicine-home-active %}{% endblock %}">
+              <a href="{% host_url 'medicine:home' host 'admin' %}">{% trans 'Medicine home page' %}</a>
+            </li>
             <li class="{% block menu-medicine-allergy-types-active %}{% endblock %}">
               <a href="{% host_url 'medicine:allergy-types-list' host 'admin' %}">{% trans 'Allergy types' %}</a>
             </li>
