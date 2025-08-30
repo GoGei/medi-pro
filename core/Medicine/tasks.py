@@ -28,3 +28,12 @@ def extract_allergy_reaction():
         return True
     except Exception:
         return False
+
+
+@app.task(ignore_result=True)
+def load_icd10():
+    try:
+        call_command('load_icd10')
+        return True
+    except Exception:
+        return False
