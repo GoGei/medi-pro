@@ -10,7 +10,11 @@
              href="{% host_url 'medicine:allergy-reactions-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
       </li>
       <li><a class="dropdown-item"
-             href="{% host_url 'medicine:allergy-reactions-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a></li>
+             href="{% host_url 'medicine:allergy-reactions-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+      </li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'medicine:allergy-reactions-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+      </li>
     </ul>
   </div>
 {% endblock %}

@@ -1,3 +1,5 @@
+import string
+
 from factory import fuzzy
 from factory.django import DjangoModelFactory
 from .enums import MedicineHandbookSources
@@ -7,8 +9,8 @@ from .models import (
 
 
 class AllergyTypeFactory(DjangoModelFactory):
-    name = fuzzy.FuzzyText(length=64)
-    code = fuzzy.FuzzyText(length=8)
+    name = fuzzy.FuzzyText(length=255)
+    code = fuzzy.FuzzyText(length=16)
     source = fuzzy.FuzzyChoice(choices=dict(MedicineHandbookSources.choices).keys())
 
     class Meta:
@@ -18,7 +20,7 @@ class AllergyTypeFactory(DjangoModelFactory):
 
 class AllergyCauseFactory(DjangoModelFactory):
     name = fuzzy.FuzzyText(length=128)
-    code = fuzzy.FuzzyText(length=16)
+    code = fuzzy.FuzzyText(length=16, chars=string.digits)
     source = fuzzy.FuzzyChoice(choices=dict(MedicineHandbookSources.choices).keys())
 
     class Meta:
@@ -27,8 +29,8 @@ class AllergyCauseFactory(DjangoModelFactory):
 
 
 class AllergyReactionFactory(DjangoModelFactory):
-    name = fuzzy.FuzzyText(length=64)
-    code = fuzzy.FuzzyText(length=8)
+    name = fuzzy.FuzzyText(length=512)
+    code = fuzzy.FuzzyText(length=16, chars=string.digits)
     source = fuzzy.FuzzyChoice(choices=dict(MedicineHandbookSources.choices).keys())
 
     class Meta:
@@ -37,8 +39,8 @@ class AllergyReactionFactory(DjangoModelFactory):
 
 
 class ICD10Factory(DjangoModelFactory):
-    name = fuzzy.FuzzyText(length=64)
-    code = fuzzy.FuzzyText(length=8)
+    name = fuzzy.FuzzyText(length=255)
+    code = fuzzy.FuzzyText(length=16)
     source = fuzzy.FuzzyChoice(choices=dict(MedicineHandbookSources.choices).keys())
 
     class Meta:

@@ -46,8 +46,8 @@ class AllergyReaction(IsActiveMixin):
 
 
 class ICD10(IsActiveMixin):
-    name = models.CharField(max_length=64)
-    code = models.CharField(max_length=8, db_index=True, unique=True)
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=16, db_index=True, unique=True)
     source = models.CharField(max_length=64, choices=MedicineHandbookSources.choices,
                               default=MedicineHandbookSources.MANUALLY_CREATED)
 

@@ -10,10 +10,11 @@ class ExportModes(object):
 
 
 class BaseExport(ABC):
-    def __init__(self, queryset, fields: tuple, obj_to_dict_func: callable = None):
+    def __init__(self, queryset, fields: tuple, obj_to_dict_func: callable = None, delimiter: str = ';'):
         self.queryset = queryset
         self.fields = fields
         self.obj_to_dict_func = obj_to_dict_func
+        self.delimiter = delimiter
 
     def prepare_data(self) -> list[dict]:
         return [self.obj_to_dict(item) for item in self.queryset]
@@ -36,7 +37,7 @@ class JSONExport(BaseExport):
 class CSVExport(BaseExport):
     def export(self) -> str:
         buffer = io.StringIO()
-        writer = csv.DictWriter(buffer, fieldnames=self.fields)
+        writer = csv.DictWriter(buffer, fieldnames=self.fields, delimiter=self.delimiter, quoting=csv.QUOTE_MINIMAL)
         writer.writeheader()
         for row in self.prepare_data():
             writer.writerow(row)
