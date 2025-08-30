@@ -8,7 +8,7 @@ from core.Medicine.models import AllergyReaction
 
 class Command(BaseCommand):
     help = 'Load allergy reactions (Allergy intolerance reaction) from HL7 FHIR'
-    default_url = 'https://build.fhir.org/ig/hl7ch/ch-term/ValueSet-CHAllergyIntoleranceReactionManifestationValueSet.html'
+    default_url = 'https://build.fhir.org/ig/hl7ch/ch-term/ValueSet-CHAllergyIntoleranceReactionManifestationValueSet.html'  # noqa
 
     def add_arguments(self, parser):
         parser.add_argument(

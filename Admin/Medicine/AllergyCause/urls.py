@@ -7,6 +7,7 @@ urlpatterns = [
     path('<int:allergy_cause_id>/view/', views.allergy_cause_view, name='allergy-causes-view'),
 
     path('sync/', views.allergy_cause_sync, name='allergy-causes-sync'),
-    path('export/json/', views.allergy_cause_export, name='allergy-causes-export-json', kwargs={'mode': ExportModes.JSON}),
+    path('export/json/', views.allergy_cause_export, name='allergy-causes-export-json',
+         kwargs={'mode': ExportModes.JSON}),
     path('export/csv/', views.allergy_cause_export, name='allergy-causes-export-csv', kwargs={'mode': ExportModes.CSV}),
 ]
