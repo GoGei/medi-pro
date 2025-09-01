@@ -1,0 +1,18 @@
+{% extends 'Admin/ClinicSettings/EmployeeColors/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Edit' %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'clinic-settings:employee-color-view' color.id host 'admin' %}">{{ color.label|truncatechars:20 }}</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'clinic-settings:employee-color-edit' color.id host 'admin' %}">{% trans 'Edit' %}</a>
+  </li>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/forms/form.html' %}
+{% endblock %}

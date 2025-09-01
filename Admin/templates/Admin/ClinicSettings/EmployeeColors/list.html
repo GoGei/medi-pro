@@ -1,0 +1,27 @@
+{% extends 'Admin/ClinicSettings/EmployeeColors/base.html' %}
+{% load i18n hosts %}
+
+{% block action-area %}
+  <a href="{% host_url 'clinic-settings:employee-color-add' host 'admin' %}" class="btn btn-primary dim"
+     type="button"><i class="fa fa-plus"></i></a>
+  <div class="btn-group">
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+            aria-expanded="false">{% trans 'Action' %}</button>
+    <ul class="dropdown-menu" x-placement="bottom-start">
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:employee-color-import' host 'admin' %}">{% trans 'Import' %}</a></li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:employee-color-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+      </li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:employee-color-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+      </li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:employee-color-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/tables/table.html' %}
+{% endblock %}

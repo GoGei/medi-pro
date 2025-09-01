@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Tomato",
+    "sideline": "#D50000",
+    "background": "#F28B82",
+    "is_default": true
+  },
+  {
+    "name": "Tangerine",
+    "sideline": "#E67C00",
+    "background": "#FBBC04",
+    "is_default": false
+  },
+  {
+    "name": "Banana",
+    "sideline": "#F9AB00",
+    "background": "#FFF475",
+    "is_default": false
+  },
+  {
+    "name": "Basil",
+    "sideline": "#188038",
+    "background": "#CCFF90",
+    "is_default": false
+  },
+  {
+    "name": "Sage",
+    "sideline": "#0B8043",
+    "background": "#A7FFEB",
+    "is_default": false
+  },
+  {
+    "name": "Peacock",
+    "sideline": "#039BE5",
+    "background": "#CBF0F8",
+    "is_default": false
+  },
+  {
+    "name": "Blueberry",
+    "sideline": "#3F51B5",
+    "background": "#AECBFA",
+    "is_default": false
+  },
+  {
+    "name": "Lavender",
+    "sideline": "#8E24AA",
+    "background": "#D7AEFB",
+    "is_default": false
+  },
+  {
+    "name": "Grape",
+    "sideline": "#9C27B0",
+    "background": "#FDCFE8",
+    "is_default": false
+  },
+  {
+    "name": "Flamingo",
+    "sideline": "#C2185B",
+    "background": "#F48FB1",
+    "is_default": false
+  },
+  {
+    "name": "Graphite",
+    "sideline": "#616161",
+    "background": "#E0E0E0",
+    "is_default": false
+  },
+  {
+    "name": "Pumpkin",
+    "sideline": "#E65100",
+    "background": "#FFD180",
+    "is_default": false
+  },
+  {
+    "name": "Cobalt",
+    "sideline": "#1A73E8",
+    "background": "#D2E3FC",
+    "is_default": false
+  },
+  {
+    "name": "Moss",
+    "sideline": "#2E7D32",
+    "background": "#E6EE9C",
+    "is_default": false
+  },
+  {
+    "name": "Mint",
+    "sideline": "#00ACC1",
+    "background": "#B2EBF2",
+    "is_default": false
+  },
+  {
+    "name": "Steel",
+    "sideline": "#546E7A",
+    "background": "#CFD8DC",
+    "is_default": false
+  }
+]

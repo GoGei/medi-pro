@@ -1,0 +1,72 @@
+{% extends 'Admin/ClinicSettings/EmployeeColors/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'View' %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'clinic-settings:employee-color-view' color.id host 'admin' %}">{{ color.label|truncatechars:20 }}</a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  <a href="{% host_url 'clinic-settings:employee-color-list' host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
+  <a href="{% host_url 'clinic-settings:employee-color-edit' color.id host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Edit' %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>{{ color.label }}</h5>
+      <div class="ibox-tools">
+        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+      </div>
+    </div>
+    <div class="ibox-content">
+      <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+          <th>{% trans 'ID' %}</th>
+          <td>{{ color.id }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Name' %}</th>
+          <td>{{ color.name }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Sideline' %}</th>
+          <td><span class="badge" style="color: {{ color.sideline }}">{{ color.sideline }}</span></td>
+        </tr>
+        <tr>
+          <th>{% trans 'Background' %}</th>
+          <td><span class="badge" style="color: {{ color.background }}">{{ color.background }}</span></td>
+        </tr>
+        <tr>
+          <th>{% trans 'Is default' %}</th>
+          <td>
+            {% if color.is_default %}
+              <span class="label label-primary">{% trans 'Default' %}</span>
+            {% else %}
+              <span class="label label-danger">{% trans 'Not Default' %}</span>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>{% trans 'Active' %}</th>
+          <td>
+            {% if color.is_active %}
+              <span class="label label-primary">{% trans 'Active' %}</span>
+            {% else %}
+              <span class="label label-danger">{% trans 'Inactive' %}</span>
+            {% endif %}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+{% endblock %}

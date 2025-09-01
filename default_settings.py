@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'core.Timezones',
     'core.Country',
     'core.Medicine',
+    'core.Colors',
 ]
 
 MIDDLEWARE = [
