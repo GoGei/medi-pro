@@ -1,0 +1,11 @@
+{% extends 'Admin/ClinicSettings/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Employee colors' %}{% endblock %}
+{% block menu-clinic-settings-employee-colors-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'clinic-settings:employee-color-list' host 'admin' %}">{% trans 'Employee colors' %}</a>
+  </li>
+{% endblock %}

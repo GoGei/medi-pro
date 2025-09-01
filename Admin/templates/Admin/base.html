@@ -72,6 +72,19 @@
           </ul>
         </li>
 
+        <li class="{% block menu-clinic-settings-active %}{% endblock %}">
+          <a href="" aria-expanded="false">
+            <i class="fa fa-gear"></i> <span class="nav-label">{% trans 'Clinic settings' %}</span> <span
+              class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse {% block menu-clinic-settings-collapse %}{% endblock %}"
+              aria-expanded="false">
+            <li class="{% block menu-clinic-settings-employee-colors-active %}{% endblock %}">
+              <a href="{% host_url 'clinic-settings:employee-color-list' host 'admin' %}">{% trans 'Employee colors' %}</a>
+            </li>
+          </ul>
+        </li>
+
         <li class="{% block menu-medicine-active %}{% endblock %}">
           <a href="" aria-expanded="false">
             <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Medicine' %}</span> <span

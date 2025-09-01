@@ -7,6 +7,7 @@ urlpatterns = [
     path('users/', include('Admin.Users.urls')),
     path('handbooks/', include('Admin.Handbooks.urls', namespace='handbooks')),
     path('medicine/', include('Admin.Medicine.urls', namespace='medicine')),
+    path('clinic-settings/', include('Admin.ClinicSettings.urls', namespace='clinic-settings')),
     path('', include('urls')),
 ]
 

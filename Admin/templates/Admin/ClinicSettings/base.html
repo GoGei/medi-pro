@@ -1,0 +1,12 @@
+{% extends 'Admin/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Clinic settings' %}{% endblock %}
+{% block menu-clinic-settings-active %}active{% endblock %}
+{% block menu-clinic-settings-collapse %}in{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="#">{% trans 'Clinic settings' %}</a>
+  </li>
+{% endblock %}
