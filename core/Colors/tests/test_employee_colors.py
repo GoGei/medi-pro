@@ -2,9 +2,7 @@ from django.test import TestCase
 
 from ..models import EmployeeColors
 from ..factories import EmployeeColorsFactory, DefaultEmployeeColorsFactory
-
-
-# from ..services import import_countries_from_fixture
+from ..services import import_colors_from_fixture
 
 
 class EmployeeColorsTestCase(TestCase):
@@ -34,8 +32,8 @@ class EmployeeColorsTestCase(TestCase):
             EmployeeColors.get_default()
         self.assertTrue(e.exception)
 
-    # def test_import_countries_from_fixture(self):
-    #     c1 = EmployeeColors.objects.count()
-    #     import_countries_from_fixture()
-    #     c2 = EmployeeColors.objects.count()
-    #     self.assertTrue(c2 > c1)
+    def test_import_colors_from_fixture(self):
+        c1 = EmployeeColors.objects.count()
+        import_colors_from_fixture()
+        c2 = EmployeeColors.objects.count()
+        self.assertTrue(c2 > c1)
