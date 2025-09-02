@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -86,16 +86,21 @@ def color_edit(request, color_id):
 def color_archive(request, color_id):
     color: EmployeeColors = get_object_or_404(EmployeeColors, pk=color_id)
     color.archive(request.user)
-    messages.success(request, _('Employee colors successfully archived!'))
-    return redirect(reverse('clinic-settings:employee-color-list', host='admin'))
+    return JsonResponse({'success': True, 'is_active': color.is_active})
 
 
 @login_required
 def color_restore(request, color_id):
     color: EmployeeColors = get_object_or_404(EmployeeColors, pk=color_id)
     color.restore(request.user)
-    messages.success(request, _('Employee colors successfully restored!'))
-    return redirect(reverse('clinic-settings:employee-color-list', host='admin'))
+    return JsonResponse({'success': True, 'is_active': color.is_active})
+
+
+@login_required
+def color_set_default(request, color_id):
+    color: EmployeeColors = get_object_or_404(EmployeeColors, pk=color_id)
+    color = EmployeeColors.set_default(color)
+    return JsonResponse({'success': True, 'is_default': color.is_default})
 
 
 @login_required

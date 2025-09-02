@@ -1,5 +1,5 @@
 {% extends 'Admin/ClinicSettings/EmployeeColors/base.html' %}
-{% load i18n hosts %}
+{% load i18n hosts static %}
 
 {% block title %}{{ block.super }} | {% trans 'View' %}{% endblock %}
 
@@ -15,6 +15,8 @@
      class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
   <a href="{% host_url 'clinic-settings:employee-color-edit' color.id host 'admin' %}" type="button"
      class="btn btn-w-m btn-info">{% trans 'Edit' %}</a>
+  <a href="{% host_url 'clinic-settings:employee-color-set-default' color.id host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info set-default-view">{% trans 'Set default' %}</a>
 {% endblock %}
 
 {% block content %}
@@ -38,15 +40,20 @@
         </tr>
         <tr>
           <th>{% trans 'Sideline' %}</th>
-          <td><span class="badge" style="color: {{ color.sideline }}">{{ color.sideline }}</span></td>
+          <td>
+            <span class="label" style="background-color: {{ color.sideline }}; color: #fff;">{{ color.sideline }}</span>
+          </td>
         </tr>
         <tr>
           <th>{% trans 'Background' %}</th>
-          <td><span class="badge" style="color: {{ color.background }}">{{ color.background }}</span></td>
+          <td>
+            <span class="label"
+                  style="background-color: {{ color.background }}; color: #fff;">{{ color.background }}</span>
+          </td>
         </tr>
         <tr>
           <th>{% trans 'Is default' %}</th>
-          <td>
+          <td id="is-default">
             {% if color.is_default %}
               <span class="label label-primary">{% trans 'Default' %}</span>
             {% else %}
@@ -68,5 +75,8 @@
       </table>
     </div>
   </div>
+{% endblock %}
 
+{% block extrajs %}
+  <script src="{% static 'admin/ClinicSettings/EmployeeColors/set-default-view.js' %}"></script>
 {% endblock %}
