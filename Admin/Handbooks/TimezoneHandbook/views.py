@@ -49,7 +49,7 @@ def timezone_edit(request, timezone_id):
     form_body = TimezoneHandbookEditForm(request.POST or None, request.FILES or None, request=request,
                                          instance=timezone)
     if form_body.is_valid():
-        timezone = form_body.save_on_edit()
+        timezone = form_body.save()
         return redirect(reverse('handbooks:timezones-view', args=[timezone.id], host='admin'))
 
     form = {

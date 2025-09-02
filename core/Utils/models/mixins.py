@@ -57,23 +57,26 @@ class IsActiveMixin(models.Model):
     def is_active(self) -> bool:
         return self.archived_stamp is None
 
-    def modify(self, user):
+    def modify(self, user, commit=True):
         self.updated_by = user
         self.updated_stamp = timezone.now()
-        self.save(update_fields=['updated_by', 'updated_stamp'])
+        if commit:
+            self.save(update_fields=['updated_by', 'updated_stamp'])
         return self
 
-    def archive(self, user=None):
+    def archive(self, user=None, commit=True):
         self.archived_by = user
         self.archived_stamp = timezone.now()
-        self.save(update_fields=['archived_by', 'archived_stamp'])
+        if commit:
+            self.save(update_fields=['archived_by', 'archived_stamp'])
         return self
 
-    def restore(self, user=None):
+    def restore(self, user=None, commit=True):
         self.archived_by = None
         self.archived_stamp = None
-        self.save(update_fields=['archived_by', 'archived_stamp'])
-        self.modify(user)
+        if commit:
+            self.save(update_fields=['archived_by', 'archived_stamp'])
+        self.modify(user=user, commit=commit)
         return self
 
 
