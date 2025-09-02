@@ -16,10 +16,13 @@ class EmployeeColorsForm(BaseModelForm):
         model = EmployeeColors
         fields = ('name', 'sideline', 'background')
 
-    def save_on_create(self, commit=True):
+    def save(self, commit=True):
+        instance = super().save(commit=False)
         if not EmployeeColors.get_default():
-            self.cleaned_data['is_default'] = True
-        return super().save_on_create(commit=commit)
+            instance.is_default = True
+        if commit:
+            instance.save()
+        return instance
 
 
 class EmployeeColorsImportForm(forms.Form):
