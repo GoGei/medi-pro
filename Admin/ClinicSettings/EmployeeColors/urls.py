@@ -9,6 +9,7 @@ urlpatterns = [
     path('<int:color_id>/edit/', views.color_edit, name='employee-color-edit'),
     path('<int:color_id>/archive/', views.color_archive, name='employee-color-archive'),
     path('<int:color_id>/restore/', views.color_restore, name='employee-color-restore'),
+    path('<int:color_id>/set-default/', views.color_set_default, name='employee-color-set-default'),
 
     path('import/', views.color_import, name='employee-color-import'),
     path('export/json/', views.color_export, name='employee-color-export-json', kwargs={'mode': ExportModes.JSON}),

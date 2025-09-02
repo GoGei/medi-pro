@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -66,16 +66,14 @@ def country_edit(request, country_id):
 def country_archive(request, country_id):
     country: Country = get_object_or_404(Country, pk=country_id)
     country.archive(request.user)
-    messages.success(request, _('Country successfully archived!'))
-    return redirect(reverse('handbooks:country-list', host='admin'))
+    return JsonResponse({'success': True, 'is_active': country.is_active})
 
 
 @login_required
 def country_restore(request, country_id):
     country: Country = get_object_or_404(Country, pk=country_id)
     country.restore(request.user)
-    messages.success(request, _('Country successfully restored!'))
-    return redirect(reverse('handbooks:country-list', host='admin'))
+    return JsonResponse({'success': True, 'is_active': country.is_active})
 
 
 @login_required

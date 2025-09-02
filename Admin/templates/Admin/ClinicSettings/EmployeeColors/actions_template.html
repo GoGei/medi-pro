@@ -1,0 +1,14 @@
+{% load i18n hosts %}
+
+{% include 'Admin/base/tables/columns/actions_template.html' %}
+
+<a href="{% host_url 'clinic-settings:employee-color-set-default' record.id host 'admin' %}"
+   class="btn btn-default set-default-list"
+   type="button"
+   data-title="{% trans 'Set as default?' %}"
+   data-text="{% trans 'This object will be set as default' %}"
+   data-complete="{% trans 'Done!' %}"
+   data-complete_text="{% trans 'Set as default successfully' %}"
+>
+  <i class="fa fa-star"></i>
+</a>
