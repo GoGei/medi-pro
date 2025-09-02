@@ -1,0 +1,25 @@
+{% extends 'Admin/Handbooks/Currency/base.html' %}
+{% load i18n hosts %}
+
+{% block action-area %}
+  <a href="{% host_url 'handbooks:currency-add' host 'admin' %}" class="btn btn-primary dim"
+     type="button"><i class="fa fa-plus"></i></a>
+  <div class="btn-group">
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+            aria-expanded="false">{% trans 'Action' %}</button>
+    <ul class="dropdown-menu" x-placement="bottom-start">
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:currency-import' host 'admin' %}">{% trans 'Import' %}</a></li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:currency-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a></li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'handbooks:currency-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a></li>
+      <li><a class="dropdown-item" href="{% host_url 'handbooks:currency-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/tables/table.html' %}
+{% endblock %}

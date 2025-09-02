@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'core.Country',
     'core.Medicine',
     'core.Colors',
+    'core.Currency',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,11 @@
+{% extends 'Admin/Handbooks/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Currencies' %}{% endblock %}
+{% block menu-handbooks-currency-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'handbooks:currency-list' host 'admin' %}">{% trans 'Currencies' %}</a>
+  </li>
+{% endblock %}
