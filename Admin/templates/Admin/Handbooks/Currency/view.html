@@ -1,0 +1,61 @@
+{% extends 'Admin/Handbooks/Currency/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'View' %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'handbooks:currency-view' currency.id host 'admin' %}">{{ currency.label|truncatechars:20 }}</a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  <a href="{% host_url 'handbooks:currency-list' host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
+  <a href="{% host_url 'handbooks:currency-edit' currency.id host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Edit' %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>{{ currency.label }}</h5>
+      <div class="ibox-tools">
+        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+      </div>
+    </div>
+    <div class="ibox-content">
+      <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+          <th>{% trans 'ID' %}</th>
+          <td>{{ currency.id }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Name' %}</th>
+          <td>{{ currency.name }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Code' %}</th>
+          <td>{{ currency.code }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Symbol' %}</th>
+          <td>{{ currency.symbol }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Active' %}</th>
+          <td>
+            {% if currency.is_active %}
+              <span class="label label-primary">{% trans 'Active' %}</span>
+            {% else %}
+              <span class="label label-danger">{% trans 'Inactive' %}</span>
+            {% endif %}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

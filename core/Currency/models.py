@@ -5,7 +5,7 @@ from core.Utils.models.mixins import IsActiveMixin
 
 class Currency(IsActiveMixin):
     name = models.CharField(max_length=64)
-    code = models.CharField(max_length=3)
+    code = models.CharField(max_length=3, unique=True)
     symbol = models.CharField(max_length=8)
 
     class Meta:
