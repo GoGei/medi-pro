@@ -134,7 +134,7 @@ def setting_import(request):
 
 @login_required
 def setting_export(request, mode: str):
-    obj_to_dict_func = lambda item: {
+    obj_to_dict_func = lambda item: {  # noqa E731
         'country_name': item.country.name,
         'country_ccn3': item.country.ccn3,
         'timezone_name': item.primary_timezone.name,
