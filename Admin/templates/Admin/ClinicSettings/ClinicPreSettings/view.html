@@ -1,0 +1,107 @@
+{% extends 'Admin/ClinicSettings/ClinicPreSettings/base.html' %}
+{% load i18n hosts static %}
+
+{% block title %}{{ block.super }} | {% trans 'View' %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'clinic-settings:clinic-pre-settings-view' setting.id host 'admin' %}">{{ setting.label|truncatechars:20 }}</a>
+  </li>
+{% endblock %}
+
+{% block action-area %}
+  <a href="{% host_url 'clinic-settings:clinic-pre-settings-list' host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
+  <a href="{% host_url 'clinic-settings:clinic-pre-settings-edit' setting.id host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Edit' %}</a>
+{% endblock %}
+
+{% block content %}
+  <div class="ibox">
+    <div class="ibox-title">
+      <h5>{{ setting.label }}</h5>
+      <div class="ibox-tools">
+        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+      </div>
+    </div>
+    <div class="ibox-content">
+      <table class="table table-striped table-bordered">
+        <tbody>
+        <tr>
+          <th>{% trans 'ID' %}</th>
+          <td>{{ setting.id }}</td>
+        </tr>
+        <tr>
+          <th>{% trans 'Country' %}</th>
+          <td>
+            <a href="{% host_url 'handbooks:country-view' setting.country_id host 'admin' %}" target="_blank">{{ setting.country.label }}</a>
+          </td>
+        </tr>
+        <tr>
+          <th>{% trans 'Timezones' %}</th>
+          <td>
+            {% with setting.timezones.all as timezones %}
+              {% if timezones %}
+                <ul>
+                  {% for tz in timezones %}
+                    <li>
+                      <a href="{% host_url 'handbooks:timezones-view' tz.id host 'admin' %}"
+                         target="_blank">{{ tz.label }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {% trans 'No timezones' %}
+              {% endif %}
+            {% endwith %}
+          </td>
+        </tr>
+        <tr>
+          <th>{% trans 'Primary timezone' %}</th>
+          <td>
+            <a href="{% host_url 'handbooks:timezones-view' setting.primary_timezone_id host 'admin' %}"
+               target="_blank">{{ setting.primary_timezone.label }}</a>
+          </td>
+        </tr>
+        <tr>
+          <th>{% trans 'Currencies' %}</th>
+          <td>
+            {% with setting.currencies.all as currencies %}
+              {% if currencies %}
+                <ul>
+                  {% for curr in currencies %}
+                    <li>
+                      <a href="{% host_url 'handbooks:currency-view' curr.id host 'admin' %}"
+                         target="_blank">{{ curr.label }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% else %}
+                {% trans 'No currencies' %}
+              {% endif %}
+            {% endwith %}
+          </td>
+        </tr>
+        <tr>
+          <th>{% trans 'Primary currency' %}</th>
+          <td>
+            <a href="{% host_url 'handbooks:currency-view' setting.primary_currency_id host 'admin' %}"
+               target="_blank">{{ setting.primary_currency.label }}</a>
+          </td>
+        </tr>
+        <tr>
+          <th>{% trans 'Active' %}</th>
+          <td>
+            {% if setting.is_active %}
+              <span class="label label-primary">{% trans 'Active' %}</span>
+            {% else %}
+              <span class="label label-danger">{% trans 'Inactive' %}</span>
+            {% endif %}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

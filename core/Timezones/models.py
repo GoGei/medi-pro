@@ -9,3 +9,6 @@ class TimezoneHandbook(IsActiveMixin):
 
     class Meta:
         db_table = 'timezone_handbook'
+
+    def __str__(self):
+        return self.label

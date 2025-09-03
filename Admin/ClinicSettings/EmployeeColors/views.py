@@ -42,8 +42,6 @@ def color_add(request):
     form_body = EmployeeColorsForm(request.POST or None, request.FILES or None, request=request)
     if form_body.is_valid():
         color = form_body.save()
-        print('color.created_by', color.created_by)
-        print('color.updated_by', color.updated_by)
         return redirect(reverse('clinic-settings:employee-color-view', args=[color.id], host='admin'))
 
     form = {
@@ -72,8 +70,6 @@ def color_edit(request, color_id):
                                    instance=color)
     if form_body.is_valid():
         color = form_body.save()
-        print('color.created_by', color.created_by)
-        print('color.updated_by', color.updated_by)
         return redirect(reverse('clinic-settings:employee-color-view', args=[color.id], host='admin'))
 
     form = {
