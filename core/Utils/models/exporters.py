@@ -21,7 +21,7 @@ class BaseExport(ABC):
 
     def obj_to_dict(self, item) -> dict:
         if self.obj_to_dict_func:
-            return self.obj_to_dict_func(item, self.fields)
+            return self.obj_to_dict_func(item)
         return {field: getattr(item, field) for field in self.fields}
 
     @abstractmethod

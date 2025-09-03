@@ -24,7 +24,7 @@ class EmployeeColors(IsActiveMixin):
         except EmployeeColors.DoesNotExist:
             return None
         except EmployeeColors.MultipleObjectsReturned:
-            raise ValueError('System incorrectly configured. Returned multiple`!')
+            raise ValueError('System incorrectly configured. Returned multiple!')
 
     @classmethod
     def set_default(cls, obj: "EmployeeColors") -> "EmployeeColors":

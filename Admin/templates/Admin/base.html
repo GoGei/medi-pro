@@ -85,6 +85,9 @@
             <li class="{% block menu-clinic-settings-employee-colors-active %}{% endblock %}">
               <a href="{% host_url 'clinic-settings:employee-color-list' host 'admin' %}">{% trans 'Employee colors' %}</a>
             </li>
+            <li class="{% block menu-clinic-settings-clinic-pre-settings-active %}{% endblock %}">
+              <a href="{% host_url 'clinic-settings:clinic-pre-settings-list' host 'admin' %}">{% trans 'Clinic pre-settings' %}</a>
+            </li>
           </ul>
         </li>
 

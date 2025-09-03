@@ -10,6 +10,9 @@ class Country(IsActiveMixin):
     class Meta:
         db_table = 'countries'
 
+    def __str__(self):
+        return self.name
+
     @property
     def label(self):
         return self.name

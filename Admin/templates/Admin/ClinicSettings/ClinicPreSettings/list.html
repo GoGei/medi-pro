@@ -1,0 +1,25 @@
+{% extends 'Admin/ClinicSettings/ClinicPreSettings/base.html' %}
+{% load i18n hosts static %}
+
+{% block action-area %}
+  <a href="{% host_url 'clinic-settings:clinic-pre-settings-add' host 'admin' %}" class="btn btn-primary dim"
+     type="button"><i class="fa fa-plus"></i></a>
+  <div class="btn-group">
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle"
+            aria-expanded="false">{% trans 'Action' %}</button>
+    <ul class="dropdown-menu" x-placement="bottom-start">
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:clinic-pre-settings-import' host 'admin' %}">{% trans 'Import' %}</a></li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:clinic-pre-settings-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+      </li>
+      <li><a class="dropdown-item"
+             href="{% host_url 'clinic-settings:clinic-pre-settings-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+      </li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/tables/table.html' %}
+{% endblock %}
