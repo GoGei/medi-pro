@@ -121,7 +121,7 @@ def __country_export(func, mode: str, fields: tuple = tuple()):
 
 @login_required
 def country_export_json(request):
-    country_to_dict = lambda country: {  # E731
+    country_to_dict = lambda country: {  # noqa E731
         "name": {
             "common": country.name,
         },
