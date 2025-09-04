@@ -17,7 +17,7 @@ class LocaColorsException(Exception):
     pass
 
 
-def run_validator(item: dict, raise_exc: bool = True):
+def run_validator(item: dict):
     item['sideline'] = item['sideline'].upper()
     item['background'] = item['background'].upper()
 
@@ -43,7 +43,7 @@ def import_colors_from_fixture(archive_not_mentioned: bool = True, fixture: str 
         data = json.load(open(fixture, 'r'))
 
     for item in data:
-        run_validator(item=item, raise_exc=True)
+        run_validator(item=item)
 
         base_field = item.pop('sideline')
         obj, created = EmployeeColors.objects.update_or_create(

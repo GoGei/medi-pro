@@ -15,7 +15,7 @@ class LoadCountriesException(Exception):
     pass
 
 
-def run_validations(data: list[dict], raise_exc: bool = True):
+def run_validations(data: list[dict]):
     ccn3_list: list[str] = [x['ccn3'] for x in data]
     duplicated = [item for item, count in Counter(ccn3_list).items() if count > 1]
     if duplicated:
@@ -36,7 +36,7 @@ def import_countries_from_fixture(archive_not_mentioned: bool = True, fixture: s
     if not data:
         data = json.load(open(fixture, 'r'))
 
-    run_validations(data=data, raise_exc=True)
+    run_validations(data=data)
 
     for item in data:
         obj, _ = Country.objects.update_or_create(

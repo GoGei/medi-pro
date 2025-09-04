@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -22,7 +23,7 @@ def currency_list(request):
     handler = TableHandler(
         session_key='currency_table',
         request=request,
-        queryset=Currency.objects.all(),
+        queryset=Currency.objects.order_by('code'),
         table_class=CurrencyTable,
         filterset_class=CurrencyFilter,
         search_fields=('name', '^code')
@@ -111,8 +112,8 @@ def currency_import(request):
     form_body = CurrencyImportForm(request.POST or None, request.FILES or None)
     if form_body.is_valid():
         try:
-            form_body.save()
-            messages.success(request, _('Currency load successfully!'))
+            currencies: QuerySet[Currency] = form_body.save()
+            messages.success(request, _('{count} currencies load successfully!').format(count=currencies.count()))
             return redirect(reverse('handbooks:currency-list', host='admin'))
         except Exception as e:
             messages.error(request, _('Unable to load file: %s') % str(e))
@@ -142,8 +143,9 @@ def currency_export(request, mode: str):
 @login_required
 def currency_sync(request):
     try:
-        import_currencies_from_fixture()
-        messages.success(request, _('Currency successfully synchronized with fixture!'))
+        currencies: QuerySet[Currency] = import_currencies_from_fixture()
+        messages.success(request, _('{count} currencies successfully synchronized with fixture!').format(
+            count=currencies.count()))
     except Exception as e:
         messages.error(request, _('Currency not synchronized with fixture! Exception raised: %s') % e)
     return redirect(reverse('handbooks:currency-list', host='admin'))
