@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -11,7 +12,7 @@ from Admin.utils.tables.handler import TableHandler
 from core.ClinicPreSettings.models import ClinicPreSettings
 from core.Country.models import Country
 from core.Country.services import import_countries_from_fixture, import_countries_from_external_api
-from core.Utils.models.exporters import QuerysetExporter
+from core.Utils.models.exporters import ExportModes, QuerysetExporter
 from .tables import CountryTable
 from .forms import CountryEditForm, CountryImportForm
 from .filters import CountryFilter
@@ -90,8 +91,8 @@ def country_import(request):
     form_body = CountryImportForm(request.POST or None, request.FILES or None)
     if form_body.is_valid():
         try:
-            form_body.save()
-            messages.success(request, _('Country load successfully!'))
+            countries: QuerySet[Country] = form_body.save()
+            messages.success(request, _('{count} countries load successfully!').format(count=countries.count()))
             return redirect(reverse('handbooks:country-list', host='admin'))
         except Exception as e:
             messages.error(request, _('Unable to load file: %s') % str(e))
@@ -106,11 +107,11 @@ def country_import(request):
     return render(request, 'Admin/Handbooks/Country/import.html', {'form': form})
 
 
-@login_required
-def country_export(request, mode: str):
+def __country_export(func, mode: str, fields: tuple = tuple()):
     exporter = QuerysetExporter(mode=mode,
                                 queryset=Country.objects.all().order_by('name'),
-                                fields=('name', 'cca2', 'ccn3'))
+                                obj_to_dict_func=func,
+                                fields=fields)
     content = exporter.get_content()
     response = HttpResponse(content, content_type=exporter.get_content_type())
     filename = f'{settings.APP_NAME} country {timezone.now()}.{exporter.get_extension()}'
@@ -119,10 +120,28 @@ def country_export(request, mode: str):
 
 
 @login_required
+def country_export_json(request):
+    country_to_dict = lambda country: {  # noqa E731
+        "name": {
+            "common": country.name,
+        },
+        "cca2": country.cca2,
+        "ccn3": country.ccn3
+    }
+    return __country_export(mode=ExportModes.JSON, func=country_to_dict)
+
+
+@login_required
+def country_export_csv(request):
+    return __country_export(mode=ExportModes.CSV, fields=('name', 'cca2', 'ccn3'), func=None)
+
+
+@login_required
 def country_sync(request):
     try:
-        import_countries_from_fixture()
-        messages.success(request, _('Country successfully synchronized with fixture!'))
+        countries: QuerySet[Country] = import_countries_from_fixture()
+        messages.success(request,
+                         _('{count} country successfully synchronized with fixture!').format(count=countries.count()))
     except Exception as e:
         messages.error(request, _('Country not synchronized with fixture! Exception raised: %s') % e)
     return redirect(reverse('handbooks:country-list', host='admin'))
@@ -131,8 +150,9 @@ def country_sync(request):
 @login_required
 def country_sync_external_api(request):
     try:
-        import_countries_from_external_api()
-        messages.success(request, _('Country successfully synchronized with external API!'))
+        countries: QuerySet[Country] = import_countries_from_external_api()
+        messages.success(request, _('{count} country successfully synchronized with external API!').format(
+            count=countries.count()))
     except Exception as e:
         messages.error(request, _('Country not synchronized with external API! Exception raised: %s') % e)
     return redirect(reverse('handbooks:country-list', host='admin'))

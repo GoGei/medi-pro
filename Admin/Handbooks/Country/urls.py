@@ -1,5 +1,4 @@
 from django.urls import path
-from core.Utils.models.exporters import ExportModes
 from . import views
 
 urlpatterns = [
@@ -10,8 +9,8 @@ urlpatterns = [
     path('<int:country_id>/restore/', views.country_restore, name='country-restore'),
 
     path('import/', views.country_import, name='country-import'),
-    path('export/json/', views.country_export, name='country-export-json', kwargs={'mode': ExportModes.JSON}),
-    path('export/csv/', views.country_export, name='country-export-csv', kwargs={'mode': ExportModes.CSV}),
+    path('export/json/', views.country_export_json, name='country-export-json'),
+    path('export/csv/', views.country_export_csv, name='country-export-csv'),
     path('sync/', views.country_sync, name='country-sync'),
     path('sync/external-api/', views.country_sync_external_api, name='country-sync-external-api'),
 ]

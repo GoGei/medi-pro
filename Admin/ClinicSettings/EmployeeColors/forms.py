@@ -49,4 +49,4 @@ class EmployeeColorsImportForm(forms.Form):
         return uploaded_file
 
     def save(self):
-        return import_colors_from_fixture(self.json_data)
+        return import_colors_from_fixture(data=self.json_data)

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -111,8 +112,8 @@ def color_import(request):
     form_body = EmployeeColorsImportForm(request.POST or None, request.FILES or None)
     if form_body.is_valid():
         try:
-            form_body.save()
-            messages.success(request, _('Employee colors load successfully!'))
+            colors: QuerySet[EmployeeColors] = form_body.save()
+            messages.success(request, _('{count} employee colors load successfully!').format(count=colors.count()))
             return redirect(reverse('clinic-settings:employee-color-list', host='admin'))
         except Exception as e:
             messages.error(request, _('Unable to load file: %s') % str(e))
@@ -142,8 +143,9 @@ def color_export(request, mode: str):
 @login_required
 def color_sync(request):
     try:
-        import_colors_from_fixture()
-        messages.success(request, _('Employee colors successfully synchronized with fixture!'))
+        colors: QuerySet[EmployeeColors] = import_colors_from_fixture()
+        messages.success(request, _('{count} employee colors successfully synchronized with fixture!').format(
+            count=colors.count()))
     except Exception as e:
         messages.error(request, _('Employee colors not synchronized with fixture! Exception raised: %s') % e)
     return redirect(reverse('clinic-settings:employee-color-list', host='admin'))

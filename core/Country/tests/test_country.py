@@ -23,7 +23,27 @@ class CountryTestCase(TestCase):
         c1 = Country.objects.count()
         import_countries_from_fixture()
         c2 = Country.objects.count()
-        self.assertTrue(c2 > c1)
+        self.assertEqual(c2, c1 + 250)
+
+        data = [
+            {
+                "name": {
+                    "common": "Test1",
+                },
+                "cca2": "T1",
+                "ccn3": "000"
+            },
+            {
+                "name": {
+                    "common": "Test2",
+                },
+                "cca2": "T2",
+                "ccn3": "001"
+            },
+        ]
+        import_countries_from_fixture(data=data)
+        c3 = Country.objects.count()
+        self.assertEqual(c3, c2 + 2)
 
 
 class ImportCountriesFromExternalApiTestCase(TestCase):

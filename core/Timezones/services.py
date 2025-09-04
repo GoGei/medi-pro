@@ -1,12 +1,15 @@
 from zoneinfo import available_timezones, ZoneInfo
+from collections import Counter
 
-from django.db import transaction
 from django.db.models import QuerySet
+from django.db.transaction import atomic
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
+
 from .models import TimezoneHandbook
 
 
-def import_timezones(archive_not_mentioned: bool = True):
+def import_timezones(archive_not_mentioned: bool = True) -> QuerySet[TimezoneHandbook]:
     mentioned: set[int] = set()
     for tz_name in sorted(available_timezones()):
         dt = timezone.now().astimezone(ZoneInfo(tz_name))
@@ -28,9 +31,22 @@ def import_timezones(archive_not_mentioned: bool = True):
 
     if archive_not_mentioned:
         TimezoneHandbook.objects.exclude(id__in=mentioned).archive()
+    return TimezoneHandbook.objects.filter(id__in=mentioned)
 
 
-@transaction.atomic
+class LoadTimezonesException(Exception):
+    pass
+
+
+def run_validations(data: list[dict]):
+    name_list: list[str] = [x['name'] for x in data]
+    duplicated = [item for item, count in Counter(name_list).items() if count > 1]
+    if duplicated:
+        msg = _('Duplicated names presented: {duplicated}').format(duplicated=', '.join(duplicated))
+        raise LoadTimezonesException(msg)
+
+
+@atomic
 def load_timezones(data: list[dict], archive_not_mentioned: bool = True) -> QuerySet[TimezoneHandbook]:
     mentioned: set[int] = set()
 

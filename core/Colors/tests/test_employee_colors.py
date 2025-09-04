@@ -36,4 +36,22 @@ class EmployeeColorsTestCase(TestCase):
         c1 = EmployeeColors.objects.count()
         import_colors_from_fixture()
         c2 = EmployeeColors.objects.count()
-        self.assertTrue(c2 > c1)
+        self.assertEqual(c2, c1 + 16)
+
+        data = [
+            {
+                "name": "Tomato",
+                "sideline": "#aaaaaa",
+                "background": "#aaaaaa",
+                "is_default": False
+            },
+            {
+                "name": "Tangerine",
+                "sideline": "#ffffff",
+                "background": "#ffffff",
+                "is_default": False
+            }
+        ]
+        import_colors_from_fixture(data=data)
+        c3 = EmployeeColors.objects.count()
+        self.assertEqual(c3, c2 + 2)
