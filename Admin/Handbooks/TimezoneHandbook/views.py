@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import QuerySet
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone as dj_timezone
@@ -90,8 +91,8 @@ def timezone_import(request):
     form_body = TimezoneHandbookImportForm(request.POST or None, request.FILES or None)
     if form_body.is_valid():
         try:
-            form_body.save()
-            messages.success(request, _('Timezones load successfully!'))
+            timezones: QuerySet[TimezoneHandbook] = form_body.save()
+            messages.success(request, _('{count} timezones load successfully!').format(count=timezones.count()))
             return redirect(reverse('handbooks:timezones-list', host='admin'))
         except Exception as e:
             messages.error(request, _('Unable to load file: %s') % str(e))
@@ -121,8 +122,8 @@ def timezone_export(request, mode: str):
 @login_required
 def timezone_sync(request):
     try:
-        import_timezones()
-        messages.success(request, _('Timezone successfully synchronized!'))
+        timezones: QuerySet[TimezoneHandbook] = import_timezones()
+        messages.success(request, _('{count} timezone successfully synchronized!').format(count=timezones.count()))
     except Exception as e:
         messages.error(request, _('Timezone not synchronized! Exception raised: %s') % e)
 
