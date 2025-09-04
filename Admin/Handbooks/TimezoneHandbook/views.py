@@ -110,7 +110,7 @@ def timezone_import(request):
 @login_required
 def timezone_export(request, mode: str):
     exporter = QuerysetExporter(mode=mode,
-                                queryset=TimezoneHandbook.objects.all().order_by('name'),
+                                queryset=TimezoneHandbook.objects.active().order_by('name'),
                                 fields=('name', 'offset', 'label'))
     content = exporter.get_content()
     response = HttpResponse(content, content_type=exporter.get_content_type())

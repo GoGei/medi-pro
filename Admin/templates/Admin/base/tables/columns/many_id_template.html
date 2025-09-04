@@ -1,3 +1,8 @@
-{% load hosts %}
+{% load hosts custom_tags %}
 
-{{ record.id }}
+{% with items=record|get_attr:related_qs_param %}
+  {% for item in items.all %}
+    <a href="{% host_url reverse_url item.id host 'admin' %}">{{ item|get_attr:item_label }}</a>
+    {% if not forloop.last %}, {% endif %}
+  {% endfor %}
+{% endwith %}

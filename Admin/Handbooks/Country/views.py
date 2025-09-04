@@ -109,7 +109,7 @@ def country_import(request):
 
 def __country_export(func, mode: str, fields: tuple = tuple()):
     exporter = QuerysetExporter(mode=mode,
-                                queryset=Country.objects.all().order_by('name'),
+                                queryset=Country.objects.active().order_by('name'),
                                 obj_to_dict_func=func,
                                 fields=fields)
     content = exporter.get_content()
