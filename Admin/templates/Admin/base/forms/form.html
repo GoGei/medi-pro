@@ -1,4 +1,4 @@
-{% load i18n widget_tweaks filters %}
+{% load i18n widget_tweaks custom_tags %}
 
 <form {% if form.id %}id="{{ form.id }}"{% endif %} role="form" action="{{ form.action|default:'' }}"
       method="{{ form.method|default:'post' }}" novalidate enctype="multipart/form-data">

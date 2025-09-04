@@ -90,7 +90,7 @@ TEMPLATES = [
                 'core.context.app_context',
             ],
             'libraries': {
-                'filters': 'core.Utils.templatetags.tags',
+                'custom_tags': 'core.Utils.templatetags.tags',
             }
         },
     },

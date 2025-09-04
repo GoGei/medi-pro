@@ -14,3 +14,8 @@ def inlist(value, args):
         return False
     _list = [arg.strip() for arg in args.split(',')]
     return value in _list
+
+
+@register.filter(name="get_attr")
+def get_attr(obj, attr):
+    return getattr(obj, attr, None)
