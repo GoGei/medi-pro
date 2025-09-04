@@ -42,6 +42,23 @@ class ClinicPreSettingsForm(BaseModelForm):
 
         return country
 
+    def clean(self):
+        data = self.cleaned_data
+
+        timezones: TimezoneHandbook = self.cleaned_data.get('timezones')
+        primary_timezone: list[TimezoneHandbook] = self.cleaned_data.get('primary_timezone')
+        if timezones and primary_timezone and (primary_timezone not in timezones):
+            msg = _('Primary timezone not found in specified timezones')
+            self.add_error('primary_timezone', msg)
+
+        currencies: Currency = self.cleaned_data.get('currencies')
+        primary_currency: list[Currency] = self.cleaned_data.get('primary_currency')
+        if currencies and primary_currency and (primary_currency not in currencies):
+            msg = _('Primary timezone not found in specified currencies')
+            self.add_error('primary_currency', msg)
+
+        return data
+
 
 class ClinicPreSettingsImportForm(forms.Form):
     file = forms.FileField(
