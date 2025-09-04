@@ -1,5 +1,4 @@
 from django.urls import path
-from core.Utils.models.exporters import ExportModes
 from . import views
 
 urlpatterns = [
