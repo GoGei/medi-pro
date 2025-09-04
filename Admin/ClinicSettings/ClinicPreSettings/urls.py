@@ -1,5 +1,4 @@
 from django.urls import path
-from core.Utils.models.exporters import ExportModes
 from . import views
 
 urlpatterns = [
@@ -11,7 +10,6 @@ urlpatterns = [
     path('<int:setting_id>/restore/', views.setting_restore, name='clinic-pre-settings-restore'),
 
     path('import/', views.setting_import, name='clinic-pre-settings-import'),
-    path('export/json/', views.setting_export, name='clinic-pre-settings-export-json',
-         kwargs={'mode': ExportModes.JSON}),
-    path('export/csv/', views.setting_export, name='clinic-pre-settings-export-csv', kwargs={'mode': ExportModes.CSV}),
+    path('export/json/', views.setting_export_json, name='clinic-pre-settings-export-json'),
+    path('export/csv/', views.setting_export_csv, name='clinic-pre-settings-export-csv'),
 ]

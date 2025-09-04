@@ -9,7 +9,7 @@ from django_hosts import reverse
 
 from Admin.utils.tables.handler import TableHandler
 from core.ClinicPreSettings.models import ClinicPreSettings
-from core.Utils.models.exporters import QuerysetExporter
+from core.Utils.models.exporters import ExportModes, QuerysetExporter
 from .tables import ClinicPreSettingsTable
 from .forms import ClinicPreSettingsForm, ClinicPreSettingsImportForm
 from .filters import ClinicPreSettingsFilter
@@ -132,18 +132,7 @@ def setting_import(request):
     return render(request, 'Admin/ClinicSettings/ClinicPreSettings/import.html', {'form': form})
 
 
-@login_required
-def setting_export(request, mode: str):
-    obj_to_dict_func = lambda item: {  # noqa E731
-        'country_name': item.country.name,
-        'country_ccn3': item.country.ccn3,
-        'timezone_name': item.primary_timezone.name,
-        'currency_name': item.primary_currency.name,
-        'currency_code': item.primary_currency.code,
-        'timezone_names': ','.join([x.name for x in item.timezones.all()]),
-        'currency_codes': ','.join([x.code for x in item.currencies.all()]),
-        'currency_names': ','.join([x.name for x in item.currencies.all()]),
-    }
+def __setting_export(func, mode):
     qs = (
         ClinicPreSettings.objects
         .select_related('country', 'primary_timezone', 'primary_currency')
@@ -152,7 +141,7 @@ def setting_export(request, mode: str):
     )
     exporter = QuerysetExporter(mode=mode,
                                 queryset=qs,
-                                obj_to_dict_func=obj_to_dict_func,
+                                obj_to_dict_func=func,
                                 fields=(
                                     'country_name',
                                     'country_ccn3',
@@ -168,3 +157,33 @@ def setting_export(request, mode: str):
     filename = f'{settings.APP_NAME} clinic pre-settings {timezone.now()}.{exporter.get_extension()}'
     response["Content-Disposition"] = f'attachment; filename="{filename}"'
     return response
+
+
+@login_required
+def setting_export_csv(request):
+    obj_to_dict_func = lambda item: {  # noqa E731
+        'country_name': item.country.name,
+        'country_ccn3': item.country.ccn3,
+        'timezone_name': item.primary_timezone.name,
+        'currency_name': item.primary_currency.name,
+        'currency_code': item.primary_currency.code,
+        'timezone_names': ','.join([x.name for x in item.timezones.all()]),
+        'currency_codes': ','.join([x.code for x in item.currencies.all()]),
+        'currency_names': ','.join([x.name for x in item.currencies.all()]),
+    }
+    return __setting_export(obj_to_dict_func, mode=ExportModes.CSV)
+
+
+@login_required
+def setting_export_json(request):
+    obj_to_dict_func = lambda item: {  # noqa E731
+        'country_name': item.country.name,
+        'country_ccn3': item.country.ccn3,
+        'timezone_name': item.primary_timezone.name,
+        'currency_name': item.primary_currency.name,
+        'currency_code': item.primary_currency.code,
+        'timezone_names': [x.name for x in item.timezones.all()],
+        'currency_codes': [x.code for x in item.currencies.all()],
+        'currency_names': [x.name for x in item.currencies.all()],
+    }
+    return __setting_export(obj_to_dict_func, mode=ExportModes.JSON)

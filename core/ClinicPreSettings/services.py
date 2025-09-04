@@ -32,7 +32,7 @@ def import_clinic_pre_settings(data: list[dict]) -> list[ClinicPreSettings]:
         primary_timezone = timezones_qs.get(name=item['timezone_name'])
         primary_currency = currencies_qs.get(code=item['currency_code'])
 
-        timezone_names = item['timezone_names'].split(',')
+        timezone_names = item['timezone_names']
         timezones = timezones_qs.filter(name__in=timezone_names)
         if timezones.count() != len(timezone_names):
             msg = _('Not all timezones found in item: {item}. Expected: {expected}. Found: {found}').format(
@@ -41,7 +41,7 @@ def import_clinic_pre_settings(data: list[dict]) -> list[ClinicPreSettings]:
                 found=', '.join(timezones.values_list('name', flat=True)))
             raise LoadClinicPreSettingsException(msg)
 
-        currency_codes = item['currency_codes'].split(',')
+        currency_codes = item['currency_codes']
         currencies = currencies_qs.filter(code__in=currency_codes)
         if currencies.count() != len(currency_codes):
             msg = _('Not all currencies found in item: {item}. Expected: {expected}. Found: {found}').format(
