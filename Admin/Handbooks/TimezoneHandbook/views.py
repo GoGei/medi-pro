@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django_hosts import reverse
 
 from Admin.utils.tables.handler import TableHandler
+from core.ClinicPreSettings.models import ClinicPreSettings
 from core.Timezones.models import TimezoneHandbook
 from core.Timezones.services import import_timezones
 from core.Utils.models.exporters import QuerysetExporter
@@ -65,6 +66,11 @@ def timezone_edit(request, timezone_id):
 @login_required
 def timezone_archive(request, timezone_id):
     timezone: TimezoneHandbook = get_object_or_404(TimezoneHandbook, pk=timezone_id)
+    related_settings = ClinicPreSettings.objects.active().filter(timezones=timezone)
+    if related_settings.exists():
+        msg = _('For given timezone there are still active related settings')
+        return JsonResponse({'success': False, 'is_active': timezone.is_active, 'msg': msg,
+                             'related_settings': list(related_settings.values_list('id', flat=True))}, status=400)
     timezone = timezone.archive(request.user)
     return JsonResponse({'success': True, 'is_active': timezone.is_active})
 

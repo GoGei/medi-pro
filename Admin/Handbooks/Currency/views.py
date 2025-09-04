@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from django_hosts import reverse
 
 from Admin.utils.tables.handler import TableHandler
+from core.ClinicPreSettings.models import ClinicPreSettings
 from core.Currency.models import Currency
 from core.Currency.services import import_currencies_from_fixture
 from core.Utils.models.exporters import QuerysetExporter
@@ -85,6 +86,12 @@ def currency_edit(request, currency_id):
 @login_required
 def currency_archive(request, currency_id):
     currency: Currency = get_object_or_404(Currency, pk=currency_id)
+    related_settings = ClinicPreSettings.objects.active().filter(currencies=currency)
+    if related_settings.exists():
+        msg = _('For given currency there are still active related settings')
+        return JsonResponse({'success': False, 'is_active': currency.is_active, 'msg': msg,
+                             'related_settings': list(related_settings.values_list('id', flat=True))}, status=400)
+
     currency.archive(request.user)
     return JsonResponse({'success': True, 'is_active': currency.is_active})
 

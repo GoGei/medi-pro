@@ -37,8 +37,9 @@ $(document).on('click', '.action-archive, .action-restore', function (e) {
                     $btn.html('<i class="fa fa-refresh"></i>');
                 }
             },
-            error: function () {
-                swal("Error", "Something went wrong", "error");
+            error: function (response) {
+                const text = response?.responseJSON?.msg || "Something went wrong";
+                swal("Error", text, "error");
             }
         });
     });
