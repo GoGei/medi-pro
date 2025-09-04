@@ -11,13 +11,15 @@ class ClinicPreSettingsTable(tables.Table):
                                        record_label='country')
     timezones = custom_fields.ManyToManyHrefColumn(verbose_name=_('Timezones'),
                                                    reverse_url='handbooks:timezones-view',
-                                                   related_qs_param='timezones')
+                                                   related_qs_param='timezones',
+                                                   item_label='label')
     primary_timezone = custom_fields.HrefColumn(verbose_name=_('Primary timezone'),
                                                 reverse_url='handbooks:timezones-view',
                                                 record_label='primary_timezone')
     currencies = custom_fields.ManyToManyHrefColumn(verbose_name=_('Currencies'),
                                                     reverse_url='handbooks:currency-view',
-                                                    related_qs_param='currencies')
+                                                    related_qs_param='currencies',
+                                                    item_label='label')
     primary_currency = custom_fields.HrefColumn(verbose_name=_('Primary currency'),
                                                 reverse_url='handbooks:currency-view',
                                                 record_label='primary_currency')

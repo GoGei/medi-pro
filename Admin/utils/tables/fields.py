@@ -18,7 +18,7 @@ class HrefColumn(tables.TemplateColumn):
 
 
 class ManyToManyHrefColumn(tables.TemplateColumn):
-    def __init__(self, reverse_url: str, related_qs_param: str, record_label: str = 'id',
+    def __init__(self, reverse_url: str, related_qs_param: str, item_label: str = 'id',
                  template_code=None, template_name=None, extra_context=None, **extra):
         if not template_name:
             template_name = 'Admin/base/tables/columns/many_id_template.html'
@@ -27,7 +27,7 @@ class ManyToManyHrefColumn(tables.TemplateColumn):
             extra_context = dict()
         extra_context['reverse_url'] = reverse_url
         extra_context['related_qs_param'] = related_qs_param
-        extra_context.setdefault('record_label', record_label)
+        extra_context.setdefault('item_label', item_label)
         extra.setdefault('verbose_name', _('ID'))
         extra.setdefault('orderable', False)
         super().__init__(template_code=template_code, template_name=template_name, extra_context=extra_context, **extra)
