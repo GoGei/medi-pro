@@ -39,7 +39,7 @@ def patient_relation_view(request, patient_relation_id):
 @login_required
 def patient_relation_export(request, mode: str):
     exporter = QuerysetExporter(mode=mode,
-                                queryset=PatientRelation.objects.all().order_by('name'),
+                                queryset=PatientRelation.objects.active().order_by('name'),
                                 fields=('name',))
     content = exporter.get_content()
     response = HttpResponse(content, content_type=exporter.get_content_type())
