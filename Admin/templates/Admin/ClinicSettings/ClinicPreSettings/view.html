@@ -47,7 +47,7 @@
                   {% for tz in timezones %}
                     <li>
                       <a href="{% host_url 'handbooks:timezones-view' tz.id host 'admin' %}"
-                         target="_blank">{{ tz.label }}</a>
+                         target="_blank">{{ tz.label }} ({{ tz.offset }})</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -61,7 +61,7 @@
           <th>{% trans 'Primary timezone' %}</th>
           <td>
             <a href="{% host_url 'handbooks:timezones-view' setting.primary_timezone_id host 'admin' %}"
-               target="_blank">{{ setting.primary_timezone.label }}</a>
+               target="_blank">{{ setting.primary_timezone.label }} ({{ setting.primary_timezone.offset }})</a>
           </td>
         </tr>
         <tr>
@@ -73,7 +73,7 @@
                   {% for curr in currencies %}
                     <li>
                       <a href="{% host_url 'handbooks:currency-view' curr.id host 'admin' %}"
-                         target="_blank">{{ curr.label }}</a>
+                         target="_blank">{{ curr.label }} {{ curr.symbol }}</a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -87,7 +87,7 @@
           <th>{% trans 'Primary currency' %}</th>
           <td>
             <a href="{% host_url 'handbooks:currency-view' setting.primary_currency_id host 'admin' %}"
-               target="_blank">{{ setting.primary_currency.label }}</a>
+               target="_blank">{{ setting.primary_currency.label }} {{ setting.primary_currency.symbol }}</a>
           </td>
         </tr>
         <tr>
