@@ -9,7 +9,8 @@
             aria-expanded="false">{% trans 'Action' %}</button>
     <ul class="dropdown-menu" x-placement="bottom-start">
       <li><a class="dropdown-item"
-             href="{% host_url 'clinic-settings:clinic-pre-settings-import' host 'admin' %}">{% trans 'Import' %}</a></li>
+             href="{% host_url 'clinic-settings:clinic-pre-settings-import' host 'admin' %}">{% trans 'Import' %}</a>
+      </li>
       <li><a class="dropdown-item"
              href="{% host_url 'clinic-settings:clinic-pre-settings-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
       </li>

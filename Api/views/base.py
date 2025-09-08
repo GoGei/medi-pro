@@ -1,7 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.serializers import Serializer
 from Api.serializers import EmptySerializer
-from django.conf import settings
 
 
 class TaggedViewSet:
