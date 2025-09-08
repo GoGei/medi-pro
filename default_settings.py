@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_tables2',
     'django_filters',
+    'rest_framework',
+    'drf_spectacular',
 
     'core.User',
     'core.Timezones',
@@ -86,8 +88,13 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                'core.context.app_context',
+                "core.context.app_context",
             ],
             'libraries': {
                 'custom_tags': 'core.Utils.templatetags.tags',
@@ -173,3 +180,37 @@ MESSAGE_TAGS = {
 }
 
 ADMIN_PAGINATION_PER_PAGE = 20
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 50,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    ),
+    'COERCE_DECIMAL_TO_STRING': False,
+    'DATETIME_FORMAT': '%d.%m.%Y %H:%M:%S%z',
+    'DATE_FORMAT': '%d.%m.%Y',
+    # 'TIME_FORMAT': '%H:%M',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_SCHEMA_CLASS': 'Api.documentation.auto_schema.TaggedSpectacularAutoSchema',
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': f'{APP_NAME} API',
+    'VERSION': '1.0',
+
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    'SWAGGER_UI_SETTINGS': {
+        'filter': True,
+    },
+}

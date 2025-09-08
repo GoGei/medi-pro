@@ -37,6 +37,7 @@ $(document).ready(function () {
     });
     $(".select2").select2({
         theme: 'bootstrap4',
+        width: '100%',
     });
     $('.tagsinput').tagsinput({
         tagClass: 'label label-primary'
