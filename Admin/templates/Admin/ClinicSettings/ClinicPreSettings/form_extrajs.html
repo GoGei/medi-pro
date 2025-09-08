@@ -1,13 +1,60 @@
 {% load hosts %}
+
 <script>
   $(document).ready(function () {
+    const $timezones = $('#id_timezones');
+    const $currencies = $('#id_currencies');
+    const $primary_timezone = $('#id_primary_timezone');
+    const $primary_currency = $('#id_primary_currency');
+
     const countryUrl = `{% host_url 'api-v1:countries-list' host 'admin' %}`
     constructSelect2($('#id_country'), countryUrl);
 
     const timezonesUrl = `{% host_url 'api-v1:timezones-list' host 'admin' %}`
-    constructSelect2($('#id_timezones'), timezonesUrl);
+    constructSelect2($timezones, timezonesUrl);
 
     const currenciesUrl = `{% host_url 'api-v1:currencies-list' host 'admin' %}`
-    constructSelect2($('#id_currencies'), currenciesUrl);
-  })
+    constructSelect2($currencies, currenciesUrl);
+
+    $primary_timezone.select2({width: '100%'});
+    $primary_currency.select2({width: '100%'});
+
+    function selectedToData($multi) {
+      return $multi.find('option:selected').map(function () {
+        return {id: this.value, text: $(this).text()}
+      }).get()
+    }
+
+    function syncPrimary($multi, $primary) {
+      const data = selectedToData($multi);
+      const prev = $primary.val();
+
+      $primary.prop('disabled', data.length === 0);
+      $primary.empty();
+
+      data.forEach(function (item) {
+        $primary.append(new Option(item.text, item.id, false, false));
+      });
+
+      let value = null;
+      if (prev && data.some(d => String(d.id) === String(prev))) {
+        value = prev;
+      } else if (data.length) {
+        value = data[0].id;
+      }
+
+      $primary.val(value).trigger('change.select2');
+    }
+
+    $timezones.on('change', function () {
+      syncPrimary($timezones, $primary_timezone)
+    });
+
+    $currencies.on('change', function () {
+      syncPrimary($currencies, $primary_currency)
+    });
+
+    syncPrimary($timezones, $primary_timezone);
+    syncPrimary($currencies, $primary_currency);
+  });
 </script>
