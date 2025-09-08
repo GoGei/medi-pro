@@ -1,0 +1,13 @@
+{% load hosts %}
+<script>
+  $(document).ready(function () {
+    const countryUrl = `{% host_url 'api-v1:countries-list' host 'admin' %}`
+    constructSelect2($('#id_country'), countryUrl);
+
+    const timezonesUrl = `{% host_url 'api-v1:timezones-list' host 'admin' %}`
+    constructSelect2($('#id_timezones'), timezonesUrl);
+
+    const currenciesUrl = `{% host_url 'api-v1:currencies-list' host 'admin' %}`
+    constructSelect2($('#id_currencies'), currenciesUrl);
+  })
+</script>
