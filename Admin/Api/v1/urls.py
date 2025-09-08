@@ -1,9 +1,11 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter
 from .Currency.views import CurrencyViewSet
+from .Timezones.views import TimezoneHandbookViewSet
 
 v1_router = DefaultRouter()
-v1_router.register('currency', CurrencyViewSet, basename='currency')
+v1_router.register('currencies', CurrencyViewSet, basename='currencies')
+v1_router.register('timezones', TimezoneHandbookViewSet, basename='timezones')
 urlpatterns = v1_router.urls
 
 if settings.API_DOCUMENTATION:
