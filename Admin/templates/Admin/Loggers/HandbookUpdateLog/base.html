@@ -1,0 +1,11 @@
+{% extends 'Admin/Loggers/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Handbooks updates' %}{% endblock %}
+{% block menu-loggers-handbooks-update-active %}active{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'loggers:handbooks-update-list' host 'admin' %}">{% trans 'Handbooks updates' %}</a>
+  </li>
+{% endblock %}
