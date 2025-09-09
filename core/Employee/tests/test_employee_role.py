@@ -16,7 +16,7 @@ class EmployeeRoleTestCase(TestCase):
 
     def test_archive_obj(self):
         obj = EmployeeRoleFactory.create()
-        with self.assertRaises(ValueError) as e:
+        with self.assertRaises(ValueError):
             obj.archive()
 
         obj2 = EmployeeRoleFactory.create(slug='test')
