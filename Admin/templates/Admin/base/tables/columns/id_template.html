@@ -1,3 +1,9 @@
-{% load hosts custom_tags %}
+{% load i18n hosts custom_tags %}
 
-<a href="{% host_url reverse_url record|get_attr:reverse_field host 'admin' %}">{{ record|get_attr:record_label }}</a>
+{% with record|get_attr:reverse_field as reverse_value %}
+  {% if reverse_value %}
+    <a href="{% host_url reverse_url record|get_attr:reverse_field host 'admin' %}">{{ record|get_attr:record_label }}</a>
+  {% else %}
+    {% trans 'Not provided' %}
+  {% endif %}
+{% endwith %}

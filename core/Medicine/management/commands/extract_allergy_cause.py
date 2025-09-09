@@ -1,6 +1,7 @@
 from django.db.transaction import atomic
 from django.core.management.base import BaseCommand, CommandError
 
+from core.Loggers.models import HandbookUpdateLog
 from core.Medicine.enums import MedicineHandbookSources
 from core.Medicine.extractors.hl7 import FHIRPageExtractor, FHIRPageExtractorException
 from core.Medicine.models import AllergyCause
@@ -14,6 +15,11 @@ class Command(BaseCommand):
         parser.add_argument(
             '--url',
             help='URL to https://hl7.org/',
+        )
+        parser.add_argument(
+            '--user_id',
+            type=int,
+            help='Optional user ID',
         )
 
     def handle(self, *args, **options):
@@ -34,6 +40,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f'Successfully received {len(extractor.data)} items'))
         try:
             self.update_allergy_causes(extractor)
+            HandbookUpdateLog.objects.create(user_id=options.get('user_id'),
+                                             handbook=HandbookUpdateLog.HandbookChoices.ALLERGY_CAUSE)
         except Exception as e:
             self.stdout.write(self.style.ERROR(f'Unable to update allergy causes: {e}'))
 

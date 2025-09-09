@@ -1,6 +1,7 @@
 from django.db.transaction import atomic
 from django.core.management.base import BaseCommand, CommandError
 
+from core.Loggers.models import HandbookUpdateLog
 from core.Medicine.enums import MedicineHandbookSources
 from core.Medicine.extractors.hl7 import FHIRPageExtractor, FHIRPageExtractorException
 from core.Medicine.models import AllergyType
@@ -15,6 +16,11 @@ class Command(BaseCommand):
             '--url',
             help='URL to https://hl7.org/',
         )
+        parser.add_argument(
+            '--user_id',
+            type=int,
+            help='Optional user ID',
+        )
 
     def handle(self, *args, **options):
         extractor = FHIRPageExtractor(options.get('url') or self.default_url)
@@ -26,6 +32,8 @@ class Command(BaseCommand):
 
         try:
             extractor.extract_from_table()
+            HandbookUpdateLog.objects.create(user_id=options.get('user_id'),
+                                             handbook=HandbookUpdateLog.HandbookChoices.ALLERGY_TYPE)
         except FHIRPageExtractorException as e:
             raise CommandError(f'Unable to extract data from table: {e}')
         except Exception as e:
