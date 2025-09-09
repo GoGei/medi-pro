@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core.Colors',
     'core.Currency',
     'core.ClinicPreSettings',
+    'core.Employee',
 ]
 
 MIDDLEWARE = [

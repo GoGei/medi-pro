@@ -88,6 +88,9 @@
             <li class="{% block menu-clinic-settings-clinic-pre-settings-active %}{% endblock %}">
               <a href="{% host_url 'clinic-settings:clinic-pre-settings-list' host 'admin' %}">{% trans 'Clinic pre-settings' %}</a>
             </li>
+            <li class="{% block menu-clinic-settings-employee-role-active %}{% endblock %}">
+              <a href="{% host_url 'clinic-settings:employee-role-list' host 'admin' %}">{% trans 'Employee roles' %}</a>
+            </li>
           </ul>
         </li>
 
