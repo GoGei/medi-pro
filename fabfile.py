@@ -13,11 +13,6 @@ def runserver(c):
 
 
 @task
-def compilerequirements(c):
-    c.run('uv pip compile requirements.txt -o requirements.lock')
-
-
-@task
 def makemessages(c):
     c.run(f'./manage.py makemessages --all --no-location')
 
