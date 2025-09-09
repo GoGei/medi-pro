@@ -30,8 +30,8 @@ class ClinicPreSettingsTestCase(TestCase):
             'country_ccn3': country.ccn3,
             'timezone_name': primary_timezone.name,
             'currency_code': primary_currency.code,
-            'timezone_names': ','.join([x.name for x in timezones]),
-            'currency_codes': ','.join([x.code for x in currencies]),
+            'timezone_names': [x.name for x in timezones],
+            'currency_codes': [x.code for x in currencies],
         }
         data = [data_item]
 
