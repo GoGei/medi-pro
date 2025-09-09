@@ -35,7 +35,7 @@ Full documentation (UML diagrams, user stories, technical specifications) is ava
 git clone https://github.com/GoGei/medi-pro.git
 uv venv env --python=/usr/bin/python3.11
 source env/bin/activate
-uv pip install -r requirements.lock
+uv sync --frozen --active
 cp configs/settings_example.py configs/settings.py
 ```
 

@@ -14,7 +14,11 @@ def runserver(c):
 
 @task
 def compilerequirements(c):
-    c.run('uv pip compile requirements.txt -o requirements.lock')
+    # c.run('uv pip compile requirements.txt -o requirements.lock')
+    c.run('rm pyproject.toml uv.lock')
+    c.run('uv init --bare')
+    c.run('uv add -r requirements.txt --active')
+    c.run('uv lock')
 
 
 @task
