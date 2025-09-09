@@ -4,7 +4,6 @@ from openpyxl import load_workbook
 from django.db.transaction import atomic
 from django.core.management.base import BaseCommand, CommandError
 
-from core.Loggers.models import HandbookUpdateLog
 from core.Medicine.enums import MedicineHandbookSources
 from core.Medicine.models import ICD10
 
@@ -14,13 +13,6 @@ class Command(BaseCommand):
     https://www.cms.gov/medicare/coordination-benefits-recovery/overview/icd-code-lists
     """
     help = 'Load ICD-10 codes from HL7 FHIR'
-
-    def add_arguments(self, parser):
-        parser.add_argument(
-            '--user_id',
-            type=int,
-            help='Optional user ID',
-        )
 
     def handle(self, *args, **options):
         archive = zipfile.ZipFile('core/Medicine/fixture/icd-10.zip', 'r')
@@ -63,6 +55,3 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f'Successfully created {created_count} ICD-10 codes'))
         self.stdout.write(self.style.SUCCESS(f'Successfully updated {updated_count} ICD-10 codes'))
         self.stdout.write(self.style.WARNING(f'Archived: {archived} ICD-10 codes'))
-
-        HandbookUpdateLog.objects.create(user_id=options.get('user_id'),
-                                         handbook=HandbookUpdateLog.HandbookChoices.ICD_10)

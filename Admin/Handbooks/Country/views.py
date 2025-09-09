@@ -12,6 +12,7 @@ from Admin.utils.tables.handler import TableHandler
 from core.ClinicPreSettings.models import ClinicPreSettings
 from core.Country.models import Country
 from core.Country.services import import_countries_from_fixture, import_countries_from_external_api
+from core.Loggers.models import HandbookUpdateLog
 from core.Utils.models.exporters import ExportModes, QuerysetExporter
 from .tables import CountryTable
 from .forms import CountryEditForm, CountryImportForm
@@ -92,6 +93,8 @@ def country_import(request):
     if form_body.is_valid():
         try:
             countries: QuerySet[Country] = form_body.save()
+            HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                             handbook=HandbookUpdateLog.HandbookChoices.COUNTRIES)
             messages.success(request, _('{count} countries load successfully!').format(count=countries.count()))
             return redirect(reverse('handbooks:country-list', host='admin'))
         except Exception as e:
@@ -140,6 +143,8 @@ def country_export_csv(request):
 def country_sync(request):
     try:
         countries: QuerySet[Country] = import_countries_from_fixture()
+        HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                         handbook=HandbookUpdateLog.HandbookChoices.COUNTRIES)
         messages.success(request,
                          _('{count} country successfully synchronized with fixture!').format(count=countries.count()))
     except Exception as e:
@@ -151,6 +156,8 @@ def country_sync(request):
 def country_sync_external_api(request):
     try:
         countries: QuerySet[Country] = import_countries_from_external_api()
+        HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                         handbook=HandbookUpdateLog.HandbookChoices.COUNTRIES)
         messages.success(request, _('{count} country successfully synchronized with external API!').format(
             count=countries.count()))
     except Exception as e:

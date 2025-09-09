@@ -10,6 +10,7 @@ from django_hosts import reverse
 
 from Admin.utils.tables.handler import TableHandler
 from core.ClinicPreSettings.models import ClinicPreSettings
+from core.Loggers.models import HandbookUpdateLog
 from core.Timezones.models import TimezoneHandbook
 from core.Timezones.services import import_timezones
 from core.Utils.models.exporters import QuerysetExporter
@@ -92,6 +93,8 @@ def timezone_import(request):
     if form_body.is_valid():
         try:
             timezones: QuerySet[TimezoneHandbook] = form_body.save()
+            HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                             handbook=HandbookUpdateLog.HandbookChoices.TIMEZONE_HANDBOOK)
             messages.success(request, _('{count} timezones load successfully!').format(count=timezones.count()))
             return redirect(reverse('handbooks:timezones-list', host='admin'))
         except Exception as e:
@@ -123,6 +126,8 @@ def timezone_export(request, mode: str):
 def timezone_sync(request):
     try:
         timezones: QuerySet[TimezoneHandbook] = import_timezones()
+        HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                         handbook=HandbookUpdateLog.HandbookChoices.TIMEZONE_HANDBOOK)
         messages.success(request, _('{count} timezone successfully synchronized!').format(count=timezones.count()))
     except Exception as e:
         messages.error(request, _('Timezone not synchronized! Exception raised: %s') % e)
