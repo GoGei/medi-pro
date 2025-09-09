@@ -29,7 +29,7 @@ jobs:
       - name: Install env
         run: |
           pip install uv
-          uv pip install --system -r requirements.lock
+          uv sync --frozen --active
 
       - name: Run code check
         run: |
