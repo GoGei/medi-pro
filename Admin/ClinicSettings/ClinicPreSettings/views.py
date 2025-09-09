@@ -47,6 +47,7 @@ def setting_add(request):
     form_body = ClinicPreSettingsForm(request.POST or None, request.FILES or None, request=request)
     if form_body.is_valid():
         setting = form_body.save()
+        messages.success(request, _('Setting created successfully!'))
         return redirect(reverse('clinic-settings:clinic-pre-settings-view', args=[setting.id], host='admin'))
 
     form = {
@@ -80,6 +81,7 @@ def setting_edit(request, setting_id):
                                       instance=setting)
     if form_body.is_valid():
         setting = form_body.save()
+        messages.success(request, _('Setting edited successfully!'))
         return redirect(reverse('clinic-settings:clinic-pre-settings-view', args=[setting.id], host='admin'))
 
     form = {
@@ -120,7 +122,7 @@ def setting_import(request):
             form_body.save()
             HandbookUpdateLog.objects.create(user_id=request.user.id,
                                              handbook=HandbookUpdateLog.HandbookChoices.CLINIC_PRE_SETTINGS)
-            messages.success(request, _('Clinic pre-settings load successfully!'))
+            messages.success(request, _('Settings imported successfully!'))
             return redirect(reverse('clinic-settings:clinic-pre-settings-list', host='admin'))
         except Exception as e:
             messages.error(request, _('Unable to load file: %s') % str(e))
