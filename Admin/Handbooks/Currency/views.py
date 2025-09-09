@@ -45,6 +45,7 @@ def currency_add(request):
     form_body = CurrencyForm(request.POST or None, request.FILES or None, request=request)
     if form_body.is_valid():
         currency = form_body.save()
+        messages.success(request, _('Currency added successfully!'))
         return redirect(reverse('handbooks:currency-view', args=[currency.id], host='admin'))
 
     form = {
@@ -73,6 +74,7 @@ def currency_edit(request, currency_id):
                              instance=currency)
     if form_body.is_valid():
         currency = form_body.save()
+        messages.success(request, _('Currency edited successfully!'))
         return redirect(reverse('handbooks:currency-view', args=[currency.id], host='admin'))
 
     form = {

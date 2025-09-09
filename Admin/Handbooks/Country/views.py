@@ -53,6 +53,7 @@ def country_edit(request, country_id):
                                 instance=country)
     if form_body.is_valid():
         country = form_body.save()
+        messages.success(request, _('Country edited successfully!'))
         return redirect(reverse('handbooks:country-view', args=[country.id], host='admin'))
 
     form = {

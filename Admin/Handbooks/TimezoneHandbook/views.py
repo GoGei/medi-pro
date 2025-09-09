@@ -53,6 +53,7 @@ def timezone_edit(request, timezone_id):
                                          instance=timezone)
     if form_body.is_valid():
         timezone = form_body.save()
+        messages.success(request, _('Timezone edited successfully!'))
         return redirect(reverse('handbooks:timezones-view', args=[timezone.id], host='admin'))
 
     form = {

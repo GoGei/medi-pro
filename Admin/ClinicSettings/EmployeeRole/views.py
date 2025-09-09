@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
@@ -44,6 +45,7 @@ def role_edit(request, role_id):
                                  instance=role)
     if form_body.is_valid():
         role = form_body.save()
+        messages.success(request, _('Employee role edited successfully!'))
         return redirect(reverse('clinic-settings:employee-role-view', args=[role.id], host='admin'))
 
     form = {
