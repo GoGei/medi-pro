@@ -13,12 +13,27 @@ def runserver(c):
 
 
 @task
+def recompilerequirements(c):
+    c.run("rm -f pyproject.toml uv.lock")
+    pyproject = """[project]
+name = "medi-pro"
+version = "0.1.0"
+requires-python = ">=3.11"
+
+dependencies = []
+"""
+    with open("pyproject.toml", "w") as f:
+        f.write(pyproject)
+
+    c.run("uv add -r requirements.txt --python 3.11 --active")
+    c.run("uv lock --python 3.11")
+    c.run("uv sync --frozen --active --python 3.11")
+
+
+@task
 def compilerequirements(c):
-    # c.run('uv pip compile requirements.txt -o requirements.lock')
-    c.run('rm pyproject.toml uv.lock')
-    c.run('uv init --bare')
-    c.run('uv add -r requirements.txt --active')
-    c.run('uv lock')
+    c.run("uv add -r requirements.txt --python 3.11 --active")
+    c.run("uv lock --python 3.11")
 
 
 @task
