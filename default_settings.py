@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'core.Currency',
     'core.ClinicPreSettings',
     'core.Employee',
+    'core.Loggers',
 ]
 
 MIDDLEWARE = [

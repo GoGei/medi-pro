@@ -1,0 +1,12 @@
+{% extends 'Admin/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Loggers' %}{% endblock %}
+{% block menu-loggers-active %}active{% endblock %}
+{% block menu-loggers-collapse %}in{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="#">{% trans 'Loggers' %}</a>
+  </li>
+{% endblock %}

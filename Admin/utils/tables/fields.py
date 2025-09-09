@@ -3,7 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 class HrefColumn(tables.TemplateColumn):
-    def __init__(self, reverse_url, record_label: str = 'id', template_code=None, template_name=None,
+    def __init__(self, reverse_url, reverse_field: str = 'id', record_label: str = 'id', template_code=None,
+                 template_name=None,
                  extra_context=None, **extra):
         if not template_name:
             template_name = 'Admin/base/tables/columns/id_template.html'
@@ -12,6 +13,7 @@ class HrefColumn(tables.TemplateColumn):
             extra_context = dict()
         extra_context.setdefault('reverse_url', reverse_url)
         extra_context.setdefault('record_label', record_label)
+        extra_context.setdefault('reverse_field', reverse_field)
         extra.setdefault('verbose_name', _('ID'))
         extra.setdefault('orderable', True)
         super().__init__(template_code=template_code, template_name=template_name, extra_context=extra_context, **extra)

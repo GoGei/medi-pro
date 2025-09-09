@@ -94,6 +94,19 @@
           </ul>
         </li>
 
+        <li class="{% block menu-loggers-active %}{% endblock %}">
+          <a href="" aria-expanded="false">
+            <i class="fa fa-gear"></i> <span class="nav-label">{% trans 'Loggers' %}</span> <span
+              class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level collapse {% block menu-loggers-collapse %}{% endblock %}"
+              aria-expanded="false">
+            <li class="{% block menu-loggers-handbooks-update-active %}{% endblock %}">
+              <a href="{% host_url 'loggers:handbooks-update-list' host 'admin' %}">{% trans 'Handbooks updates' %}</a>
+            </li>
+          </ul>
+        </li>
+
         <li class="{% block menu-medicine-active %}{% endblock %}">
           <a href="" aria-expanded="false">
             <i class="fa fa-book"></i> <span class="nav-label">{% trans 'Medicine' %}</span> <span
