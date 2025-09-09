@@ -54,7 +54,7 @@ def icd10_export(request, mode: str):
 @login_required
 def icd10_sync(request):
     try:
-        load_icd10.apply_async()
+        load_icd10.apply_async(kwargs={'user_id': request.user.id})
         messages.success(request, _('Command to load allergy causes launched!'))
     except Exception as e:
         messages.error(request, _('Command to load allergy causes failed! Exception raised: %s') % e)

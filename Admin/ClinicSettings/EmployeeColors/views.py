@@ -11,6 +11,7 @@ from django_hosts import reverse
 from Admin.utils.tables.handler import TableHandler
 from core.Colors.models import EmployeeColors
 from core.Colors.services import import_colors_from_fixture
+from core.Loggers.models import HandbookUpdateLog
 from core.Utils.models.exporters import QuerysetExporter
 from .tables import EmployeeColorsTable
 from .forms import EmployeeColorsForm, EmployeeColorsImportForm
@@ -113,6 +114,8 @@ def color_import(request):
     if form_body.is_valid():
         try:
             colors: QuerySet[EmployeeColors] = form_body.save()
+            HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                             handbook=HandbookUpdateLog.HandbookChoices.EMPLOYEE_COLOR)
             messages.success(request, _('{count} employee colors load successfully!').format(count=colors.count()))
             return redirect(reverse('clinic-settings:employee-color-list', host='admin'))
         except Exception as e:
@@ -144,6 +147,8 @@ def color_export(request, mode: str):
 def color_sync(request):
     try:
         colors: QuerySet[EmployeeColors] = import_colors_from_fixture()
+        HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                         handbook=HandbookUpdateLog.HandbookChoices.EMPLOYEE_COLOR)
         messages.success(request, _('{count} employee colors successfully synchronized with fixture!').format(
             count=colors.count()))
     except Exception as e:

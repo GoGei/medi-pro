@@ -1,10 +1,19 @@
 from django.conf import settings
+from django.db.models import QuerySet
 from django_tables2 import LazyPaginator, RequestConfig
 from Admin.utils.tables.filters import SearchFilter
 
 
 class TableHandler(object):
-    def __init__(self, session_key, request, queryset, table_class, filterset_class=None, search_fields=None):
+    def __init__(self,
+                 session_key: str,
+                 request,
+                 queryset: QuerySet,
+                 table_class,
+                 filterset_class=None,
+                 search_fields: tuple[str, ...] = None,
+                 default_ordering: tuple[str, ...] = None
+                 ):
         table_meta = getattr(table_class, 'Meta', None)
 
         self.session_key = session_key
@@ -21,6 +30,7 @@ class TableHandler(object):
         self.search_class = SearchFilter
         self.searchset = None
 
+        self.default_ordering = default_ordering
         self.ordering = getattr(table_meta, 'ordering_fields', tuple()) if table_meta else tuple()
 
     def process(self) -> 'TableHandler':
@@ -35,8 +45,9 @@ class TableHandler(object):
             self.searchset = self.search_class(state, queryset=qs, search_fields=self.search_fields)
             qs = self.searchset.qs
 
-        if self.ordering:
-            qs = qs.order_by(*self.ordering)
+        order_by = self.default_ordering or self.ordering
+        if order_by:
+            qs = qs.order_by(*order_by)
 
         self.table = self.table_class(qs)
         RequestConfig(self.request, paginate={'per_page': settings.ADMIN_PAGINATION_PER_PAGE,

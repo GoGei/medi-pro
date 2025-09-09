@@ -9,6 +9,7 @@ from django_hosts import reverse
 
 from Admin.utils.tables.handler import TableHandler
 from core.ClinicPreSettings.models import ClinicPreSettings
+from core.Loggers.models import HandbookUpdateLog
 from core.Utils.models.exporters import ExportModes, QuerysetExporter
 from .tables import ClinicPreSettingsTable
 from .forms import ClinicPreSettingsForm, ClinicPreSettingsImportForm
@@ -117,6 +118,8 @@ def setting_import(request):
     if form_body.is_valid():
         try:
             form_body.save()
+            HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                             handbook=HandbookUpdateLog.HandbookChoices.CLINIC_PRE_SETTINGS)
             messages.success(request, _('Clinic pre-settings load successfully!'))
             return redirect(reverse('clinic-settings:clinic-pre-settings-list', host='admin'))
         except Exception as e:

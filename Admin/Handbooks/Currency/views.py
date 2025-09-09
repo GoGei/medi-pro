@@ -12,6 +12,7 @@ from Admin.utils.tables.handler import TableHandler
 from core.ClinicPreSettings.models import ClinicPreSettings
 from core.Currency.models import Currency
 from core.Currency.services import import_currencies_from_fixture
+from core.Loggers.models import HandbookUpdateLog
 from core.Utils.models.exporters import QuerysetExporter
 from .tables import CurrencyTable
 from .forms import CurrencyForm, CurrencyImportForm
@@ -113,6 +114,8 @@ def currency_import(request):
     if form_body.is_valid():
         try:
             currencies: QuerySet[Currency] = form_body.save()
+            HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                             handbook=HandbookUpdateLog.HandbookChoices.CURRENCY)
             messages.success(request, _('{count} currencies load successfully!').format(count=currencies.count()))
             return redirect(reverse('handbooks:currency-list', host='admin'))
         except Exception as e:
@@ -144,6 +147,8 @@ def currency_export(request, mode: str):
 def currency_sync(request):
     try:
         currencies: QuerySet[Currency] = import_currencies_from_fixture()
+        HandbookUpdateLog.objects.create(user_id=request.user.id,
+                                         handbook=HandbookUpdateLog.HandbookChoices.CURRENCY)
         messages.success(request, _('{count} currencies successfully synchronized with fixture!').format(
             count=currencies.count()))
     except Exception as e:

@@ -13,9 +13,10 @@ def handbooks_update_list(request):
     handler = TableHandler(
         session_key='handbooks_update_table',
         request=request,
-        queryset=HandbookUpdateLog.objects.select_related('user').all(),
+        queryset=HandbookUpdateLog.objects.select_related('user'),
         table_class=HandbookUpdateLogTable,
         filterset_class=HandbookUpdateLogFilter,
+        default_ordering=('-stamp',),
         search_fields=('^user__email', '^user__first_name', '^user__last_name')
     )
     handler = handler.process()

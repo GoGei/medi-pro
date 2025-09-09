@@ -54,7 +54,7 @@ def allergy_reaction_export(request, mode: str):
 @login_required
 def allergy_reaction_sync(request):
     try:
-        extract_allergy_reaction.apply_async()
+        extract_allergy_reaction.apply_async(kwargs={'user_id': request.user.id})
         messages.success(request, _('Command to load allergy reactions launched!'))
     except Exception as e:
         messages.error(request, _('Command to load allergy reactions failed! Exception raised: %s') % e)
