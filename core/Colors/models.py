@@ -13,9 +13,12 @@ class EmployeeColors(IsActiveMixin):
     class Meta:
         db_table = 'employee_color'
 
+    def __str__(self):
+        return self.name
+
     @property
     def label(self):
-        return self.name
+        return str(self)
 
     @classmethod
     def get_default(cls) -> "EmployeeColors | None":
