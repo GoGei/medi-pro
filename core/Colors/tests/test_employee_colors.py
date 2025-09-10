@@ -67,6 +67,9 @@ class EmployeeColorsTestCase(TestCase):
         c3 = EmployeeColors.objects.count()
         self.assertEqual(c3, c2 + 2)
 
+        archived_color.refresh_from_db()
+        self.assertTrue(archived_color.is_active)
+
     def test_import_colors_from_fixture_validate_2_default_provided(self):
         data = [
             {

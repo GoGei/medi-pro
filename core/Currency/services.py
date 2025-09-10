@@ -27,7 +27,7 @@ def import_currencies_from_fixture(archive_not_mentioned: bool = True, fixture: 
     mentioned: set[int] = set()
     if not data:
         data = json.load(open(fixture, 'r'))
-
+    run_validations(data=data)
     for item in data:
         obj, _ = Currency.objects.update_or_create(
             code=item['code'],

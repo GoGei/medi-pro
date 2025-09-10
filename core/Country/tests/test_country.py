@@ -57,6 +57,9 @@ class CountryTestCase(TestCase):
         c3 = Country.objects.count()
         self.assertEqual(c3, c2 + 2)
 
+        archived_country.refresh_from_db()
+        self.assertTrue(archived_country.is_active)
+
     def test_import_countries_from_fixture_validate_duplicated_ccn3(self):
         data = [
             {
