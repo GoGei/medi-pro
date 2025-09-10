@@ -18,9 +18,9 @@ jobs:
       postgres:
         image: postgres:17
         env:
-          POSTGRES_DB: test_db
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
+          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         ports:
           - 5432:5432
         options: >-
@@ -35,9 +35,9 @@ jobs:
       SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
       DJANGO_SETTINGS_MODULE: test_settings
 
-      DATABASE_NAME: test_db
-      DATABASE_USER: test_user
-      DATABASE_PASSWORD: test_password
+      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+      DATABASE_USER: ${{ secrets.DATABASE_USER }}
+      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
 
