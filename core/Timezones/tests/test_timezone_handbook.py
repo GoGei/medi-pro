@@ -6,11 +6,11 @@ from ..services import import_timezones, load_timezones
 
 class TimezoneHandbookTestCase(TestCase):
     def test_create_obj(self):
-        obj = TimezoneHandbookFactory()
+        obj = TimezoneHandbookFactory.create()
         self.assertIn(obj, TimezoneHandbook.objects.all())
 
     def test_delete_obj(self):
-        obj = TimezoneHandbookFactory()
+        obj = TimezoneHandbookFactory.create()
         obj_id = obj.id
         obj.delete()
         self.assertNotIn(obj_id, TimezoneHandbook.objects.all().values_list('id', flat=True))

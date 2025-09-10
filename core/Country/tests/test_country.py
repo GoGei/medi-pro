@@ -10,13 +10,13 @@ from ..services import import_countries_from_fixture, import_countries_from_exte
 
 class CountryTestCase(TestCase):
     def test_create_obj(self):
-        obj = CountryFactory()
+        obj = CountryFactory.create()
         self.assertIn(obj, Country.objects.all())
         self.assertTrue(str(obj))
         self.assertTrue(obj.label)
 
     def test_delete_obj(self):
-        obj = CountryFactory()
+        obj = CountryFactory.create()
         obj_id = obj.id
         obj.delete()
         self.assertNotIn(obj_id, Country.objects.all().values_list('id', flat=True))

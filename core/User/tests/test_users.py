@@ -9,17 +9,17 @@ fake = Faker()
 
 class UserTestCase(TestCase):
     def test_create_user(self):
-        user = UserFactory()
+        user = UserFactory.create()
         self.assertIn(user, User.objects.all())
 
     def test_delete_user(self):
-        user = UserFactory()
+        user = UserFactory.create()
         user_id = user.id
         user.delete()
         self.assertNotIn(user_id, User.objects.all().values_list('id', flat=True))
 
     def test_create_user_empty_email(self):
-        user = UserFactory(email='')
+        user = UserFactory.create(email='')
         self.assertIsNone(user.email)
 
     def test_manager_create_user(self):
@@ -47,7 +47,7 @@ class UserTestCase(TestCase):
             User.objects.create_user(email=fake.email(), password=FuzzyPassword().fuzz(), is_superuser=False)
 
     def test_hash_id(self):
-        user = UserFactory()
+        user = UserFactory.create()
         self.assertEqual(user, User.get_by_hashid(user.hashid()))
 
         values = User.decode(user.hashid())
