@@ -18,13 +18,13 @@ jobs:
       postgres:
         image: postgres:17
         env:
-          POSTGRES_DB: ${{ secrets.DATABASE_NAME }}
-          POSTGRES_USER: ${{ secrets.DATABASE_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          POSTGRES_DB: test_db
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
         ports:
           - 5432:5432
         options: >-
-          --health-cmd="pg_isready -U ${{ secrets.DATABASE_USER }} -d ${{ secrets.DATABASE_NAME }}"
+          --health-cmd="pg_isready -U test_user -d test_db"
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
@@ -35,9 +35,9 @@ jobs:
       SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
       DJANGO_SETTINGS_MODULE: test_settings
 
-      DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-      DATABASE_USER: ${{ secrets.DATABASE_USER }}
-      DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+      DATABASE_NAME: test_db
+      DATABASE_USER: test_user
+      DATABASE_PASSWORD: test_password
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
 
