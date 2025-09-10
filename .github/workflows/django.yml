@@ -16,6 +16,7 @@ jobs:
 
     env:
       UV_PYTHON: ${{ matrix.python-version }}
+      UV_PROJECT_ENVIRONMENT: env
       SECRET_KEY: ${{ secrets.TEST_SECRET_KEY }}
       DJANGO_SETTINGS_MODULE: test_settings
 
