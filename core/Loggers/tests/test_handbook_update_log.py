@@ -7,6 +7,7 @@ class HandbookUpdateLogTestCase(TestCase):
     def test_create_obj(self):
         obj = HandbookUpdateLogFactory.create()
         self.assertIn(obj, HandbookUpdateLog.objects.all())
+        self.assertTrue(str(obj))
 
     def test_delete_obj(self):
         obj = HandbookUpdateLogFactory.create()

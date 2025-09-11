@@ -26,10 +26,8 @@ class Command(BaseCommand):
 
         try:
             extractor.extract_from_table()
-        except FHIRPageExtractorException as e:
-            raise CommandError(f'Unable to extract data from table: {e}')
         except Exception as e:
-            raise CommandError(f'Unknown error: {e}')
+            raise CommandError(f'Unable to extract data from table: {e}')
 
         self.stdout.write(self.style.SUCCESS(f'Successfully received {len(extractor.data)} items'))
         try:

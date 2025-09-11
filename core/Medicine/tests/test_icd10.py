@@ -7,6 +7,8 @@ class ICD10TestCase(TestCase):
     def test_create_obj(self):
         obj = ICD10Factory.create()
         self.assertIn(obj, ICD10.objects.all())
+        self.assertTrue(str(obj))
+        self.assertTrue(obj.label)
 
     def test_delete_obj(self):
         obj = ICD10Factory.create()

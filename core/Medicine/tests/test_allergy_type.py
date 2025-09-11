@@ -7,6 +7,8 @@ class AllergyTypeTestCase(TestCase):
     def test_create_obj(self):
         obj = AllergyTypeFactory.create()
         self.assertIn(obj, AllergyType.objects.all())
+        self.assertTrue(str(obj))
+        self.assertTrue(obj.label)
 
     def test_delete_obj(self):
         obj = AllergyTypeFactory.create()
