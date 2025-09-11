@@ -50,6 +50,7 @@ def run_validations(data: list[dict]):
 def load_timezones(data: list[dict], archive_not_mentioned: bool = True) -> QuerySet[TimezoneHandbook]:
     mentioned: set[int] = set()
 
+    run_validations(data)
     for item in data:
         obj, _ = TimezoneHandbook.objects.update_or_create(
             name=item['name'],
@@ -64,5 +65,4 @@ def load_timezones(data: list[dict], archive_not_mentioned: bool = True) -> Quer
 
     if archive_not_mentioned:
         TimezoneHandbook.objects.exclude(id__in=mentioned).archive()
-
     return TimezoneHandbook.objects.filter(id__in=mentioned)
