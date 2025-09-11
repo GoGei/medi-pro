@@ -52,7 +52,7 @@ def country_edit(request, country_id):
     form_body = CountryEditForm(request.POST or None, request.FILES or None, request=request,
                                 instance=country)
     if form_body.is_valid():
-        country = form_body.save()
+        country: Country = form_body.save()
         messages.success(request, _('Country edited successfully!'))
         return redirect(reverse('handbooks:country-view', args=[country.id], host='admin'))
 

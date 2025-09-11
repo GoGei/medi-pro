@@ -44,7 +44,7 @@ def role_edit(request, role_id):
     form_body = EmployeeRoleForm(request.POST or None, request.FILES or None, request=request,
                                  instance=role)
     if form_body.is_valid():
-        role = form_body.save()
+        role: EmployeeRole = form_body.save()
         messages.success(request, _('Employee role edited successfully!'))
         return redirect(reverse('clinic-settings:employee-role-view', args=[role.id], host='admin'))
 
