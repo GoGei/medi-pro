@@ -58,7 +58,9 @@ jobs:
           uv run python manage.py check
           uv run flake8
 
-      - name: Run Tests
+      - name: Run Tests with Coverage
         run: |
-          uv run python manage.py migrate --noinput
-          uv run python manage.py test
+          uv run coverage run manage.py migrate --noinput
+          uv run coverage run -m django test
+          uv run coverage report -m
+          uv run coverage xml
