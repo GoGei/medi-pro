@@ -1,0 +1,15 @@
+{% extends 'Admin/Admins/base.html' %}
+{% load i18n hosts %}
+
+{% block title %}{{ block.super }} | {% trans 'Add' %}{% endblock %}
+
+{% block breadcrumb %}
+  {{ block.super }}
+  <li class="breadcrumb-item">
+    <a href="{% host_url 'admins-add' host 'admin' %}">{% trans 'Add' %}</a>
+  </li>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/forms/form.html' %}
+{% endblock %}

@@ -61,8 +61,8 @@ class User(AbstractUser, HashIDMixin):
 
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(null=True)
-    first_name = models.CharField(max_length=50, blank=True)
-    last_name = models.CharField(max_length=70, blank=True)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=70, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

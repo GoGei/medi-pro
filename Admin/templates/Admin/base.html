@@ -55,6 +55,12 @@
             <span>{% trans 'Users' %}</span>
           </a>
         </li>
+        <li class="{% block menu-admins-active %}{% endblock %}">
+          <a href="{% host_url 'admins-list' host 'admin' %}">
+            <i class="fa fa-user-plus"></i>
+            <span>{% trans 'Admins' %}</span>
+          </a>
+        </li>
 
         <li class="{% block menu-handbooks-active %}{% endblock %}">
           <a href="" aria-expanded="false">

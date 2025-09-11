@@ -1,0 +1,11 @@
+{% extends 'Admin/Admins/base.html' %}
+{% load i18n hosts static %}
+
+{% block action-area %}
+  <a href="{% host_url 'admins-add' host 'admin' %}" class="btn btn-primary dim"
+     type="button"><i class="fa fa-plus"></i></a>
+{% endblock %}
+
+{% block content %}
+  {% include 'Admin/base/tables/table.html' %}
+{% endblock %}
