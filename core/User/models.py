@@ -48,6 +48,9 @@ class UserManager(BaseUserManager):
     def users(self):
         return self.exclude(Q(is_staff=True) | Q(is_superuser=True))
 
+    def admins(self):
+        return self.filter(Q(is_staff=True) | Q(is_superuser=True))
+
 
 class User(AbstractUser, HashIDMixin):
     username = None

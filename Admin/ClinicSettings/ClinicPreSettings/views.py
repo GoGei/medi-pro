@@ -46,7 +46,7 @@ def setting_add(request):
 
     form_body = ClinicPreSettingsForm(request.POST or None, request.FILES or None, request=request)
     if form_body.is_valid():
-        setting = form_body.save()
+        setting: ClinicPreSettings = form_body.save()
         messages.success(request, _('Setting created successfully!'))
         return redirect(reverse('clinic-settings:clinic-pre-settings-view', args=[setting.id], host='admin'))
 
@@ -80,7 +80,7 @@ def setting_edit(request, setting_id):
     form_body = ClinicPreSettingsForm(request.POST or None, request.FILES or None, request=request,
                                       instance=setting)
     if form_body.is_valid():
-        setting = form_body.save()
+        setting: ClinicPreSettings = form_body.save()
         messages.success(request, _('Setting edited successfully!'))
         return redirect(reverse('clinic-settings:clinic-pre-settings-view', args=[setting.id], host='admin'))
 
