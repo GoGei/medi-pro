@@ -1,0 +1,7 @@
+[run]
+omit =
+    */migrations/*
+    */tests/*
+    */settings/*
+    manage.py
+    /snap/pycharm-professional/*
