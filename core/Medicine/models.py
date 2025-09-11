@@ -12,6 +12,9 @@ class AllergyType(IsActiveMixin):
     class Meta:
         db_table = 'allergy_type'
 
+    def __str__(self):
+        return self.code
+
     @property
     def label(self):
         return self.code
@@ -25,6 +28,9 @@ class AllergyCause(IsActiveMixin):
 
     class Meta:
         db_table = 'allergy_cause'
+
+    def __str__(self):
+        return self.code
 
     @property
     def label(self):
@@ -40,6 +46,9 @@ class AllergyReaction(IsActiveMixin):
     class Meta:
         db_table = 'allergy_reaction'
 
+    def __str__(self):
+        return self.code
+
     @property
     def label(self):
         return self.code
@@ -54,6 +63,9 @@ class ICD10(IsActiveMixin):
     class Meta:
         db_table = 'icd_10'
 
+    def __str__(self):
+        return self.code
+
     @property
     def label(self):
         return self.code
@@ -64,6 +76,9 @@ class PatientRelation(IsActiveMixin):
 
     class Meta:
         db_table = 'patient_relation'
+
+    def __str__(self):
+        return self.name
 
     @property
     def label(self):

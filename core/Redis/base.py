@@ -11,11 +11,17 @@ class BaseRedis:
         self.key = self.KEY.format(*args, **kwargs)
 
     def set(self, value):
-        self.redis.set(self.key, json.dumps(value), ex=self.TTL)
+        return self.redis.set(self.key, json.dumps(value), ex=self.TTL)
 
     def get(self) -> dict | None:
         data = self.redis.get(self.key)
         return None if data is None else json.loads(data)
+
+    def delete(self):
+        return self.redis.delete(self.key)
+
+    def exists(self):
+        return self.redis.exists(self.key)
 
 
 class TestRedis(BaseRedis):

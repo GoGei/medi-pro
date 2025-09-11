@@ -29,6 +29,16 @@ jobs:
           --health-timeout=5s
           --health-retries=5
 
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     env:
       UV_PYTHON: ${{ matrix.python-version }}
       UV_PROJECT_ENVIRONMENT: env
@@ -40,6 +50,8 @@ jobs:
       DATABASE_PASSWORD: test_password
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
+
+      REDIS_HOST: localhost
 
     steps:
       - uses: actions/checkout@v4
@@ -58,7 +70,9 @@ jobs:
           uv run python manage.py check
           uv run flake8
 
-      - name: Run Tests
+      - name: Run Tests with Coverage
         run: |
-          uv run python manage.py migrate --noinput
-          uv run python manage.py test
+          uv run coverage run manage.py migrate --noinput
+          uv run coverage run -m django test
+          uv run coverage report -m
+          uv run coverage xml

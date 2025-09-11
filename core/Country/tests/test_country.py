@@ -10,16 +10,21 @@ from ..services import import_countries_from_fixture, import_countries_from_exte
 
 class CountryTestCase(TestCase):
     def test_create_obj(self):
-        obj = CountryFactory()
+        obj = CountryFactory.create()
         self.assertIn(obj, Country.objects.all())
+        self.assertTrue(str(obj))
+        self.assertTrue(obj.label)
 
     def test_delete_obj(self):
-        obj = CountryFactory()
+        obj = CountryFactory.create()
         obj_id = obj.id
         obj.delete()
         self.assertNotIn(obj_id, Country.objects.all().values_list('id', flat=True))
 
     def test_import_countries_from_fixture(self):
+        archived_country = CountryFactory.create(ccn3='AAA', cca2='AA')
+        archived_country.archive()
+
         c1 = Country.objects.count()
         import_countries_from_fixture()
         c2 = Country.objects.count()
@@ -40,10 +45,62 @@ class CountryTestCase(TestCase):
                 "cca2": "T2",
                 "ccn3": "001"
             },
+            {
+                "name": {
+                    "common": "Test3",
+                },
+                "cca2": archived_country.cca2,
+                "ccn3": archived_country.ccn3
+            },
         ]
         import_countries_from_fixture(data=data)
         c3 = Country.objects.count()
         self.assertEqual(c3, c2 + 2)
+
+        archived_country.refresh_from_db()
+        self.assertTrue(archived_country.is_active)
+
+    def test_import_countries_from_fixture_validate_duplicated_ccn3(self):
+        data = [
+            {
+                "name": {
+                    "common": "Test1",
+                },
+                "cca2": "T1",
+                "ccn3": "000"
+            },
+            {
+                "name": {
+                    "common": "Test2",
+                },
+                "cca2": "T2",
+                "ccn3": "000"
+            }
+        ]
+        with self.assertRaises(LoadCountriesException) as e:
+            import_countries_from_fixture(data=data)
+        self.assertIn('CCN3', str(e.exception))
+
+    def test_import_countries_from_fixture_validate_duplicated_cca2(self):
+        data = [
+            {
+                "name": {
+                    "common": "Test1",
+                },
+                "cca2": "T1",
+                "ccn3": "000"
+            },
+            {
+                "name": {
+                    "common": "Test2",
+                },
+                "cca2": "T1",
+                "ccn3": "001"
+            }
+        ]
+        with self.assertRaises(LoadCountriesException) as e:
+            import_countries_from_fixture(data=data)
+        self.assertIn('CCA2', str(e.exception))
 
 
 class ImportCountriesFromExternalApiTestCase(TestCase):

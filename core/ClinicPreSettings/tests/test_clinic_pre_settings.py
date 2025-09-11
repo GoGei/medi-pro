@@ -10,8 +10,14 @@ from ..services import LoadClinicPreSettingsException, import_clinic_pre_setting
 
 class ClinicPreSettingsTestCase(TestCase):
     def test_create_obj(self):
-        obj = ClinicPreSettingsFactory.create()
+        obj = ClinicPreSettingsFactory.create(
+            timezones=[TimezoneHandbookFactory.create()],
+            currencies=[CurrencyFactory.create()],
+        )
         self.assertIn(obj, ClinicPreSettings.objects.all())
+        self.assertTrue(repr(obj))
+        self.assertTrue(str(obj))
+        self.assertTrue(obj.label)
 
     def test_delete_obj(self):
         obj = ClinicPreSettingsFactory.create()
@@ -60,17 +66,17 @@ class ClinicPreSettingsTestCase(TestCase):
             'country_ccn3': country.ccn3,
             'timezone_name': primary_timezone.name,
             'currency_code': primary_currency.code,
-            'timezone_names': 'unknown',
-            'currency_codes': 'unknown',
+            'timezone_names': ['unknown'],
+            'currency_codes': ['unknown'],
         }
         with self.assertRaises(expected_exception=LoadClinicPreSettingsException) as e:
             import_clinic_pre_settings(data=[data_item])
-        self.assertIn(data_item['timezone_names'], str(e.exception))
+        self.assertIn('timezones', str(e.exception))
 
-        data_item['timezone_names'] = primary_timezone.name
+        data_item['timezone_names'] = [primary_timezone.name]
         with self.assertRaises(expected_exception=LoadClinicPreSettingsException) as e:
             import_clinic_pre_settings(data=[data_item])
-        self.assertIn(data_item['currency_codes'], str(e.exception))
+        self.assertIn('currencies', str(e.exception))
 
     def test_get_setting(self):
         country = CountryFactory.create()
