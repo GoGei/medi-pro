@@ -5,7 +5,11 @@ from core.User.models import User
 
 class AdminsTable(tables.Table):
     id = custom_fields.HrefColumn(reverse_url='admins-view')
-    actions = custom_fields.DefaultActionFields(base_url='admins')
+    actions = custom_fields.DefaultActionFields(base_url='admins',
+                                                template_name='Admin/Admins/actions_template.html',
+                                                extra_context={
+                                                    'set_password_url': 'admins-set-password'
+                                                })
 
     class Meta:
         model = User

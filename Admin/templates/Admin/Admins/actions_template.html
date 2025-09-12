@@ -1,0 +1,39 @@
+{% load i18n hosts %}
+
+
+{% if view_url %}
+  <a href="{% host_url view_url record.id host 'admin' %}" class="btn btn-default" type="button">
+    <i class="fa fa-eye"></i>
+  </a>
+{% endif %}
+
+{% if edit_url %}
+  <a href="{% host_url edit_url record.id host 'admin' %}" class="btn btn-info" type="button">
+    <i class="fa fa-pencil"></i>
+  </a>
+{% endif %}
+
+{% if request.user.is_superuser %}
+  {% if archive_url or restore_url %}
+    {% if record.is_active %}
+      {% if archive_url %}
+        <a href="{% host_url archive_url record.id host 'admin' %}" class="btn btn-danger action-archive"
+           type="button">
+          <i class="fa fa-trash"></i>
+        </a>
+      {% endif %}
+    {% else %}
+      {% if restore_url %}
+        <a href="{% host_url restore_url record.id host 'admin' %}" class="btn btn-info action-restore"
+           type="button">
+          <i class="fa fa-refresh"></i>
+        </a>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  <a href="{% host_url set_password_url record.id host 'admin' %}" class="btn btn-info"
+     type="button">
+    <i class="fa fa-wrench"></i>
+  </a>
+{% endif %}

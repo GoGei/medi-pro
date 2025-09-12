@@ -8,4 +8,5 @@ urlpatterns = [
     path('<int:admins_id>/edit/', views.admins_edit, name='admins-edit'),
     path('<int:admins_id>/archive/', views.admins_archive, name='admins-archive'),
     path('<int:admins_id>/restore/', views.admins_restore, name='admins-restore'),
+    path('<int:admins_id>/set-password/', views.admins_set_password, name='admins-set-password'),
 ]

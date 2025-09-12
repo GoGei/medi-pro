@@ -17,6 +17,7 @@
 
   {% include 'Admin/base_form_css.html' %}
   {% include 'Admin/base_table_css.html' %}
+  <link href="{% static 'admin/css/base.css' %}" rel="stylesheet">
   {% block extracss %}{% endblock %}
 </head>
 
@@ -34,7 +35,10 @@
               <span class="block m-t-xs font-bold">{{ request.user.label }}</span>
             </a>
             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-              <li><a class="dropdown-item" href="#">{% trans 'Profile' %}</a></li>
+              <li><a class="dropdown-item" href="{% host_url 'profile-view' host 'admin' %}">{% trans 'Profile' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'profile-change-password' host 'admin' %}">{% trans 'Change password' %}</a></li>
               <li class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="{% host_url 'logout' host 'admin' %}">{% trans 'Logout' %}</a></li>
             </ul>

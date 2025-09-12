@@ -3,6 +3,11 @@
 <form {% if form.id %}id="{{ form.id }}"{% endif %} role="form" action="{{ form.action|default:'' }}"
       method="{{ form.method|default:'post' }}" novalidate enctype="multipart/form-data">
   {% if form.skip_csf_token %}{% else %}{% csrf_token %}{% endif %}
+
+  {% if form.informer %}
+    <div class="alert alert-info">{{ form.informer|safe|escape }}</div>
+  {% endif %}
+
   {% include 'Admin/base/non_field_errors.html' with form=form.form_body %}
 
   {% for field in form.form_body %}
@@ -33,9 +38,12 @@
         {% elif class|is_in:'CheckboxInput' %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/inputs/checkbox_input.html' with field=field %}
-        {% comment %}{% elif class|is_in:'RadioSelect' %}
+          {% comment %}{% elif class|is_in:'RadioSelect' %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/inputs/radio_input.html' with field=field %}{% endcomment %}
+        {% elif class|is_in:'PasswordInput' %}
+          {% include 'Admin/base/forms/fields/label.html' with field=field %}
+          {% include 'Admin/base/forms/fields/inputs/password_input.html' with field=field %}
         {% else %}
           {% include 'Admin/base/forms/fields/label.html' with field=field %}
           {% include 'Admin/base/forms/fields/input.html' with field=field %}

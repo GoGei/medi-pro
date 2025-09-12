@@ -10,6 +10,7 @@ urlpatterns = [
     path('clinic-settings/', include('Admin.ClinicSettings.urls', namespace='clinic-settings')),
     path('loggers/', include('Admin.Loggers.urls', namespace='loggers')),
     path('admins/', include('Admin.Admins.urls')),
+    path('profile/', include('Admin.Profile.urls')),
 
     path('api/', include('Admin.Api.urls')),
     path('', include('urls')),

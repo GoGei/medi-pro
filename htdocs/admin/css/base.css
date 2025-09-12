@@ -1,0 +1,24 @@
+.password-informer {
+  margin: 0.5rem 0 1rem;
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  color: #6c757d; /* bootstrap muted */
+  list-style-type: disc;
+}
+
+.password-informer li {
+  margin-bottom: 0.25rem;
+}
+
+.toggle-password {
+  cursor: pointer;
+}
+
+.toggle-password i {
+  color: #888;
+  transition: color 0.2s ease-in-out;
+}
+
+.toggle-password:hover i {
+  color: #333;
+}

@@ -1,24 +1,11 @@
-{% extends 'Admin/Admins/base.html' %}
+{% extends 'Admin/base.html' %}
 {% load i18n hosts static %}
 
-{% block title %}{{ block.super }} | {% trans 'View' %}{% endblock %}
-
-{% block breadcrumb %}
-  {{ block.super }}
-  <li class="breadcrumb-item">
-    <a href="{% host_url 'admins-view' user.id host 'admin' %}">{{ user.label|truncatechars:20 }}</a>
-  </li>
-{% endblock %}
-
 {% block action-area %}
-  <a href="{% host_url 'admins-list' host 'admin' %}" type="button"
-     class="btn btn-w-m btn-info">{% trans 'Back to list' %}</a>
-  <a href="{% host_url 'admins-edit' user.id host 'admin' %}" type="button"
+  <a href="{% host_url 'profile-edit' host 'admin' %}" type="button"
      class="btn btn-w-m btn-info">{% trans 'Edit' %}</a>
-  {% if request.user.is_superuser %}
-    <a href="{% host_url 'admins-set-password' user.id host 'admin' %}" type="button"
-       class="btn btn-w-m btn-info">{% trans 'Set password' %}</a>
-  {% endif %}
+  <a href="{% host_url 'profile-change-password' host 'admin' %}" type="button"
+     class="btn btn-w-m btn-info">{% trans 'Change password' %}</a>
 {% endblock %}
 
 {% block content %}
@@ -89,16 +76,6 @@
               <span class="label label-primary">{% trans 'Superuser' %}</span>
             {% else %}
               <span class="label label-danger">{% trans 'Not superuser' %}</span>
-            {% endif %}
-          </td>
-        </tr>
-        <tr>
-          <th>{% trans 'Has password' %}</th>
-          <td>
-            {% if user.password %}
-              <span class="label label-primary">{% trans 'Presented' %}</span>
-            {% else %}
-              <span class="label label-danger">{% trans 'Not presented' %}</span>
             {% endif %}
           </td>
         </tr>
