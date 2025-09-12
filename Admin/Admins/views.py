@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django_hosts import reverse
 
+from Admin.utils.forms.fields import PasswordField
 from Admin.utils.tables.handler import TableHandler
 from core.User.models import User
 from .tables import AdminsTable
@@ -120,6 +121,7 @@ def admins_set_password(request, admins_id):
 
     form = {
         'form_body': form_body,
+        'informer': PasswordField.DEFAULT_INFORMER,
         'buttons': {
             'submit': True,
             'cancel': True,

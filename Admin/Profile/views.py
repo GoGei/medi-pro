@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django_hosts import reverse
 
+from Admin.utils.forms.fields import PasswordField
 from core.User.models import User
 from .forms import ProfileSetPasswordForm, ProfileEditForm
 
@@ -29,6 +30,7 @@ def profile_change_password(request):
 
     form = {
         'form_body': form_body,
+        'informer': PasswordField.DEFAULT_INFORMER,
         'buttons': {
             'submit': True,
             'cancel': True,

@@ -100,7 +100,19 @@ class ASCIIOnlyValidator:
 
 
 class PasswordField(forms.CharField):
-    widget = forms.PasswordInput
+    DEFAULT_INFORMER = _(
+        "<ul class='password-informer'>"
+        "<li>At least 8 characters</li>"
+        "<li>At most 32 characters</li>"
+        "<li>No spaces</li>"
+        "<li>Lowercase letters</li>"
+        "<li>Uppercase letters</li>"
+        "<li>Special characters (!@#$%^&*)</li>"
+        "<li>Only ASCII characters</li>"
+        "</ul>"
+    )
+
+    widget = forms.PasswordInput(attrs={'placeholder': _('Your password here')})
     default_validators = [
         MinLengthValidator(limit_value=8, message=_('Password must contains at least 8 characters')),
         MaxLengthValidator(limit_value=32, message=_('Password must contains at most 32 characters')),
