@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy as _
 from Admin.utils.forms.base import BaseModelForm
+from Admin.utils.forms.fields import PasswordField
 from core.User.models import User
 
 
@@ -15,6 +16,8 @@ class AdminsForm(BaseModelForm):
 
         if not user.is_superuser:
             self.fields['is_superuser'].disabled = True
+            if self.instance and self.instance.is_superuser:
+                self.fields['is_active'].disabled = True
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -34,3 +37,33 @@ class AdminsForm(BaseModelForm):
         data = self.cleaned_data
         data['is_staff'] = True
         return data
+
+
+class AdminsSetPasswordForm(BaseModelForm):
+    password = PasswordField()
+    confirm = PasswordField()
+
+    class Meta:
+        model = User
+        fields = ('password', 'confirm')
+
+    def clean(self):
+        data = super().clean()
+        password: str = data.get('password')
+        confirm: str = data.get('confirm')
+
+        if (password and confirm) and (password != confirm):
+            msg = _('Password mismatch')
+            self.add_error('password', msg)
+            self.add_error('confirm', msg)
+
+        if not self.instance:
+            self.add_error(None, _('Instance is missing! Please, contact administrator'))
+        return data
+
+    def save(self, commit=True):
+        user: User = self.instance
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
