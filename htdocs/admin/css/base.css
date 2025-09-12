@@ -9,3 +9,16 @@
 .password-informer li {
   margin-bottom: 0.25rem;
 }
+
+.toggle-password {
+  cursor: pointer;
+}
+
+.toggle-password i {
+  color: #888;
+  transition: color 0.2s ease-in-out;
+}
+
+.toggle-password:hover i {
+  color: #333;
+}

@@ -1,8 +1,7 @@
 from django import forms
-from django.contrib.auth.validators import ASCIIUsernameValidator
 from django.core.exceptions import ValidationError
 from django.core.validators import (
-    BaseValidator, MinLengthValidator, MaxLengthValidator, ProhibitNullCharactersValidator, RegexValidator
+    MinLengthValidator, MaxLengthValidator, ProhibitNullCharactersValidator, RegexValidator
 )
 from django.utils.deconstruct import deconstructible
 from django.utils.translation import gettext_lazy as _
