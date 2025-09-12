@@ -32,11 +32,12 @@ class AdminsForm(BaseModelForm):
             self.add_error('email', _('User with this email already exists'))
         return email
 
-    def clean(self):
-        super().clean()
-        data = self.cleaned_data
-        data['is_staff'] = True
-        return data
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.is_staff = True
+        if commit:
+            instance.save()
+        return instance
 
 
 class AdminsSetPasswordForm(BaseModelForm):
