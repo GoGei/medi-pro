@@ -5,10 +5,10 @@ app_name = 'medicine'
 
 urlpatterns = [
     path('', views.medicine_home_view, name='home'),
-    path('sync/allergy-cause/', views.allergy_cause_sync, name='home-allergy-cause-sync'),
-    path('sync/allergy-reaction/', views.allergy_reaction_sync, name='home-allergy-reaction-sync'),
-    path('sync/allergy-type/', views.allergy_type_sync, name='home-allergy-type-sync'),
-    path('sync/icd-10/', views.icd10_sync, name='home-icd-10-sync'),
+    path('sync/allergy-cause/', views.allergy_cause_sync, name='home-allergy-causes-sync'),
+    path('sync/allergy-reaction/', views.allergy_reaction_sync, name='home-allergy-reactions-sync'),
+    path('sync/allergy-type/', views.allergy_type_sync, name='home-allergy-types-sync'),
+    path('sync/icd-10/', views.icd10_sync, name='home-icd10-sync'),
 
     path('allergy-type/', include('Admin.Medicine.AllergyType.urls')),
     path('allergy-cause/', include('Admin.Medicine.AllergyCause.urls')),

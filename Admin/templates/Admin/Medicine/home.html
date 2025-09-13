@@ -47,13 +47,20 @@
           </div>
         </div>
         <div class="col-md-1 forum-info">
-          <span class="views-number">
-            <a href="{% host_url 'medicine:home-allergy-type-sync' host 'admin' %}">
-              <i class="fa fa-refresh fa-1x"></i>
-            </a>
-          </span>
-          <div>
-            <small>{% trans 'Sync' %}</small>
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-types-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-types-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-allergy-types-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -91,13 +98,20 @@
           </div>
         </div>
         <div class="col-md-1 forum-info">
-          <span class="views-number">
-            <a href="{% host_url 'medicine:home-allergy-cause-sync' host 'admin' %}">
-              <i class="fa fa-refresh fa-1x"></i>
-            </a>
-          </span>
-          <div>
-            <small>{% trans 'Sync' %}</small>
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-causes-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-causes-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-allergy-causes-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -135,13 +149,20 @@
           </div>
         </div>
         <div class="col-md-1 forum-info">
-          <span class="views-number">
-            <a href="{% host_url 'medicine:home-allergy-reaction-sync' host 'admin' %}">
-              <i class="fa fa-refresh fa-1x"></i>
-            </a>
-          </span>
-          <div>
-            <small>{% trans 'Sync' %}</small>
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-reactions-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-reactions-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-allergy-reactions-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -179,13 +200,20 @@
           </div>
         </div>
         <div class="col-md-1 forum-info">
-          <span class="views-number">
-            <a href="{% host_url 'medicine:home-icd-10-sync' host 'admin' %}">
-              <i class="fa fa-refresh fa-1x"></i>
-            </a>
-          </span>
-          <div>
-            <small>{% trans 'Sync' %}</small>
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:icd10-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:icd10-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-icd10-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
