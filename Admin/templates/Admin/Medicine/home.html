@@ -10,67 +10,210 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row">
-    <div class="col-lg-3">
-      <div class="widget style1">
-        <div class="row">
-          <div class="col-4 text-center">
+  <div class="ibox-content forum-container">
+    <div class="forum-title">
+      <h3>{% trans 'Medicine handbooks' %}</h3>
+    </div>
+    <div class="forum-item active">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="forum-icon">
+            <i class="fa fa-book"></i>
+          </div>
+          <a href="{% host_url 'medicine:allergy-types-list' host 'admin' %}" class="forum-item-title">
+            {% trans 'Allergy type' %}
+          </a>
+          <div class="forum-sub-title">
+            {% trans 'No tasks in progress' %}
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
+              {{ allergy_type_count }}
+          </span>
+          <div>
+            <small>{% trans 'Count' %}</small>
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
             <a href="https://hl7.org/fhir/valueset-allergy-intolerance-category.html"
                target="_blank">
-              <i class="fa fa-link fa-5x"></i>
+              <i class="fa fa-link fa-1x"></i>
             </a>
+          </span>
+          <div>
+            <small>{% trans 'Source' %}</small>
           </div>
-          <div class="col-8 text-right">
-            <a href="{% host_url 'medicine:allergy-types-list' host 'admin' %}"><span> {% trans 'Allergy type' %} </span></a>
-            <h2 class="font-bold">{{ allergy_type_count }}</h2>
+        </div>
+        <div class="col-md-1 forum-info">
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-types-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-types-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-allergy-types-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
-      <div class="widget style1">
-        <div class="row">
-          <div class="col-4">
+    <div class="forum-item active">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="forum-icon">
+            <i class="fa fa-book"></i>
+          </div>
+          <a href="{% host_url 'medicine:allergy-causes-list' host 'admin' %}" class="forum-item-title">
+            {% trans 'Allergy cause' %}
+          </a>
+          <div class="forum-sub-title">
+            {% trans 'No tasks in progress' %}
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
+              {{ allergy_cause_count }}
+          </span>
+          <div>
+            <small>{% trans 'Count' %}</small>
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
             <a href="https://hl7.org/fhir/valueset-allergyintolerance-code.html"
                target="_blank">
-              <i class="fa fa-link fa-5x"></i>
+              <i class="fa fa-link fa-1x"></i>
             </a>
+          </span>
+          <div>
+            <small>{% trans 'Source' %}</small>
           </div>
-          <div class="col-8 text-right">
-            <a href="{% host_url 'medicine:allergy-causes-list' host 'admin' %}"><span> {% trans 'Allergy cause' %} </span></a>
-            <h2 class="font-bold">{{ allergy_cause_count }}</h2>
+        </div>
+        <div class="col-md-1 forum-info">
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-causes-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-causes-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-allergy-causes-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
-      <div class="widget style1">
-        <div class="row">
-          <div class="col-4">
+    <div class="forum-item active">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="forum-icon">
+            <i class="fa fa-book"></i>
+          </div>
+          <a href="{% host_url 'medicine:allergy-reactions-list' host 'admin' %}" class="forum-item-title">
+            {% trans 'Allergy reactions' %}
+          </a>
+          <div class="forum-sub-title">
+            {% trans 'No tasks in progress' %}
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
+              {{ allergy_reaction_count }}
+          </span>
+          <div>
+            <small>{% trans 'Count' %}</small>
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
             <a href="https://build.fhir.org/ig/hl7ch/ch-term/ValueSet-CHAllergyIntoleranceReactionManifestationValueSet.html"
                target="_blank">
-              <i class="fa fa-link fa-5x"></i>
+              <i class="fa fa-link fa-1x"></i>
             </a>
+          </span>
+          <div>
+            <small>{% trans 'Source' %}</small>
           </div>
-          <div class="col-8 text-right">
-            <a href="{% host_url 'medicine:allergy-reactions-list' host 'admin' %}"><span> {% trans 'Allergy reaction' %} </span></a>
-            <h2 class="font-bold">{{ allergy_reaction_count }}</h2>
+        </div>
+        <div class="col-md-1 forum-info">
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-reactions-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:allergy-reactions-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-allergy-reactions-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-lg-3">
-      <div class="widget style1">
-        <div class="row">
-          <div class="col-4">
+    <div class="forum-item active">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="forum-icon">
+            <i class="fa fa-book"></i>
+          </div>
+          <a href="{% host_url 'medicine:icd10-list' host 'admin' %}" class="forum-item-title">
+            {% trans 'ICD-10' %}
+          </a>
+          <div class="forum-sub-title">
+            {% trans 'No tasks in progress' %}
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
+              {{ icd_10_count }}
+          </span>
+          <div>
+            <small>{% trans 'Count' %}</small>
+          </div>
+        </div>
+        <div class="col-md-1 forum-info">
+          <span class="views-number">
             <a href="https://www.cms.gov/medicare/coordination-benefits-recovery/overview/icd-code-lists"
                target="_blank">
-              <i class="fa fa-link fa-5x"></i>
+              <i class="fa fa-link fa-1x"></i>
             </a>
+          </span>
+          <div>
+            <small>{% trans 'Source' %}</small>
           </div>
-          <div class="col-8 text-right">
-            <a href="{% host_url 'medicine:icd10-list' host 'admin' %}"><span> {% trans 'ICD-10' %} </span></a>
-            <h2 class="font-bold">{{ icd_10_count }}</h2>
+        </div>
+        <div class="col-md-1 forum-info">
+          <div class="btn-group">
+            <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"
+                    aria-expanded="false">{% trans 'Actions' %}</button>
+            <ul class="dropdown-menu" x-placement="bottom-start">
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:icd10-export-json' host 'admin' %}">{% trans 'Export (.json)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:icd10-export-csv' host 'admin' %}">{% trans 'Export (.csv)' %}</a>
+              </li>
+              <li><a class="dropdown-item"
+                     href="{% host_url 'medicine:home-icd10-sync' host 'admin' %}">{% trans 'Sync' %}</a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

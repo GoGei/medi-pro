@@ -155,10 +155,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'User.User'
 
+REDIS_HOST = os.getenv('REDIS_HOST', 'redis')
+REDIS_LOCATION = os.getenv('REDIS_LOCATION', 'redis')
+REDIS_PORT = os.getenv('REDIS_PORT', '6379')
+REDIS_PASS = os.getenv('REDIS_PASS', None)
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://%s:6379/1' % os.getenv('REDIS_HOST', 'redis'),
+        'LOCATION': '{host}://{location}:{port}/1'.format(host=REDIS_HOST, location=REDIS_LOCATION, port=REDIS_PORT),
         'OPTIONS': {
             'DB': 1,
             'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
@@ -173,7 +178,7 @@ CACHES = {
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
-CELERY_BROKER_URL = 'redis://%s:6379/0' % os.getenv('REDIS_HOST', 'redis')
+CELERY_BROKER_URL = '{host}://{location}:{port}/0'.format(host=REDIS_HOST, location=REDIS_LOCATION, port=REDIS_PORT)
 
 LOGIN_URL = 'login/'
 
