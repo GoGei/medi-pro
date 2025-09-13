@@ -52,9 +52,9 @@ def allergy_reaction_sync(request):
 def allergy_type_sync(request):
     try:
         extract_allergy_types.apply_async(kwargs={'user_id': request.user.id})
-        messages.success(request, _('Command to load allergy causes launched!'))
+        messages.success(request, _('Command to load allergy types launched!'))
     except Exception as e:
-        messages.error(request, _('Command to load allergy causes failed! Exception raised: %s') % e)
+        messages.error(request, _('Command to load allergy types failed! Exception raised: %s') % e)
     return redirect(reverse('medicine:home', host='admin'))
 
 
@@ -62,7 +62,7 @@ def allergy_type_sync(request):
 def icd10_sync(request):
     try:
         load_icd10.apply_async(kwargs={'user_id': request.user.id})
-        messages.success(request, _('Command to load allergy causes launched!'))
+        messages.success(request, _('Command to load ICD-10 launched!'))
     except Exception as e:
-        messages.error(request, _('Command to load allergy causes failed! Exception raised: %s') % e)
+        messages.error(request, _('Command to load ICD-10 failed! Exception raised: %s') % e)
     return redirect(reverse('medicine:home', host='admin'))
