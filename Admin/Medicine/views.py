@@ -1,5 +1,15 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
+from django_hosts import reverse
+
+from core.Medicine.tasks import (
+    extract_allergy_cause,
+    extract_allergy_types,
+    extract_allergy_reaction,
+    load_icd10,
+)
 from core.Medicine.models import AllergyType, AllergyCause, AllergyReaction, ICD10
 
 
@@ -16,3 +26,43 @@ def medicine_home_view(request):
         'icd_10_count': icd_10_count,
     }
     return render(request, 'Admin/Medicine/home.html', context=context)
+
+
+@login_required
+def allergy_cause_sync(request):
+    try:
+        extract_allergy_cause.apply_async(kwargs={'user_id': request.user.id})
+        messages.success(request, _('Command to load allergy causes launched!'))
+    except Exception as e:
+        messages.error(request, _('Command to load allergy causes failed! Exception raised: %s') % e)
+    return redirect(reverse('medicine:home', host='admin'))
+
+
+@login_required
+def allergy_reaction_sync(request):
+    try:
+        extract_allergy_reaction.apply_async(kwargs={'user_id': request.user.id})
+        messages.success(request, _('Command to load allergy reactions launched!'))
+    except Exception as e:
+        messages.error(request, _('Command to load allergy reactions failed! Exception raised: %s') % e)
+    return redirect(reverse('medicine:home', host='admin'))
+
+
+@login_required
+def allergy_type_sync(request):
+    try:
+        extract_allergy_types.apply_async(kwargs={'user_id': request.user.id})
+        messages.success(request, _('Command to load allergy causes launched!'))
+    except Exception as e:
+        messages.error(request, _('Command to load allergy causes failed! Exception raised: %s') % e)
+    return redirect(reverse('medicine:home', host='admin'))
+
+
+@login_required
+def icd10_sync(request):
+    try:
+        load_icd10.apply_async(kwargs={'user_id': request.user.id})
+        messages.success(request, _('Command to load allergy causes launched!'))
+    except Exception as e:
+        messages.error(request, _('Command to load allergy causes failed! Exception raised: %s') % e)
+    return redirect(reverse('medicine:home', host='admin'))
