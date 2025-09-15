@@ -229,55 +229,37 @@
 
   <script>
     (function () {
-      var token_url = '/api/v1/web-server/token/obtain';
-      var backoff = 1000, maxBackoff = 10000, ws = null, stop = false;
-
-      function fetchToken() {
-        return $.getJSON(token_url).then(function (d) {
-          return d.token;
-        });
-      }
-
-      function connect() {
-        fetchToken().done(function (token) {
-          var url = "{{ WS_BASE|escapejs }}" + '/ws/staff-events?token=' + encodeURIComponent(token);
-          ws = new WebSocket(url);
-          ws.onopen = function () {
-            backoff = 1000;
-            console.log('[ws] open', url);
-          };
-          ws.onmessage = function (e) {
-            console.log('[ws] message', e.data);
-            $('#events').prepend($('<div/>').text(e.data || ''));
-          };
-          ws.onclose = function (ev) {
-            console.log('[ws] close', ev.code, ev.reason);
-            if (stop) return;
-            setTimeout(connect, backoff);
-            backoff = Math.min(backoff * 2, maxBackoff);
-          };
-          ws.onerror = function (err) {
+      function init() {
+        var bus = new WSBus({
+          baseUrl: "{{ WS_BASE|escapejs }}",
+          path: "/ws/staff-events",
+          tokenUrl: '/api/v1/web-server/token/obtain',
+          onopen: function () {
+            console.log('[ws] open');
+          },
+          onclose: function (ev) {
+            console.log('[ws] close', ev && ev.code, ev && ev.reason);
+          },
+          onerror: function (err) {
             console.warn('[ws] error', err);
-            try {
-              ws.close();
-            } catch (e) {
-            }
-          };
-        }).fail(function () {
-          setTimeout(connect, Math.min(backoff * 2, maxBackoff));
+          }
         });
+
+        bus.on('message', function (payload) {
+          $('#events').prepend($('<div/>').text((typeof payload === 'string') ? payload : JSON.stringify(payload)));
+        });
+
+        window.WSBusInstance = bus.start();
+        window.WSStop = function () {
+          window.WSBusInstance.stop();
+        };
       }
 
-      $(function () {
-        connect();
-      });
-      window.WSStop = function () {
-        stop = true;
-        if (ws) try {
-          ws.close();
-        } catch (e) {
-        }
-      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
     })();
   </script>
 {% endblock %}
