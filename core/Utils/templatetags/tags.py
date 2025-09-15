@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 
 register = template.Library()
 
@@ -19,3 +20,8 @@ def inlist(value, args):
 @register.filter(name="get_attr")
 def get_attr(obj, attr):
     return getattr(obj, attr, None)
+
+
+@register.simple_tag(name='setting')
+def setting(name, default=None):
+    return getattr(settings, name, default)
