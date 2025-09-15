@@ -22,6 +22,7 @@ APP_NAME = os.getenv('APP_NAME', 'MediPro')
 SHORT_APP_NAME = os.getenv('SHORT_APP_NAME', 'MP')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
+WS_SECRET = os.getenv('WS_SECRET')
 DEBUG = str2bool(os.getenv('DEBUG', 'false'))
 API_DOCUMENTATION = str2bool(os.getenv('API_DOCUMENTATION', 'false'))
 TEST = str2bool(os.getenv('TEST', 'false'))

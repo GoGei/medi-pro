@@ -1,6 +1,7 @@
 from default_settings import *  # noqa
 
 SECRET_KEY = 'your-secret-key'
+WS_SECRET = 'your-secret-key'
 DEBUG = True
 
 DATABASES = {
