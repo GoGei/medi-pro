@@ -1,5 +1,5 @@
 {% extends 'Admin/Medicine/base.html' %}
-{% load i18n hosts %}
+{% load i18n hosts custom_tags %}
 
 {% block menu-medicine-home-active %}active{% endblock %}
 
@@ -219,4 +219,65 @@
       </div>
     </div>
   </div>
+
+  <div id="events"></div>
+
+{% endblock %}
+
+{% block extrajs %}
+  {% setting 'WS_BASE' as WS_BASE %}
+
+  <script>
+    (function () {
+      var token_url = '/api/v1/web-server/token/obtain';
+      var backoff = 1000, maxBackoff = 10000, ws = null, stop = false;
+
+      function fetchToken() {
+        return $.getJSON(token_url).then(function (d) {
+          return d.token;
+        });
+      }
+
+      function connect() {
+        fetchToken().done(function (token) {
+          var url = "{{ WS_BASE|escapejs }}" + '/ws/staff-events?token=' + encodeURIComponent(token);
+          ws = new WebSocket(url);
+          ws.onopen = function () {
+            backoff = 1000;
+            console.log('[ws] open', url);
+          };
+          ws.onmessage = function (e) {
+            console.log('[ws] message', e.data);
+            $('#events').prepend($('<div/>').text(e.data || ''));
+          };
+          ws.onclose = function (ev) {
+            console.log('[ws] close', ev.code, ev.reason);
+            if (stop) return;
+            setTimeout(connect, backoff);
+            backoff = Math.min(backoff * 2, maxBackoff);
+          };
+          ws.onerror = function (err) {
+            console.warn('[ws] error', err);
+            try {
+              ws.close();
+            } catch (e) {
+            }
+          };
+        }).fail(function () {
+          setTimeout(connect, Math.min(backoff * 2, maxBackoff));
+        });
+      }
+
+      $(function () {
+        connect();
+      });
+      window.WSStop = function () {
+        stop = true;
+        if (ws) try {
+          ws.close();
+        } catch (e) {
+        }
+      };
+    })();
+  </script>
 {% endblock %}
