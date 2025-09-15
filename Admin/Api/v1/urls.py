@@ -3,11 +3,13 @@ from rest_framework.routers import DefaultRouter
 from .Country.views import CountryViewSet
 from .Currency.views import CurrencyViewSet
 from .Timezones.views import TimezoneHandbookViewSet
+from .WServer.views import WServerAPIView
 
 v1_router = DefaultRouter()
 v1_router.register('countries', CountryViewSet, basename='countries')
 v1_router.register('currencies', CurrencyViewSet, basename='currencies')
 v1_router.register('timezones', TimezoneHandbookViewSet, basename='timezones')
+v1_router.register('web-server', WServerAPIView, basename='web-server')
 urlpatterns = v1_router.urls
 
 if settings.API_DOCUMENTATION:

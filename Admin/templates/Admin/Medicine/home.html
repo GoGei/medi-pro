@@ -1,5 +1,5 @@
 {% extends 'Admin/Medicine/base.html' %}
-{% load i18n hosts %}
+{% load i18n hosts custom_tags %}
 
 {% block menu-medicine-home-active %}active{% endblock %}
 
@@ -219,4 +219,47 @@
       </div>
     </div>
   </div>
+
+  <div id="events"></div>
+
+{% endblock %}
+
+{% block extrajs %}
+  {% setting 'WS_BASE' as WS_BASE %}
+
+  <script>
+    (function () {
+      function init() {
+        var bus = new WSBus({
+          baseUrl: "{{ WS_BASE|escapejs }}",
+          path: "/ws/staff-events",
+          tokenUrl: '/api/v1/web-server/token/obtain',
+          onopen: function () {
+            console.log('[ws] open');
+          },
+          onclose: function (ev) {
+            console.log('[ws] close', ev && ev.code, ev && ev.reason);
+          },
+          onerror: function (err) {
+            console.warn('[ws] error', err);
+          }
+        });
+
+        bus.on('message', function (payload) {
+          $('#events').prepend($('<div/>').text((typeof payload === 'string') ? payload : JSON.stringify(payload)));
+        });
+
+        window.WSBusInstance = bus.start();
+        window.WSStop = function () {
+          window.WSBusInstance.stop();
+        };
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
 {% endblock %}

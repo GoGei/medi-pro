@@ -30,6 +30,11 @@ HASHIDS_SALT = os.getenv('HASHIDS_SALT')
 HASHIDS_MIN_LENGTH = os.getenv('HASHIDS_MIN_LENGTH')
 HASHIDS_ALPHABET = os.getenv('HASHIDS_ALPHABET')
 
+WS_SECRET = os.getenv('WS_SECRET')
+WS_SCHEME = os.getenv('WS_SCHEME', 'wss')
+WS_LOCATION = os.getenv('WS_LOCATION', 'websocket')
+WS_BASE = f'{WS_SCHEME}://{WS_LOCATION}'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
